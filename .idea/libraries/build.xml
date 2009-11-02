@@ -1,0 +1,12 @@
+<component name="libraryTable">
+  <library name="build">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/build/junit-4.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/build/gunit.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/build/mockito-all-1.8.0.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/build/antlr3.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

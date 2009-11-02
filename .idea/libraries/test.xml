@@ -1,0 +1,27 @@
+<component name="libraryTable">
+  <library name="test">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/lib/test/commons-httpclient-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/webdriver-safari.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/htmlunit-2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/commons-codec-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/cssparser-0.9.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/webdriver-common.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/sac-1.3.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/xercesImpl-2.8.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/htmlunit-core-js-2.5.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/nekohtml-1.9.11.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/hamcrest-all-1.2.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/json-20080701.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/xalan-2.7.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/commons-io-1.4.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/webdriver-htmlunit.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/commons-collections-3.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/commons-logging-1.1.1.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/webdriver-firefox.jar!/" />
+      <root url="jar://$PROJECT_DIR$/lib/test/commons-lang-2.4.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
