@@ -17,6 +17,9 @@ import java.io.OutputStream;
 import java.lang.reflect.Array;
 import java.net.Socket;
 
+/**
+ * ProxyChannel is responsible for marti
+ */
 public class ProxyChannel extends Thread {
     private Socket socket;
     private ProxyConfig config;

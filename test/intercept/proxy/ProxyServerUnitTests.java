@@ -11,7 +11,7 @@ public class ProxyServerUnitTests {
         ProxyConfig config = new ProxyConfig();
         config.setName("foo");
 
-        ProxyServer proxy = new ProxyServer(config, null);
+        InterceptProxyServer proxy = new InterceptProxyServer(config, null);
         HttpServer server = mock(HttpServer.class);
     }
 }
