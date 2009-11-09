@@ -28,6 +28,7 @@ class InterceptProxyServer implements ProxyServer {
     }
 
     public void start() {
+        final boolean[] threadRunning = {false};
         proxyThread = new Thread() {
             @Override
             public void run() {
@@ -37,7 +38,7 @@ class InterceptProxyServer implements ProxyServer {
                     if (proxyConfig.getDebugLevel() > 0) {
                         logger.log(e("Started Proxy server on port ", proxyConfig.getPort()));
                     }
-
+                    threadRunning[0] = true;
                     while (true) {
                         Socket client = server.accept();
                         ProxyChannel t = new ProxyChannel(client, proxyConfig, logger, applicationLog);
@@ -55,6 +56,14 @@ class InterceptProxyServer implements ProxyServer {
         };
 
         proxyThread.start();
+
+        while (!threadRunning[0]) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
     }
 
     public void stop() {
