@@ -8,13 +8,12 @@ import org.junit.Test;
 public class EventLoggerUnitTests {
     @Test
     public void canConstructLogger() {
-        EventLogger e = new EventLogger(new EventLog());
+        new EventLogger(new EventLog());
     }
 
     @Test
     public void constructedLoggerIsEmpty() {
         EventLog log = new EventLog();
-        EventLogger e = new EventLogger(log);
         assertThat(log.getEntries().size(), is(0));
     }
 

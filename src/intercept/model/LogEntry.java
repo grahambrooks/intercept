@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class LogEntry implements Comparable {
+public class LogEntry implements Comparable<Object> {
     public List<LogElement> elements;
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss:SSS");
