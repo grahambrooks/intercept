@@ -16,24 +16,29 @@ public class InterceptProxy {
     public static ProxyServer startProxy(ProxyConfig proxyConfig, ApplicationLog applicationLog) {
         ProxyServer proxyServer = new InterceptProxyServer(proxyConfig, applicationLog);
         proxyServer.start();
-
-        proxies.add(proxyServer);
+        synchronized (proxies) {
+            proxies.add(proxyServer);
+        }
         return proxyServer;
     }
 
-    public static void stopProxy(InterceptProxyServer proxyServer) {
-        for (ProxyServer proxy : proxies) {
-            if (proxy == proxyServer) {
-                proxy.stop();
-                proxies.remove(proxy);
+    public static void stopProxy(ProxyServer proxyServer) {
+        synchronized (proxies) {
+            for (ProxyServer proxy : proxies) {
+                if (proxy == proxyServer) {
+                    proxy.stop();
+                    proxies.remove(proxy);
+                }
             }
         }
     }
 
     public static void shutdown() {
-        for (ProxyServer proxy : proxies) {
-            proxy.stop();
+        synchronized (proxies) {
+            for (ProxyServer proxy : proxies) {
+                proxy.stop();
+            }
+            proxies.clear();
         }
-        proxies.clear();
     }
 }
