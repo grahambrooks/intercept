@@ -1,0 +1,123 @@
+body {
+    margin: 20px;
+    font-family: Calibri, Helvetica, Verdana;
+    background-color: black;
+    color: white;
+    font-size: small;
+    text-align: justify;
+}
+
+.title {
+    font-size: x-large;
+    border-bottom: 2px solid blue;
+    text-align: right;
+}
+
+.subtitle {
+    width: 100%;
+    font-weight: bold;
+    font-size: large;
+    border-bottom: 2px solid red;
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+div.section-heading {
+    font-weight: bold;
+    border-bottom-style: dotted;
+    border-bottom-width: 1px;
+}
+
+.content {
+    width: 1000px;
+}
+
+.scenario {
+    background-color: #2f2f2f;
+    float: none;
+    padding: 10px;
+    margin-left: 10px;
+}
+
+.query {
+    color: yellow;
+}
+
+.diagram {
+    text-align: center;
+}
+
+.design {
+    color: black;
+    background-color: whitesmoke;
+    padding: 10px;
+}
+
+pre {
+    font-family: Consolas, Monaco, Courier;
+    background-color: darkslategray;
+    text-align: left;
+}
+
+div.options li {
+    list-style-type: none;
+}
+
+table {
+    font-size: small;
+    width: 100%;
+}
+
+th {
+    vertical-align: top;
+    background-color: #32002c;
+}
+
+td {
+    vertical-align: top;
+    text-align: justify;
+    background-color: #5c0051;
+}
+
+fieldset {
+    text-align: left;
+    border: none;
+}
+
+input {
+    width: 100%;
+}
+
+label {
+    position: relative;
+    left: 0;
+    font-weight: bold;
+    color: darkgray;
+}
+
+textarea {
+    width: 100%;
+}
+
+a {
+    font-weight: bold;
+    color: white;
+}
+
+a.back {
+    top: 20px;
+    left: 20px;
+    position: absolute;
+}
+
+form.stubform {
+    width: 500px;
+}
+
+div.configuration {
+    width: 500px;
+}
+
+div.stublist {
+    width: 500px;
+}

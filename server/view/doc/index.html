@@ -1,0 +1,124 @@
+<html>
+  <head>
+    <title>Intercept</title>
+    <link href="/intercept.css" rel="stylesheet" type="text/css"/>
+  </head>
+  <body>
+    <div class="content">
+      <div class="title">Intercept</div>
+      <a class="back" href="/">Home</a>
+
+      <table>
+	<tr>
+	  <td>Description</td>
+	  <td>Dynamically configured proxy server to support
+	  integratino testing of web applications.<br>  In
+	  particlar intercept provides a 'production like'
+	  environment in a box.</td>
+	</tr>
+	<tr>
+	  <td>Status</td>
+	  <td>Alpha - in design</td>
+	</tr>
+      </table>
+
+      <div class="subtitle">Introduction</div>
+
+      <p>Intercept is a dynamically configurable HTTP proxy and
+        stubbing framework designed to make web browser base
+        integration testing easier.</p>
+
+      <div class="scenario">
+        <p>Imagine that you are developing a web application and this
+          sparkly new application brings together content from a
+          number of different web servers. This might be external
+          advertising, images, videos etc. And that bringing all this
+          rich content together involves JavaScript and perhaps
+          cookies.</p>
+
+        <p class="query">But how do you test it?</p>
+
+        <p>Now playing about with host files/DNS servers etc is very
+          interesting but is complex to set up, manage and deploy and
+          is not that conducive to Continuous Automated Testing</p>
+      </div>
+
+      <div class="subtitle">Architecture</div>
+
+      <div class="design">
+        <p>The diagram below shows how intercept fits into the flow of
+          requests between a web browser and the servers that service
+          the requests.</p>
+
+        <div class="diagram">
+          <img src="middleman-architecture.jpg" alt="Middleman architecture"/>
+        </div>
+      </div>
+
+      <div class="configuration">
+        <div class="subtitle">Configuration</div>
+
+        <p>Interept can be configured in four ways:</p>
+        <ul>
+          <li>Command line parameters</li>
+          <li>intercept.config</li>
+          <li>Web</li>
+          <li>REST interface</li>
+        </ul>
+
+        <div class="section-heading">Commmand line</div>
+        <pre>middleman [config-port] [config-filename]</pre>
+        <div class="options">
+          <ul>
+            <li><strong>config-port</strong> the numeric port number
+              the middleman configuratiion web server listens on
+            </li>
+            <li><strong>config-filename</strong> the name and optional
+              path to a property file containing setup configuration
+            </li>
+          </ul>
+          <p>middleman with no parameters is equivolent to:</p>
+          <pre>middleman 2000 intercept.config</pre>
+        </div>
+        <div class="options">
+          <div class="section-heading">intercept.config</div>
+
+          <p>Unless specified on the command line middleman looks for
+              a file called intercept.config in the current
+              directory. If found the file is read and used to configure
+              the system.</p>
+	  <p>Each middleman instance can provide a number of
+	  proxies. Each proxy is bound to a port. The proxies are
+	  identified in the properties file as part of the property
+	  name identified by {name}.</p>
+
+	  <table>
+	    <tr>
+	      <th>Property</th>
+	      <th>Type</th>
+	      <th>Description<th>
+	    </tr>
+	    <tr>
+	      <td>proxy.{name}.port</td>
+	      <td>Numeric</td>
+	      <td>Defines the port number for an HTTP proxy.</td>
+	    </tr>
+	    <tr>
+	      <td>proxy.{name}.foo.route</td>
+	      <td>URL</td>
+	      <td>The host and port of an HTTP proxy for outgoing
+              requests from
+              intercept. e.g. proxy.domain.com:8080</td>
+	    </tr>
+	    <tr>
+	      <td>proxy.{name}.debug</td>
+	      <td>Numeric</td>
+	      <td>The debug logging level. 0,1 or 2</td>
+	    </tr>
+	  </table>
+          <p></p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
