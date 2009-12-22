@@ -1,6 +1,7 @@
-package intercept.utils;
+package utils;
 
 import intercept.model.UriMatcher;
+import intercept.utils.UriMatchers;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import org.junit.Test;
