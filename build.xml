@@ -6,6 +6,8 @@
 
     <property name="core.src.dir" location="core/src"/>
     <property name="core.test.dir" location="core/test"/>
+    <property name="server.src.dir" location="server/src"/>
+    <property name="server.test.dir" location="server/test"/>
 
     <property name="build.dir" location="build"/>
     <property name="dist.dir" value="${build.dir}/dist/intercept"/>
@@ -27,6 +29,15 @@
         </fileset>
     </path>
 
+    <path id="server.classpath">
+        <fileset dir="server/lib">
+            <include name="build/*.jar"/>
+            <include name="release/*.jar"/>
+        </fileset>
+        <path location="${jar.dir}/intercept-core.jar"/>
+        <path refid="classpath"/>
+    </path>
+
     <path id="test.classpath">
         <fileset dir="${jar.dir}" includes="*.jar"/>
         <fileset dir="lib">
@@ -35,14 +46,24 @@
         <path refid="classpath"/>
     </path>
 
+    <path id="server.test.classpath">
+        <fileset dir="${jar.dir}" includes="*.jar"/>
+        <fileset dir="server/lib">
+            <include name="test/*.jar"/>
+        </fileset>
+        <path refid="server.classpath"/>
+    </path>
+
+
     <path id="antlr.classpath">
-        <fileset dir="lib" includes="**/*.jar"/>
+        <fileset dir="server/lib" includes="**/*.jar"/>
     </path>
 
     <path id="cobertura.class.path">
         <fileset dir="${cobertura.dir}">
             <include name="cobertura.jar"/>
             <include name="lib/**/*.jar"/>
+            <include name="server/lib/**/*.jar"/>
         </fileset>
     </path>
 
@@ -83,13 +104,14 @@
 
     <macrodef name="unit.test">
         <attribute name="test.dir"/>
+        <attribute name="test.classpath" default="test.classpath"/>
         <sequential>
             <mkdir dir="${test.reports.dir}"/>
             <junit fork="yes" forkmode="once" failureproperty="test.failure">
                 <jvmarg value="-Xmx128M"/>
                 <classpath>
                     <fileset dir="${instrumented.dir}" includes="*.jar"/>
-                    <path refid="test.classpath"/>
+                    <path refid="@{test.classpath}"/>
                     <path refid="cobertura.class.path"/>
                 </classpath>
                 <formatter type="xml"/>
@@ -115,7 +137,7 @@
 
     </macrodef>
 
-    <target name="build" depends="clean, compile.core,  test.core"
+    <target name="build" depends="clean, compile.core, compile.server,  test.core"
             description="Runs the full build"/>
 
     <target name="clean" description="Deletes all the build directories.">
@@ -143,10 +165,46 @@
                         classpathref="test.classpath"/>
     </target>
 
+    <target name="compile.grammar">
+        <antlr:antlr3 xmlns:antlr="antlib:org/apache/tools/ant/antlr"
+                      target="${server.src.dir}/intercept/configuration/Configuration.g"
+                      outputdirectory="${server.src.dir}/intercept/configuration">
+            <classpath refid="antlr.classpath"/>
+        </antlr:antlr3>
+    </target>
+
+    <target name="compile.server" description="Compiles the source" depends="compile.grammar, compile.core">
+        <mkdir dir="${jar.dir}"/>
+        <manifest file="${manifest.file}">
+            <attribute name="Built-By" value="${user.name}"/>
+            <section name="middleman">
+                <attribute name="Specification-Title" value="${ant.project.name} web application"/>
+                <attribute name="Specification-Version" value="${release.label}"/>
+                <attribute name="Specification-Vendor" value="Graham Brooks"/>
+                <attribute name="Implementation-Title" value="common"/>
+                <attribute name="Implementation-Version" value="${release.label}"/>
+                <attribute name="Implementation-Vendor" value="Graham Brooks"/>
+            </section>
+        </manifest>
+        <compile.source src.dir="${server.src.dir}" dest.dir="${jar.dir}"
+                        jar.name="intercept-sever.jar" manifest="${manifest.file}"
+                        classpathref="server.classpath"/>
+        <compile.source src.dir="${server.test.dir}" dest.dir="${jar.dir}"
+                        jar.name="intercept-server-test.jar" manifest="${manifest.file}"
+                        classpathref="server.test.classpath"/>
+    </target>
+
+
     <target name="test.core" description="Runs unit tests" unless="notests">
         <mkdir dir="${instrumented.dir}"/>
         <unit.test test.dir="${core.test.dir}"/>
     </target>
+
+    <target name="test.server" description="Runs the server tests" unless="notests">
+        <mkdir dir="${instrumented.dir}"/>
+        <unit.test test.dir="${server.test.dir}" test.classpath="server.test.classpath"/>
+    </target>
+
 
     <target name="dist" description="Create a release distribution" depends="compile.core">
         <mkdir dir="${dist.dir}"/>

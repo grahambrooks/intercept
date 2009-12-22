@@ -2,6 +2,7 @@ package intercept.proxy;
 
 import intercept.configuration.ProxyConfig;
 import intercept.logging.ApplicationLog;
+import intercept.utils.Block;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +31,12 @@ public class InterceptProxy {
                     proxies.remove(proxy);
                 }
             }
+        }
+    }
+
+    public static void eachProxy(Block<ProxyServer> block) {
+        for (ProxyServer proxy : proxies) {
+            block.yield(proxy);
         }
     }
 

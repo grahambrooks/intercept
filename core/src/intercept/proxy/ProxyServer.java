@@ -1,5 +1,6 @@
 package intercept.proxy;
 
+import intercept.configuration.ProxyConfig;
 import intercept.logging.EventLog;
 
 public interface ProxyServer {
@@ -9,4 +10,7 @@ public interface ProxyServer {
 
     EventLog getLogs();
 
+    String getName();
+
+    ProxyConfig getConfig();
 }

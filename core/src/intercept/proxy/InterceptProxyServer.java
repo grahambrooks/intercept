@@ -73,4 +73,13 @@ class InterceptProxyServer implements ProxyServer {
     public EventLog getLogs() {
         return log;
     }
+
+    @Override
+    public String getName() {
+        return proxyConfig.getName();
+    }
+
+    public ProxyConfig getConfig(){
+        return this.proxyConfig;
+    }
 }
