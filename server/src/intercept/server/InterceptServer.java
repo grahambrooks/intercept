@@ -10,12 +10,12 @@ import intercept.framework.WebServer;
 import intercept.logging.ApplicationLog;
 import intercept.proxy.InterceptProxy;
 import intercept.proxy.ProxyServer;
-import static intercept.server.UriMatchers.simpleMatcher;
 import intercept.server.components.ClasspathContentPresenter;
 import intercept.server.components.HomePagePresenter;
 import intercept.server.components.NewProxyCommand;
 import intercept.server.components.NewProxyPresenter;
 import intercept.utils.Block;
+import intercept.utils.Utils;
 
 import java.io.IOException;
 import java.io.OutputStream;
@@ -23,6 +23,8 @@ import java.net.InetSocketAddress;
 import java.net.Socket;
 import java.util.ArrayList;
 import java.util.List;
+
+import static intercept.server.UriMatchers.simpleMatcher;
 
 
 public class InterceptServer implements HttpHandler, WebServer {
@@ -55,8 +57,26 @@ public class InterceptServer implements HttpHandler, WebServer {
             server.start();
 
             startProxyServers(configuration);
+
+            waitUntilServerAcceptingConnections();
+
         } catch (IOException e) {
             throw new RuntimeException("Failed to start intercept server ", e);
+        }
+    }
+
+    private void waitUntilServerAcceptingConnections() {
+        while (true) {
+            Socket socket = null;
+            try {
+                socket = new Socket("localhost", configuration.getConfigurationPort());
+            } catch (IOException e) {
+            }
+            if (socket != null && socket.isConnected()) {
+                Utils.sleep(200);
+                return;
+            }
+            Utils.close(socket);
         }
     }
 
@@ -139,14 +159,17 @@ public class InterceptServer implements HttpHandler, WebServer {
     public void stop(InterceptConfiguration configuration) {
 
         try {
-            Socket middlemanConnection = new Socket("localhost", configuration.getConfigurationPort());
-            OutputStream outputStream = middlemanConnection.getOutputStream();
+            Socket socket = new Socket("localhost", configuration.getConfigurationPort());
+            OutputStream outputStream = socket.getOutputStream();
             String message = "POST /stop HTTP1.1\r\n\r\n";
             outputStream.write(message.getBytes());
             outputStream.close();
         } catch (IOException e) {
             System.err.println("Failed to stop intercept server: " + e.getMessage());
         }
+
+        server.stop(200);
+        applicationLog.log("Configuration server stopped");
     }
 
     public String uri(String path) {

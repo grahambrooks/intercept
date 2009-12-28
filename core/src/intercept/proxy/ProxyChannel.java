@@ -3,19 +3,15 @@ package intercept.proxy;
 import intercept.configuration.ProxyConfig;
 import intercept.logging.ApplicationLog;
 import intercept.logging.EventLogger;
-import static intercept.logging.EventLogger.e;
 import intercept.utils.EventTimer;
 import intercept.utils.Utils;
-import static intercept.utils.Utils.close;
 
-import java.io.BufferedInputStream;
-import java.io.BufferedOutputStream;
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
+import java.io.*;
 import java.lang.reflect.Array;
 import java.net.Socket;
+
+import static intercept.logging.EventLogger.e;
+import static intercept.utils.Utils.close;
 
 /**
  * ProxyChannel is responsible for marti
@@ -55,21 +51,20 @@ public class ProxyChannel extends Thread {
             getHTTPData(clientIn, request, false);
 
             logger.log(creationTime,
-                       e(socket.getInetAddress().getHostAddress() + ":" + socket.getLocalPort()),
-                       e("->"),
-                       e(request.hostName() + ":" + request.hostPortNumber()),
-                       e(request.getPath()),
-                       e(request.length() + "&nbsp;bytes")
+                    e(socket.getInetAddress().getHostAddress() + ":" + socket.getLocalPort()),
+                    e("->"),
+                    e(request.hostName() + ":" + request.hostPortNumber()),
+                    e(request.getPath()),
+                    e(request.length() + "&nbsp;bytes")
             );
 
             config.transformRoute(request);
 
-            if (config.stubbedRequest(request.hostName())) {
-                handleStubbedResponse(clientIn, clientOutputStream, request);
-                return;
+            if (config.stubbedRequest(request.url())) {
+                handleStubbedResponse(clientOutputStream, request);
+            } else {
+                processResponse(clientOutputStream, timer, request);
             }
-
-            ProcessResponse(clientOutputStream, timer, request);
         } catch (IOException e) {
             if (config.getDebugLevel() > 0)
                 logger.log(e("Error in ProxyThread: " + e));
@@ -80,7 +75,7 @@ public class ProxyChannel extends Thread {
         }
     }
 
-    private void ProcessResponse(BufferedOutputStream clientOutputStream, EventTimer timer, HTTPRequest request) throws IOException {
+    private void processResponse(BufferedOutputStream clientOutputStream, EventTimer timer, HTTPRequest request) throws IOException {
         Socket outboundSocket = openOutboundSocket(clientOutputStream, request);
 
         if (outboundSocket != null) {
@@ -129,11 +124,11 @@ public class ProxyChannel extends Thread {
     private void sendClientErrorMessage(BufferedOutputStream clientOutputStream, HTTPRequest request, IOException e) {
         // tell the client there was an error
         String errMsg = "HTTP/1.0 500\nContent Type: text/plain\n\n"
-            + "Error connecting to the remoteServerSocket:\n"
-            + " host " + request.hostName() + "\n"
-            + " port " + request.hostPortNumber() + "\n"
-            + "Error "
-            + e;
+                + "Error connecting to the remoteServerSocket:\n"
+                + " host " + request.hostName() + "\n"
+                + " port " + request.hostPortNumber() + "\n"
+                + "Error "
+                + e;
         try {
             clientOutputStream.write(errMsg.getBytes(), 0, errMsg.length());
         } catch (IOException e1) {
@@ -143,36 +138,40 @@ public class ProxyChannel extends Thread {
 
     private void logResponseData(byte[] request, byte[] response) {
         logger.log(
-            e("REQUEST:\n" + (new String(request))),
-            e("RESPONSE:\n" + (new String(response != null ? response : new byte[0])))
+                e("REQUEST:\n" + (new String(request))),
+                e("RESPONSE:\n" + (new String(response != null ? response : new byte[0])))
         );
 
     }
 
     protected void logResponse(EventTimer timer, int responseLength, HTTPRequest request) {
         logger.log(
-            e("Request from ", socket.getInetAddress().getHostAddress(), ":", socket.getLocalPort()),
-            e(request.hostName(), ":", request.hostPortNumber()),
-            e(request.length(), " bytes sent"),
-            e(responseLength, " bytes returned"),
-            e(timer)
+                e("Request from ", socket.getInetAddress().getHostAddress(), ":", socket.getLocalPort()),
+                e(request.hostName(), ":", request.hostPortNumber()),
+                e(request.length(), " bytes sent"),
+                e(responseLength, " bytes returned"),
+                e(timer)
         );
     }
 
-    private void handleStubbedResponse(BufferedInputStream clientIn, BufferedOutputStream clientOut, HTTPRequest request) throws IOException {
-        String stubbedResponse = config.getStubbedResponse(request.hostName());
-        String message = "HTTP/1.0 200\nContent Type: text/plain\nContent-Encoding: UTF-8\nContent Length: " + stubbedResponse.length() + "\n\n" + stubbedResponse;
+    private void handleStubbedResponse(BufferedOutputStream clientOut, HTTPRequest request) throws IOException {
+        String stubbedResponse = config.getStubbedResponse(request.url());
+        String message = "HTTP/1.0 200\r\n"
+                + "Content-Type: text/plain\r\n"
+                + "Content-Encoding: UTF-8\r\n"
+                + "Content-Length: " + stubbedResponse.length() + "\r\n"
+                + "\r\n"
+                + stubbedResponse;
         logger.log(
-            e("Request from ", socket.getInetAddress().getHostAddress() + ":" + socket.getLocalPort()),
-            e("STUBBED"),
-            e(request.length() + " bytes sent"),
-            e(stubbedResponse.length() + " bytes returned"),
-            e(message)
+                e("Request from ", socket.getInetAddress().getHostAddress() + ":" + socket.getLocalPort()),
+                e("STUBBED"),
+                e(request.length() + " bytes sent"),
+                e(stubbedResponse.length() + " bytes returned"),
+                e(message)
         );
-        clientOut.write(message.getBytes(), 0, message.length());
-        close(clientIn);
-        close(clientOut);
-        close(socket);
+
+        byte[] messageBytes = message.getBytes();
+        clientOut.write(messageBytes, 0, messageBytes.length);
     }
 
 

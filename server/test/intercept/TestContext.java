@@ -34,8 +34,4 @@ class TestContext {
     public void putIntercept(InterceptServer interceptServer) {
         this.interceptServer = interceptServer;
     }
-
-    public void setWebProxy(String host, int port) {
-        //To change body of created methods use File | Settings | File Templates.
-    }
 }

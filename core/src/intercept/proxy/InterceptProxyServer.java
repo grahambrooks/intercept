@@ -4,11 +4,13 @@ import intercept.configuration.ProxyConfig;
 import intercept.logging.ApplicationLog;
 import intercept.logging.EventLog;
 import intercept.logging.EventLogger;
-import static intercept.logging.EventLogger.e;
 import intercept.utils.Utils;
 
+import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+
+import static intercept.logging.EventLogger.e;
 
 /**
  * Implementation of ProxyServer accepts incoming connections and creates a ProxyChannel to handle requests on that
@@ -19,6 +21,9 @@ class InterceptProxyServer implements ProxyServer {
     private final ApplicationLog applicationLog;
     private final EventLog log = new EventLog();
     private final EventLogger logger = new EventLogger(log);
+    private ServerSocket serverSocket = null;
+
+    private final ProxyStatus[] proxyStatus = {ProxyStatus.stopped};
 
     private Thread proxyThread;
 
@@ -28,36 +33,40 @@ class InterceptProxyServer implements ProxyServer {
     }
 
     public void start() {
-        final boolean[] threadRunning = {false};
         proxyThread = new Thread() {
             @Override
             public void run() {
-                ServerSocket server = null;
-                try {
-                    server = new ServerSocket(proxyConfig.getPort());
-                    if (proxyConfig.getDebugLevel() > 0) {
-                        logger.log(e("Started Proxy server on port ", proxyConfig.getPort()));
+                if (openProxySocket()) {
+                    try {
+                        proxyStatus[0] = ProxyStatus.running;
+                        acceptConnections();
+                    } finally {
+                        Utils.close(serverSocket);
+                        serverSocket = null;
+                        proxyStatus[0] = ProxyStatus.stopped;
                     }
-                    threadRunning[0] = true;
-                    while (true) {
-                        Socket client = server.accept();
-                        ProxyChannel t = new ProxyChannel(client, proxyConfig, logger, applicationLog);
-                        t.start();
-                    }
-                } catch (Exception e) {
-                    if (proxyConfig.getDebugLevel() > 0) {
-                        logger.log(e("ProxyServer Thread error: " + e));
-                    }
-                } finally {
-                    Utils.close(server);
-                    server = null;
+                } else {
+                    proxyStatus[0] = ProxyStatus.failed;
                 }
             }
         };
-
+        proxyStatus[0] = ProxyStatus.starting;
         proxyThread.start();
 
-        while (!threadRunning[0]) {
+        waitForThreadToStart();
+
+        if (proxyStatus[0] != ProxyStatus.running) {
+            applicationLog.log("Proxy thread error : " + proxyStatus[0]);
+        }
+    }
+
+    @Override
+    public ProxyStatus status() {
+        return proxyStatus[0];
+    }
+
+    private void waitForThreadToStart() {
+        while (proxyStatus[0] == ProxyStatus.starting) {
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
@@ -66,8 +75,44 @@ class InterceptProxyServer implements ProxyServer {
         }
     }
 
+    private void acceptConnections() {
+        while (!serverSocket.isClosed()) {
+            Socket client = null;
+            try {
+                client = serverSocket.accept();
+                ProxyChannel t = new ProxyChannel(client, proxyConfig, logger, applicationLog);
+                t.start();
+            } catch (IOException e) {
+                applicationLog.log("Failed to accept connection " + e);
+            }
+        }
+    }
+
+    private boolean openProxySocket() {
+        try {
+            serverSocket = new ServerSocket(proxyConfig.getPort());
+        } catch (IOException e) {
+            applicationLog.log("Proxy " + proxyConfig.getName() + " thread failed to start on port " + proxyConfig.getPort() + "\n" + e.toString());
+
+            return false;
+        }
+        if (proxyConfig.getDebugLevel() > 0) {
+            logger.log(e("Started Proxy server on port ", proxyConfig.getPort()));
+        }
+
+        return true;
+    }
+
     public void stop() {
-        proxyThread.stop();
+        Utils.close(serverSocket);
+        while (proxyStatus[0] == ProxyStatus.running) {
+            try {
+                Thread.sleep(1);
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        proxyThread = null;
     }
 
     public EventLog getLogs() {
@@ -79,7 +124,7 @@ class InterceptProxyServer implements ProxyServer {
         return proxyConfig.getName();
     }
 
-    public ProxyConfig getConfig(){
+    public ProxyConfig getConfig() {
         return this.proxyConfig;
     }
 }

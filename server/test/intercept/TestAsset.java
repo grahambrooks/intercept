@@ -6,9 +6,6 @@ import intercept.server.InterceptServer;
 import intercept.utils.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
-import org.openqa.selenium.firefox.FirefoxDriver;
-import org.openqa.selenium.firefox.FirefoxProfile;
-import org.openqa.selenium.safari.SafariDriver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,15 +25,7 @@ abstract class TestAsset {
                 ctx.putIntercept(interceptServer);
                 config = new InterceptConfiguration(log);
 
-                ctx.setWebProxy("http://localhost", config.getConfigurationPort());
-                new Thread() {
-                    @Override
-                    public void run() {
-                        super.run();    //To change body of overridden methods use File | Settings | File Templates.
-                        interceptServer.start(config);
-                    }
-                }.start();
-                Utils.sleep(400);
+                interceptServer.start(config);
             }
 
             @Override
@@ -48,34 +37,6 @@ abstract class TestAsset {
         };
     }
 
-    public static final TestAsset firefox() {
-        return new TestAsset() {
-            WebDriver driver;
-
-            @Override
-            public void itemConstruct(TestContext ctx) {
-                System.out.println("Starting firefox");
-                FirefoxProfile profile = new FirefoxProfile();
-
-                profile.setPreference("network.proxy.http", "localhost");
-                profile.setPreference("network.proxy.http_port", 2001);
-                profile.setPreference("network.proxy.type", 1);
-
-//                    driver = new FirefoxDriver(profile);
-                driver = new FirefoxDriver();
-                ctx.driver = driver;
-            }
-
-            @Override
-            public void itemClose() {
-                if (driver != null) {
-                    driver.quit();
-                    driver.close();
-                }
-                driver = null;
-            }
-        };
-    }
     public static TestAsset HTMLUnit() {
         return new TestAsset() {
             WebDriver driver;
@@ -92,32 +53,6 @@ abstract class TestAsset {
                 if (driver != null) {
                     driver.quit();
                 }
-                driver = null;
-            }
-        };
-    }
-
-    public static final TestAsset safari() {
-        return new TestAsset() {
-            WebDriver driver;
-
-            @Override
-            public void itemConstruct(TestContext ctx) {
-                FirefoxProfile profile = new FirefoxProfile();
-
-                profile.setPreference("network.proxy.http", "localhost");
-                profile.setPreference("network.proxy.http_port", 2001);
-                profile.setPreference("network.proxy.type", 1);
-
-//                    driver = new FirefoxDriver(profile);
-                driver = new SafariDriver();
-                ctx.driver = driver;
-            }
-
-            @Override
-            public void itemClose() {
-                driver.quit();
-                driver.close();
                 driver = null;
             }
         };
@@ -150,7 +85,7 @@ abstract class TestAsset {
         return this;
     }
 
-    public static InterceptServer middlemanInstance() {
+    public static InterceptServer interceptInstance() {
         return interceptServer;
     }
 

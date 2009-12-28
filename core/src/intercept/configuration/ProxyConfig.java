@@ -13,8 +13,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ProxyConfig {
-    public static final int DEFAULT_PORT = 8080;
-    private int port = DEFAULT_PORT;
+    private int port = 8080;
     private String name;
     private List<Route> routes;
     private Map<UriMatcher, StubResponse> stubs;
@@ -116,7 +115,7 @@ public class ProxyConfig {
         for (UriMatcher matcher : stubs.keySet()) {
             try {
                 if (matcher.matches(new URI(hostName))) {
-                    return stubs.get(matcher).getResponse();
+                    return stubs.get(matcher).getBody();
                 }
             } catch (URISyntaxException e) {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.

@@ -26,6 +26,10 @@ public class HTTPRequest {
         return host;
     }
 
+    public String url() {
+        return path;
+    }
+
     public String getPath() {
         return path;
     }

@@ -38,7 +38,7 @@ public class StubResponse {
     }
 
     public void setBody(String body) {
-        this.body = body.substring(1, body.length()-1);
+        this.body = body;
     }
 
     public String getBody() {

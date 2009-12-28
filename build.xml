@@ -51,6 +51,7 @@
         <fileset dir="server/lib">
             <include name="test/*.jar"/>
         </fileset>
+        <path refid="test.classpath"/>
         <path refid="server.classpath"/>
     </path>
 
@@ -200,7 +201,7 @@
         <unit.test test.dir="${core.test.dir}"/>
     </target>
 
-    <target name="test.server" description="Runs the server tests" unless="notests">
+    <target name="test.server" description="Runs the server tests" unless="notests" depends="compile.server">
         <mkdir dir="${instrumented.dir}"/>
         <unit.test test.dir="${server.test.dir}" test.classpath="server.test.classpath"/>
     </target>
