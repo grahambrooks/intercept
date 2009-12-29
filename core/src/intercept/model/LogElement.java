@@ -1,13 +1,15 @@
 package intercept.model;
 
-public class LogElement {
-    private String message;
+public abstract class LogElement {
+    private long time;
 
-    public LogElement(String message) {
-        this.message = message;
+    public abstract String getMessage();
+
+    public long time() {
+        return time;
     }
 
-    public String getMessage() {
-        return message;
+    public void setTime(long time) {
+        this.time = time;
     }
 }

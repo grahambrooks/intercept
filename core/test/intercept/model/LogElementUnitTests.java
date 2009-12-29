@@ -8,7 +8,7 @@ import org.junit.Test;
 public class LogElementUnitTests {
     @Test
     public void logElementPreservesMessage() {
-        LogElement logElement = new LogElement("a message");
+        LogElement logElement = new SimpleLogElement("a message");
 
         assertThat(logElement.getMessage(), is("a message"));
     }

@@ -6,7 +6,12 @@ import intercept.logging.EventLogger;
 import intercept.utils.EventTimer;
 import intercept.utils.Utils;
 
-import java.io.*;
+import java.io.BufferedInputStream;
+import java.io.BufferedOutputStream;
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.lang.reflect.Array;
 import java.net.Socket;
 
@@ -21,16 +26,12 @@ public class ProxyChannel extends Thread {
     private ProxyConfig config;
     private EventLogger logger;
     private ApplicationLog applicationLog;
-    private long creationTime;
-
-    public static final int DEFAULT_TIMEOUT = 2 * 1000;
 
     public ProxyChannel(Socket socket, ProxyConfig config, EventLogger logger, ApplicationLog applicationLog) {
         this.socket = socket;
         this.config = config;
         this.logger = logger;
         this.applicationLog = applicationLog;
-        creationTime = System.nanoTime();
     }
 
     public void run() {
@@ -50,8 +51,7 @@ public class ProxyChannel extends Thread {
             HTTPRequest request = new HTTPRequest();
             getHTTPData(clientIn, request, false);
 
-            logger.log(creationTime,
-                    e(socket.getInetAddress().getHostAddress() + ":" + socket.getLocalPort()),
+            logger.log(e(socket.getInetAddress().getHostAddress() + ":" + socket.getLocalPort()),
                     e("->"),
                     e(request.hostName() + ":" + request.hostPortNumber()),
                     e(request.getPath()),

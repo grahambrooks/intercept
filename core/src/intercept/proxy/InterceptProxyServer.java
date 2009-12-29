@@ -77,7 +77,7 @@ class InterceptProxyServer implements ProxyServer {
 
     private void acceptConnections() {
         while (!serverSocket.isClosed()) {
-            Socket client = null;
+            Socket client;
             try {
                 client = serverSocket.accept();
                 ProxyChannel t = new ProxyChannel(client, proxyConfig, logger, applicationLog);

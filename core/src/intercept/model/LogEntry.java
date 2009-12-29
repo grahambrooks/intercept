@@ -1,30 +1,33 @@
 package intercept.model;
 
+import intercept.utils.Clock;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 public class LogEntry implements Comparable<Object> {
     public List<LogElement> elements;
 
     private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss:SSS");
-    private long creationTime;
 
-    public LogEntry(LogElement[] text) {
-        this(System.nanoTime(), text);
+    public LogEntry() {
+        this(null);
     }
 
-    public LogEntry(long creationTime, LogElement[] logElements) {
-        this.creationTime = creationTime;
+    public LogEntry(LogElement[] logElements) {
         this.elements = new ArrayList<LogElement>();
-        this.elements.add(new LogElement(dateFormat.format(new Date())));
 
         if (logElements != null) {
             for (LogElement element : logElements) {
-                this.elements.add(element);
+                addElement(element);
             }
         }
+    }
+
+    public void addElement(LogElement element) {
+        element.setTime(Clock.nanoTime());
+        elements.add(element);
     }
 
     List<LogElement> getElements() {
@@ -35,7 +38,7 @@ public class LogEntry implements Comparable<Object> {
     public boolean equals(Object obj) {
         if (obj != null && obj.getClass().isInstance(obj)) {
             LogEntry other = (LogEntry) obj;
-            if (other.creationTime != creationTime || elements.size() != other.elements.size()) {
+            if (elements.size() != other.elements.size()) {
                 return false;
             }
 
@@ -55,8 +58,16 @@ public class LogEntry implements Comparable<Object> {
         return 42;
     }
 
+    public long earliestElementTime() {
+        if (elements.size() > 0) {
+            return elements.get(0).time();
+        }
+        
+        return 0xFFFFFFFF;
+    }
+
     public int compareTo(Object o) {
         LogEntry other = (LogEntry) o;
-        return (int) (this.creationTime - other.creationTime);
+        return (int) (this.earliestElementTime() - other.earliestElementTime());
     }
 }

@@ -2,6 +2,7 @@ package intercept.logging;
 
 import intercept.model.LogElement;
 import intercept.model.LogEntry;
+import intercept.model.SimpleLogElement;
 
 public class EventLogger {
     private EventLog log;
@@ -15,14 +16,10 @@ public class EventLogger {
         for (Object messageElement : message) {
             buffer.append(messageElement);
         }
-        return new LogElement(buffer.toString());
+        return new SimpleLogElement(buffer.toString());
     }
 
     public void log(LogElement... elements) {
         log.add(new LogEntry(elements));
-    }
-
-    public void log(long creationTime, LogElement... elements) {
-        log.add(new LogEntry(creationTime, elements));
     }
 }
