@@ -8,7 +8,7 @@ import java.lang.reflect.Array;
 
 public class HTTPRequest {
     public byte[] requestData;
-    String host = "";
+    String host;
     public int contentLength = 0;
     String path;
     private byte[] headerData;
@@ -16,6 +16,8 @@ public class HTTPRequest {
 
     public HTTPRequest() {
         path = "";
+        host = "unknown";
+        requestData = null;
     }
 
     public String hostName() {

@@ -3,7 +3,9 @@ package intercept.proxy;
 import intercept.configuration.ProxyConfig;
 import intercept.logging.ApplicationLog;
 import intercept.logging.EventLogger;
+import intercept.model.LogEntry;
 import intercept.utils.EventTimer;
+import intercept.utils.MillisecondTimer;
 import intercept.utils.Utils;
 
 import java.io.BufferedInputStream;
@@ -26,6 +28,7 @@ public class ProxyChannel extends Thread {
     private ProxyConfig config;
     private EventLogger logger;
     private ApplicationLog applicationLog;
+    private LogEntry logEntry;
 
     public ProxyChannel(Socket socket, ProxyConfig config, EventLogger logger, ApplicationLog applicationLog) {
         this.socket = socket;
@@ -38,7 +41,7 @@ public class ProxyChannel extends Thread {
         BufferedInputStream clientIn = null;
         BufferedOutputStream clientOutputStream = null;
         try {
-            EventTimer timer = new EventTimer();
+            EventTimer timer = new MillisecondTimer();
 
             clientIn = new BufferedInputStream(socket.getInputStream());
             clientOutputStream = new BufferedOutputStream(socket.getOutputStream());
@@ -51,12 +54,14 @@ public class ProxyChannel extends Thread {
             HTTPRequest request = new HTTPRequest();
             getHTTPData(clientIn, request, false);
 
-            logger.log(e(socket.getInetAddress().getHostAddress() + ":" + socket.getLocalPort()),
-                    e("->"),
-                    e(request.hostName() + ":" + request.hostPortNumber()),
-                    e(request.getPath()),
-                    e(request.length() + "&nbsp;bytes")
-            );
+            logEntry = logger.logRequest(socket, request);
+
+//            logger.log(e(socket.getInetAddress().getHostAddress() + ":" + socket.getLocalPort()),
+//                    e("->"),
+//                    e(request.hostName() + ":" + request.hostPortNumber()),
+//                    e(request.getPath()),
+//                    e(request.length() + "&nbsp;bytes")
+//            );
 
             config.transformRoute(request);
 
@@ -145,13 +150,7 @@ public class ProxyChannel extends Thread {
     }
 
     protected void logResponse(EventTimer timer, int responseLength, HTTPRequest request) {
-        logger.log(
-                e("Request from ", socket.getInetAddress().getHostAddress(), ":", socket.getLocalPort()),
-                e(request.hostName(), ":", request.hostPortNumber()),
-                e(request.length(), " bytes sent"),
-                e(responseLength, " bytes returned"),
-                e(timer)
-        );
+        logger.appendResponse(socket, timer, responseLength, request);
     }
 
     private void handleStubbedResponse(BufferedOutputStream clientOut, HTTPRequest request) throws IOException {

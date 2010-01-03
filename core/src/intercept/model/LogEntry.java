@@ -54,15 +54,14 @@ public class LogEntry implements Comparable<Object> {
 
     @Override
     public int hashCode() {
-        assert false : "Hashcode not supported for LogEntry";
-        return 42;
+        throw new UnsupportedOperationException("Hashcode not supported for LogEntry");
     }
 
     public long earliestElementTime() {
         if (elements.size() > 0) {
             return elements.get(0).time();
         }
-        
+
         return 0xFFFFFFFF;
     }
 
