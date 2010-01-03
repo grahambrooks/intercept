@@ -1,8 +1,9 @@
 package intercept.logging;
 
+import org.junit.Test;
+
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
-import org.junit.Test;
 
 
 public class EventLoggerUnitTests {
@@ -21,8 +22,10 @@ public class EventLoggerUnitTests {
     public void canAddAnEntry() {
         EventLog log = new EventLog();
         EventLogger e = new EventLogger(log);
-        e.log(EventLogger.e("Some message"));
+
+        e.logError("Some message");
+
         assertThat(log.getEntries().size(), is(1));
-        assertThat(log.getEntries().get(0).elements.get(0).getMessage(), is("Some message"));
+        assertThat(log.getEntries().get(0).elements.get(1).getMessage(), is("Some message"));
     }
 }

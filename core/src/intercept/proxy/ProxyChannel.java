@@ -3,7 +3,6 @@ package intercept.proxy;
 import intercept.configuration.ProxyConfig;
 import intercept.logging.ApplicationLog;
 import intercept.logging.EventLogger;
-import intercept.model.LogEntry;
 import intercept.utils.EventTimer;
 import intercept.utils.MillisecondTimer;
 import intercept.utils.Utils;
@@ -17,18 +16,13 @@ import java.io.OutputStream;
 import java.lang.reflect.Array;
 import java.net.Socket;
 
-import static intercept.logging.EventLogger.e;
 import static intercept.utils.Utils.close;
 
-/**
- * ProxyChannel is responsible for marti
- */
 public class ProxyChannel extends Thread {
     private Socket socket;
     private ProxyConfig config;
     private EventLogger logger;
     private ApplicationLog applicationLog;
-    private LogEntry logEntry;
 
     public ProxyChannel(Socket socket, ProxyConfig config, EventLogger logger, ApplicationLog applicationLog) {
         this.socket = socket;
@@ -54,14 +48,7 @@ public class ProxyChannel extends Thread {
             HTTPRequest request = new HTTPRequest();
             getHTTPData(clientIn, request, false);
 
-            logEntry = logger.logRequest(socket, request);
-
-//            logger.log(e(socket.getInetAddress().getHostAddress() + ":" + socket.getLocalPort()),
-//                    e("->"),
-//                    e(request.hostName() + ":" + request.hostPortNumber()),
-//                    e(request.getPath()),
-//                    e(request.length() + "&nbsp;bytes")
-//            );
+            logger.logRequest(socket, request);
 
             config.transformRoute(request);
 
@@ -71,8 +58,7 @@ public class ProxyChannel extends Thread {
                 processResponse(clientOutputStream, timer, request);
             }
         } catch (IOException e) {
-            if (config.getDebugLevel() > 0)
-                logger.log(e("Error in ProxyThread: " + e));
+            logger.logError("Error in ProxyThread: ", e);
         } finally {
             close(clientOutputStream);
             close(clientIn);
@@ -142,11 +128,7 @@ public class ProxyChannel extends Thread {
     }
 
     private void logResponseData(byte[] request, byte[] response) {
-        logger.log(
-                e("REQUEST:\n" + (new String(request))),
-                e("RESPONSE:\n" + (new String(response != null ? response : new byte[0])))
-        );
-
+        logger.logResponseData(request, response);
     }
 
     protected void logResponse(EventTimer timer, int responseLength, HTTPRequest request) {
@@ -161,13 +143,8 @@ public class ProxyChannel extends Thread {
                 + "Content-Length: " + stubbedResponse.length() + "\r\n"
                 + "\r\n"
                 + stubbedResponse;
-        logger.log(
-                e("Request from ", socket.getInetAddress().getHostAddress() + ":" + socket.getLocalPort()),
-                e("STUBBED"),
-                e(request.length() + " bytes sent"),
-                e(stubbedResponse.length() + " bytes returned"),
-                e(message)
-        );
+
+        logger.logSubbedResponse(socket.getInetAddress().getHostAddress(), socket.getLocalPort(), request, message);
 
         byte[] messageBytes = message.getBytes();
         clientOut.write(messageBytes, 0, messageBytes.length);
@@ -231,16 +208,14 @@ public class ProxyChannel extends Thread {
 
             transferredBytes = copyResponse(in, out, new StreamControl(request.contentLength, waitForDisconnect));
         } catch (IOException e) {
-            if (config.getDebugLevel() > 0) {
-                logger.log(e("Error getting HTTP data: " + e));
-            }
+            logger.logError("Error getting HTTP data: ", e);
         }
 
         //flush the OutputStream and return
         try {
             out.flush();
         } catch (Exception e) {
-            logger.log(e("Error flushing output stream ", e));
+            logger.logError("Error flushing output stream ", e);
         }
         return (header.length() + transferredBytes);
     }
@@ -269,9 +244,7 @@ public class ProxyChannel extends Thread {
                 httpRequest.updatePath(data);
             }
         } catch (IOException e) {
-            if (config.getDebugLevel() > 0) {
-                logger.log(e("Error getting header: " + e));
-            }
+            logger.logError("Error getting header", e);
         }
 
         return responseCode;
@@ -293,10 +266,7 @@ public class ProxyChannel extends Thread {
                     trace("copyResponse", "read " + totalBytesReceived + " of " + streamControl.expected());
                 }
             } catch (IOException e) {
-                String errMsg = "Error getting HTTP body: " + e;
-                if (config.getDebugLevel() > 0) {
-                    logger.log(e(errMsg));
-                }
+                logger.logError("Error getting HTTP body: ", e);
             }
         }
         trace("copyResponse", "complete");
@@ -318,9 +288,7 @@ public class ProxyChannel extends Thread {
                 trace("parseResponseCode", "Response code " + rcString);
                 return Integer.parseInt(rcString);
             } catch (NumberFormatException e) {
-                if (config.getDebugLevel() > 0) {
-                    logger.log(e("Error parsing response code " + rcString));
-                }
+                logger.logError("Error parsing response code " + rcString);
             }
         }
         return 200;

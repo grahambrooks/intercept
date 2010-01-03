@@ -2,6 +2,7 @@ package intercept.logging;
 
 import intercept.model.LogElement;
 import intercept.model.LogEntry;
+import intercept.model.SimpleLogElement;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -27,6 +28,11 @@ public class EventLog {
     }
 
     public void append(LogElement element) {
+        if (current == null) {
+            LogEntry logEntry = new LogEntry();
+            logEntry.addElement(new SimpleLogElement("Orphaned entry"));
+            add(logEntry);
+        }
         current.addElement(element);
     }
 }
