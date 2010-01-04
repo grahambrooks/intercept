@@ -257,7 +257,7 @@
         </findbugs>
     </target>
 
-    <target name="ci" depends="coverage.core, findbugs, dist">
+    <target name="ci" depends="clean, coverage.core, findbugs, dist">
     </target>
 
 </project>
