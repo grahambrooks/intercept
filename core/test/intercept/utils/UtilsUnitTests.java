@@ -1,4 +1,4 @@
-package utils;
+package intercept.utils;
 
 import intercept.utils.Utils;
 import static org.hamcrest.CoreMatchers.is;

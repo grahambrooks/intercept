@@ -3,7 +3,6 @@ package intercept.configuration;
 import intercept.model.Route;
 import intercept.model.UriMatcher;
 import intercept.proxy.HTTPRequest;
-import intercept.server.components.StubRequest;
 
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -13,15 +12,15 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ProxyConfig {
-    private int port;
+public class DefaultProxyConfig implements ProxyConfig {
+    private int port = 8080;
     private String name;
     private List<Route> routes;
     private Map<UriMatcher, StubResponse> stubs;
     private URI outgoingProxy;
-    private int debugLevel;
+    private int logLevel;
 
-    public ProxyConfig() {
+    public DefaultProxyConfig() {
         this.name = "undefined";
         this.routes = new ArrayList<Route>();
         this.stubs = new HashMap<UriMatcher, StubResponse>();
@@ -87,7 +86,7 @@ public class ProxyConfig {
                     return false;
                 }
             } catch (UnknownHostException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
 
             return true;
@@ -95,8 +94,8 @@ public class ProxyConfig {
         return false;
     }
 
-    public int getDebugLevel() {
-        return debugLevel;
+    public int getLogLevel() {
+        return logLevel;
     }
 
     public boolean stubbedRequest(String hostName) {
@@ -106,23 +105,23 @@ public class ProxyConfig {
                     return true;
                 }
             } catch (URISyntaxException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
         }
-        return false;  //To change body of created methods use File | Settings | File Templates.
+        return false;
     }
 
     public String getStubbedResponse(String hostName) {
         for (UriMatcher matcher : stubs.keySet()) {
             try {
                 if (matcher.matches(new URI(hostName))) {
-                    return stubs.get(matcher).getResponse();
+                    return stubs.get(matcher).getBody();
                 }
             } catch (URISyntaxException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                e.printStackTrace();
             }
         }
-        return "";  //To change body of created methods use File | Settings | File Templates.
+        return "";
     }
 
     public Map<UriMatcher, StubResponse> getStubs() {
@@ -133,18 +132,16 @@ public class ProxyConfig {
         return routes;
     }
 
-    public void setRoute(String text) {
-    }
-
     public void setOutgoingProxy(String outgoingProxy) {
         this.outgoingProxy = URI.create(outgoingProxy.replaceAll("\"", ""));
     }
 
-    public void setDebugLevel(int debugLevel) {
-        this.debugLevel = debugLevel;
+    public void setLogLevel(int logLevel) {
+        this.logLevel = logLevel;
     }
 
     public void add(StubResponse stubResponse) {
         stubs.put(stubResponse.getPath(), stubResponse);
     }
+
 }

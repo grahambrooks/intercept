@@ -1,5 +1,6 @@
 package intercept.proxy;
 
+import intercept.configuration.DefaultProxyConfig;
 import intercept.configuration.ProxyConfig;
 import intercept.logging.ApplicationLog;
 import intercept.utils.Block;
@@ -21,7 +22,7 @@ public class InterceptProxyUnitTests {
             public void trace(String message) {
             }
         };
-        config = new ProxyConfig();
+        config = new DefaultProxyConfig();
         config.setName("test");
         config.setPort(2000);
     }

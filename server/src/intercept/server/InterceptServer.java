@@ -3,6 +3,7 @@ package intercept.server;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
+import intercept.configuration.DefaultProxyConfig;
 import intercept.configuration.InterceptConfiguration;
 import intercept.configuration.ProxyConfig;
 import intercept.framework.Command;
@@ -145,7 +146,7 @@ public class InterceptServer implements HttpHandler, WebServer {
     }
 
     public void startNewProxy(String name, int port) {
-        ProxyConfig proxyConfig = new ProxyConfig();
+        ProxyConfig proxyConfig = new DefaultProxyConfig();
         proxyConfig.setName(name);
         proxyConfig.setPort(port);
         configuration.add(proxyConfig);

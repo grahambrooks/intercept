@@ -1,4 +1,4 @@
-package utils;
+package intercept.utils;
 
 import intercept.model.UriMatcher;
 import intercept.utils.UriMatchers;

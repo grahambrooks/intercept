@@ -96,7 +96,7 @@ class InterceptProxyServer implements ProxyServer {
 
             return false;
         }
-        if (proxyConfig.getDebugLevel() > 0) {
+        if (proxyConfig.getLogLevel() > 0) {
             logger.log(e("Started Proxy server on port ", proxyConfig.getPort()));
         }
 

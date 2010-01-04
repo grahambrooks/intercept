@@ -2,6 +2,7 @@ package intercept.server;
 
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
+import intercept.configuration.DefaultProxyConfig;
 import intercept.configuration.ProxyConfig;
 import intercept.framework.WebServer;
 import intercept.logging.ApplicationLog;
@@ -49,7 +50,7 @@ public class ProxyConfigurationHttpHandler implements HttpHandler {
                     InterceptProxy.eachProxy(new Block<ProxyServer>(){
                         @Override
                         public void yield(ProxyServer item) {
-                            ProxyConfig config = new ProxyConfig();
+                            ProxyConfig config = new DefaultProxyConfig();
                             configs.add(item.getConfig());
                         }
                     });
@@ -58,7 +59,7 @@ public class ProxyConfigurationHttpHandler implements HttpHandler {
 
                 @Override
                 public void startNewProxy(String name, int port) {
-                    ProxyConfig config = new ProxyConfig();
+                    ProxyConfig config = new DefaultProxyConfig();
                     config.setName(name);
                     config.setPort(port);
                     InterceptProxy.startProxy(config, applicationLog);

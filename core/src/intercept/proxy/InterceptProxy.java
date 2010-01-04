@@ -5,14 +5,14 @@ import intercept.logging.ApplicationLog;
 import intercept.utils.Block;
 
 import java.util.ArrayList;
-import java.util.List;
+import java.util.Collection;
 
 /**
  * Use InterceptProxy to instantiate a proxy server. InterceptProxy maintains a list of running proxies. These proxies
  * can be closed one at a time or all running proxies can be closed by calling shutdown().
  */
 public class InterceptProxy {
-    private static List<ProxyServer> proxies = new ArrayList<ProxyServer>();
+    private static final Collection<ProxyServer> proxies = new ArrayList<ProxyServer>();
 
     public static ProxyServer startProxy(ProxyConfig proxyConfig, ApplicationLog applicationLog) {
         ProxyServer proxyServer = new InterceptProxyServer(proxyConfig, applicationLog);

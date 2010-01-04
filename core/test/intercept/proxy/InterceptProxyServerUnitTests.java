@@ -1,5 +1,6 @@
 package intercept.proxy;
 
+import intercept.configuration.DefaultProxyConfig;
 import intercept.configuration.ProxyConfig;
 import intercept.configuration.StubResponse;
 import intercept.logging.ApplicationLog;
@@ -28,7 +29,7 @@ public class InterceptProxyServerUnitTests {
 
     @Test
     public void serverStartsAndStops() {
-        ProxyConfig config = new ProxyConfig();
+        ProxyConfig config = new DefaultProxyConfig();
         config.setName("test");
         config.setPort(2001);
 
@@ -41,7 +42,7 @@ public class InterceptProxyServerUnitTests {
 
     @Test
     public void proxyHandlesStubbing() throws IOException {
-        ProxyConfig config = new ProxyConfig();
+        ProxyConfig config = new DefaultProxyConfig();
 
         config.setName("test");
         config.setPort(2000);

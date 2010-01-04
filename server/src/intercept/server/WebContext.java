@@ -2,13 +2,13 @@ package intercept.server;
 
 import com.sun.net.httpserver.HttpExchange;
 import intercept.configuration.ProxyConfig;
+import intercept.configuration.StubRequest;
 import intercept.framework.Command;
 import intercept.framework.Presenter;
 import intercept.framework.RequestDocument;
 import intercept.framework.WebServer;
 import intercept.model.UriMatcher;
 import intercept.server.components.NewProxyRequestDocument;
-import intercept.server.components.StubRequest;
 import intercept.server.components.TemplateAttribute;
 import intercept.server.components.TemplateAttributes;
 import intercept.utils.Block;

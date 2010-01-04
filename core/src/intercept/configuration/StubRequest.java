@@ -9,16 +9,6 @@ public class StubRequest {
     String path;
     String response;
 
-    public void set(String header, String values) {
-        if (header.equalsIgnoreCase("path")) {
-            path = values;
-        }
-
-        if (header.equalsIgnoreCase("response")) {
-            response = values;
-        }
-    }
-
     public void define(Map<UriMatcher, StubResponse> stubs) {
         UriMatcher key = simpleMatcher(path);
         stubs.put(key, new StubResponse(key, response));
@@ -26,5 +16,13 @@ public class StubRequest {
 
     public String getPath() {
         return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path;
+    }
+
+    public void setResponse(String response) {
+        this.response = response;
     }
 }

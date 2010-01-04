@@ -79,18 +79,18 @@ public class ProxyChannel extends Thread {
 
             int responseLength;
 
-            if (config.getDebugLevel() > 1) {
+            if (config.getLogLevel() > 1) {
                 byte[] response = getHTTPData(outboundInputStream, true);
                 responseLength = Array.getLength(response);
                 clientOutputStream.write(response, 0, Array.getLength(response));
-                if (config.getDebugLevel() > 1) {
+                if (config.getLogLevel() > 1) {
                     logResponseData(request.getRequestData(), response);
                 }
             } else {
                 responseLength = streamHTTPData(outboundInputStream, clientOutputStream, true);
             }
 
-            if (config.getDebugLevel() > 0) {
+            if (config.getLogLevel() > 0) {
                 logResponse(timer, responseLength, request);
             }
 
@@ -295,7 +295,7 @@ public class ProxyChannel extends Thread {
     }
 
     private void trace(String method, String message) {
-        if (config.getDebugLevel() > 1) {
+        if (config.getLogLevel() > 1) {
             applicationLog.trace(Thread.currentThread().getId() + " " + method + ": " + message);
         }
     }

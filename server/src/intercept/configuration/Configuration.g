@@ -1,24 +1,24 @@
 grammar Configuration;
 
 @header {
-package middleman.configuration;
+package intercept.configuration;
 }
 
 @lexer::header {
-package middleman.configuration;
+package intercept.configuration;
 }
 
-configuration[MiddlemanConfiguration config]
+configuration[InterceptConfiguration config]
 	:	(configurationStatement[config])*
 	EOF
 	;
-configurationStatement[MiddlemanConfiguration config]
+configurationStatement[InterceptConfiguration config]
 	:	PORT EQ port=NUMBER { config.setConfigurationPort(Integer.parseInt(port.getText())); }
 	|	def=proxyDefinition { config.add(def); }
 	;
 
 proxyDefinition returns [ProxyConfig proxy]
-@init{ proxy = new ProxyConfig(); }
+@init{ proxy = new DefaultProxyConfig(); }
 	:	PROXY name=IDENTIFIER {proxy.setName($name.getText()); }BEGIN (proxyStatement[proxy])* END
 	;
 	
@@ -27,7 +27,7 @@ proxyStatement[ProxyConfig proxy]
 	|	ROUTE from=STRING '=>' route=STRING { proxy.addRoute($from.getText(), $route.getText()); }
 	|	OUTPROXY '=' outproxy=STRING {proxy.setOutgoingProxy($outproxy.getText());}
 	|	statement=stubStatement { proxy.add(statement); }
-	|	DEBUG EQ debugLevel=NUMBER {proxy.setDebugLevel(Integer.parseInt($debugLevel.getText())); }
+	|	DEBUG EQ debugLevel=NUMBER {proxy.setLogLevel(Integer.parseInt($debugLevel.getText())); }
 	;	
 
 stubStatement returns[StubResponse stub]
