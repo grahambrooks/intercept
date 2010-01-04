@@ -7,12 +7,12 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 
 public class HTTPRequest {
-    public byte[] requestData;
     String host;
-    public int contentLength = 0;
     String path;
-    private byte[] headerData;
+    public int contentLength = 0;
     private int originalHeaderSize;
+    private byte[] requestData;
+    private byte[] headerData;
 
     public HTTPRequest() {
         path = "";
@@ -53,12 +53,13 @@ public class HTTPRequest {
     }
 
     public void replaceHost(String address) {
-        String r = new String(requestData);
+        if (requestData != null) {
+            String r = new String(requestData);
 
-        r = r.replaceAll(hostName(), address);
-
+            r = r.replaceAll(hostName(), address);
+            requestData = r.getBytes();
+        }
         host = address;
-        requestData = r.getBytes();
     }
 
     public int length() {
@@ -111,5 +112,13 @@ public class HTTPRequest {
     public void setHeaderData(byte[] headerData) {
         this.headerData = headerData;
         originalHeaderSize = headerData.length;
+    }
+
+    public void setRequestData(byte[] requestData) {
+        this.requestData = requestData.clone();
+    }
+
+    public byte[] getRequestData() {
+        return requestData;
     }
 }

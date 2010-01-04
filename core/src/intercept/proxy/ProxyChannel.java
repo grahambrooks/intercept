@@ -84,7 +84,7 @@ public class ProxyChannel extends Thread {
                 responseLength = Array.getLength(response);
                 clientOutputStream.write(response, 0, Array.getLength(response));
                 if (config.getDebugLevel() > 1) {
-                    logResponseData(request.requestData, response);
+                    logResponseData(request.getRequestData(), response);
                 }
             } else {
                 responseLength = streamHTTPData(outboundInputStream, clientOutputStream, true);
@@ -159,14 +159,14 @@ public class ProxyChannel extends Thread {
         // transmission
         HTTPRequest request = new HTTPRequest();
         getHTTPData(in, request, waitForDisconnect);
-        return request.requestData;
+        return request.getRequestData();
     }
 
 
     private void getHTTPData(InputStream in, HTTPRequest request, boolean waitForDisconnect) {
         ByteArrayOutputStream bs = new ByteArrayOutputStream();
         streamHTTPData(in, bs, request, waitForDisconnect);
-        request.requestData = bs.toByteArray();
+        request.setRequestData(bs.toByteArray());
     }
 
 

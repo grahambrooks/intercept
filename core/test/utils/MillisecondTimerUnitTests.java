@@ -1,7 +1,7 @@
 package utils;
 
 import intercept.utils.EventTimer;
-import static intercept.utils.PatternMatcher.matches;
+import static utils.PatternMatcher.matches;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 

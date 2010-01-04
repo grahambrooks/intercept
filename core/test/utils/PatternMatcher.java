@@ -1,4 +1,4 @@
-package intercept.utils;
+package utils;
 
 import org.hamcrest.BaseMatcher;
 
