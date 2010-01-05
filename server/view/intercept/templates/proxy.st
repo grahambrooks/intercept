@@ -11,8 +11,8 @@
     <div class="configuration">
         <table>
             <tr>
-                <td>Debug level</td>
-                <td>$proxy.debugLevel$</td>
+                <td>Log level</td>
+                <td>$proxy.logLevel$</td>
             </tr>
             <tr>
                 <td>Listening on port</td>

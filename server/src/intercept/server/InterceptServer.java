@@ -39,7 +39,7 @@ public class InterceptServer implements HttpHandler, WebServer {
 
     Block<ProxyConfig> startProxies = new Block<ProxyConfig>() {
         public void yield(ProxyConfig item) {
-            applicationLog.trace("Starting proxy server " + item.getName());
+            applicationLog.log("Starting proxy server " + item.getName());
 
             ProxyServer proxy = InterceptProxy.startProxy(item, applicationLog);
 
