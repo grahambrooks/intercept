@@ -6,13 +6,13 @@ public class ResponseDataLogElement extends LogElement {
     private static final byte[] EMPTY = new byte[0];
 
     public ResponseDataLogElement(byte[] request, byte[] response) {
-        this.request = request.clone();
-        this.response = response.clone();
+        this.request = request == null ? EMPTY : request.clone();
+        this.response = response == null ? EMPTY : response.clone();
     }
 
     @Override
     public String getMessage() {
-        return "REQUEST:\n" + (new String(request != null ? request : EMPTY))
-                + "\nRESPONSE:\n" + (new String(response != null ? response : EMPTY));
+        return "REQUEST:\n" + (new String(request))
+                + "\nRESPONSE:\n" + (new String(response));
     }
 }
