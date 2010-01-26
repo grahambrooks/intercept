@@ -6,8 +6,8 @@ public class ResponseDataLogElement extends LogElement {
     private static final byte[] EMPTY = new byte[0];
 
     public ResponseDataLogElement(byte[] request, byte[] response) {
-        this.request = request;
-        this.response = response;
+        this.request = request.clone();
+        this.response = response.clone();
     }
 
     @Override
