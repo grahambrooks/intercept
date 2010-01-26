@@ -17,12 +17,11 @@ public class InterceptConfiguration {
     private final Map<String, ProxyConfig> configurations;
     private final ApplicationLog applicationLog;
     private ApplicationCommand command = ApplicationCommand.start;
+    private static final Map<String, OptionHandler> optionHandlers = new HashMap<String, OptionHandler>();
 
     interface OptionHandler {
         void handle(Queue<String> args);
     }
-
-    private static final Map<String, OptionHandler> optionHandlers = new HashMap<String, OptionHandler>();
 
 
     public InterceptConfiguration(final ConsoleApplicationLog applicationLog, String... args) {
