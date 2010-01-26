@@ -1,3 +1,4 @@
+
 <?xml version="1.0"?>
 <project name="intercept" default="build" basedir=".">
 
@@ -210,7 +211,6 @@
     <target name="dist" description="Create a release distribution" depends="compile.core">
         <mkdir dir="${dist.dir}"/>
         <copy todir="${dist.dir}/lib">
-            <fileset dir="lib/release" includes="*.jar"/>
             <fileset file="${jar.dir}/intercept-core.jar"/>
         </copy>
         <copy todir="${dist.dir}" file="README"/>
