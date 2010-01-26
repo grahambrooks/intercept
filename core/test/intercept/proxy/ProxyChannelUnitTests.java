@@ -25,7 +25,7 @@ public class ProxyChannelUnitTests {
     public void logResponseRecordsElapsedTime() throws Exception {
         EventLog log = new EventLog();
         EventLogger logger = new EventLogger(log);
-        logger.log(new SimpleLogElement("Request Log element"));
+
         Socket socket = mock(Socket.class);
         InetAddress localHost = InetAddress.getLocalHost();
         String address = localHost.getHostAddress();

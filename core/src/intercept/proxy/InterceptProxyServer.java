@@ -10,8 +10,6 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
-import static intercept.logging.EventLogger.e;
-
 /**
  * Implementation of ProxyServer accepts incoming connections and creates a ProxyChannel to handle requests on that
  * channel.
@@ -96,9 +94,8 @@ class InterceptProxyServer implements ProxyServer {
 
             return false;
         }
-        if (proxyConfig.getLogLevel() > 0) {
-            logger.log(e("Started Proxy server on port ", proxyConfig.getPort()));
-        }
+        
+        applicationLog.trace("Started Proxy server on port " + proxyConfig.getPort());
 
         return true;
     }

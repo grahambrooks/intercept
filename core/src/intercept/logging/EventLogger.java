@@ -1,17 +1,14 @@
 package intercept.logging;
 
 import intercept.model.ErrorLogElement;
-import intercept.model.LogElement;
 import intercept.model.LogEntry;
 import intercept.model.RequestLogElement;
 import intercept.model.ResponseDataLogElement;
 import intercept.model.ResponseLogElement;
-import intercept.model.SimpleLogElement;
 import intercept.model.StubbedResponseLogElement;
 import intercept.proxy.HTTPRequest;
 import intercept.utils.EventTimer;
 
-import java.io.IOException;
 import java.net.Socket;
 
 public class EventLogger {
@@ -19,18 +16,6 @@ public class EventLogger {
 
     public EventLogger(EventLog log) {
         this.log = log;
-    }
-
-    public static LogElement e(Object... message) {
-        StringBuilder buffer = new StringBuilder();
-        for (Object messageElement : message) {
-            buffer.append(messageElement);
-        }
-        return new SimpleLogElement(buffer.toString());
-    }
-
-    public void log(LogElement... elements) {
-        log.add(new LogEntry(elements));
     }
 
     public void logRequest(Socket socket, HTTPRequest request) {
