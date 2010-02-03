@@ -1,15 +1,13 @@
 package intercept.model;
 
 import intercept.utils.Clock;
+import intercept.utils.ResultBlock;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-public class LogEntry implements Comparable<Object> {
+public class LogEntry implements Comparable<Object>, FilterTarget<LogElement> {
     public List<LogElement> elements;
-
-    private static final SimpleDateFormat dateFormat = new SimpleDateFormat("HH:mm:ss:SSS");
 
     public LogEntry() {
         this(null);
@@ -68,5 +66,24 @@ public class LogEntry implements Comparable<Object> {
     public int compareTo(Object o) {
         LogEntry other = (LogEntry) o;
         return (int) (this.earliestElementTime() - other.earliestElementTime());
+    }
+
+    public void copyTo(FilterTarget<LogElement> result, LogFilter<LogElement> filter) {
+        for (LogElement element : elements) {
+            filter.filter(element, result);
+        }
+    }
+
+    @Override
+    public void add(LogElement element) {
+        elements.add(element);
+    }
+
+    public <T> T Do(ResultBlock<LogElement, T> block) {
+        T result = null;
+        for (LogElement element : elements) {
+            result = block.yield(element);
+        }
+        return result;
     }
 }

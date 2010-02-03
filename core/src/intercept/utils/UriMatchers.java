@@ -3,7 +3,6 @@ package intercept.utils;
 import intercept.model.UriMatcher;
 
 import java.net.URI;
-import java.util.regex.Pattern;
 
 public class UriMatchers {
     public static UriMatcher simpleMatcher(final String name) {

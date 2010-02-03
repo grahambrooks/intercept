@@ -1,11 +1,10 @@
 package intercept.logging;
 
-import intercept.model.LogEntry;
-import intercept.model.SimpleLogElement;
-import org.junit.Test;
-
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import intercept.model.LogEntry;
+
+import org.junit.Test;
 
 public class EventLogUnitTests {
     @Test

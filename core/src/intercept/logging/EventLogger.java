@@ -12,7 +12,7 @@ import intercept.utils.EventTimer;
 import java.net.Socket;
 
 public class EventLogger {
-    private EventLog log;
+    private final EventLog log;
 
     public EventLogger(EventLog log) {
         this.log = log;

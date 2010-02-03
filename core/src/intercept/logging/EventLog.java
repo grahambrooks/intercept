@@ -1,14 +1,17 @@
 package intercept.logging;
 
+import intercept.model.FilterTarget;
 import intercept.model.LogElement;
 import intercept.model.LogEntry;
+import intercept.model.LogFilter;
 import intercept.model.SimpleLogElement;
+import intercept.utils.ResultBlock;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class EventLog {
+public class EventLog  {
     private List<LogEntry> entries = Collections.synchronizedList(new ArrayList<LogEntry>());
     private LogEntry current;
 
@@ -34,5 +37,29 @@ public class EventLog {
             add(logEntry);
         }
         current.addElement(element);
+    }
+
+    public List<LogElement> filtered(LogFilter<LogElement> filter) {
+        final List<LogElement> result = new ArrayList<LogElement>();
+        FilterTarget<LogElement> target = new FilterTarget<LogElement>(){
+            @Override
+            public void add(LogElement element) {
+               result.add(element);
+            }
+        };
+        
+        for (LogEntry entry : entries) {
+            entry.copyTo(target, filter);
+        }
+
+        return result;
+    }
+
+    public <T> T Do(ResultBlock<LogElement, T> block) {
+        T result = null;
+        for (LogEntry entry : entries) {
+            result = entry.Do(block); 
+        }
+        return result;
     }
 }
