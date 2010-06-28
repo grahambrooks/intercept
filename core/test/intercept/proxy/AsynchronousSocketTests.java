@@ -14,6 +14,8 @@ import static org.hamcrest.Matchers.is;
 import static org.hamcrest.number.OrderingComparison.greaterThan;
 
 public class AsynchronousSocketTests {
+    private static final int TEST_PORT = 8765;
+
     @Test
     public void serverSocketAcceptsConnections() throws IOException {
         ServerSocketChannel serverSocketChannel = openServerSocket();
@@ -60,14 +62,14 @@ public class AsynchronousSocketTests {
 
     private Socket openClientSocket() throws IOException {
         Socket socket = new Socket();
-        socket.connect(new InetSocketAddress(8080));
+        socket.connect(new InetSocketAddress(TEST_PORT));
         return socket;
     }
 
     private ServerSocketChannel openServerSocket() throws IOException {
         ServerSocketChannel serverSocketChannel = ServerSocketChannel.open();
         serverSocketChannel.configureBlocking(false);
-        serverSocketChannel.socket().bind(new InetSocketAddress(8080));
+        serverSocketChannel.socket().bind(new InetSocketAddress(TEST_PORT));
         return serverSocketChannel;
     }
 }
