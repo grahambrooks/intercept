@@ -1,36 +1,39 @@
 package intercept.proxy;
 
-import intercept.utils.Block;
+class HTTPAutomaton extends Automaton<HTTPAutomaton.State, Byte, HTTPAutomaton.Event> {
+    public enum State {
+        HEADER_PENDING,
+        READING_HEADER,
+        EOH_PENDING, BODY_PENDING,
+    }
 
-import java.util.HashMap;
-import java.util.Map;
+    public enum Event {
+        HEADER_DATA,
+        HEADER_EOL,
+        HEADER_END,
+    }
 
-class HTTPAutomaton {
-    private State currentState;
-    private Map<State, Block<byte[]>> delegates;
+    DataMatcher<Byte> characterMatcher = new DataMatcher<Byte>() {
+        @Override
+        public boolean matches(Byte data) {
+            return Character.isLetter(data) || Character.isDigit(data);
+        }
+    };
+    DataMatcher<Byte> eolMatcher = new DataMatcher<Byte>() {
+        @Override
+        public boolean matches(Byte data) {
+            return data.equals((byte) '\n');
+        }
+    };
 
     public HTTPAutomaton() {
-        this.currentState = State.READING_HEADER;
-        delegates = new HashMap<State, Block<byte[]>>();
-    }
+        super(State.HEADER_PENDING);
 
-    public State currentState() {
-        return currentState;
-    }
+        addTransition(State.HEADER_PENDING, characterMatcher, State.READING_HEADER, Event.HEADER_DATA);
+        addTransition(State.READING_HEADER, characterMatcher, State.READING_HEADER, Event.HEADER_DATA);
+        addTransition(State.READING_HEADER, eolMatcher, State.HEADER_PENDING, Event.HEADER_EOL);
 
-    public void process(byte[] data) {
-        if (data[0] == '\n' && data[1] == '\n') {
-            delegates.get(State.HEADER_RECEIVED).yield(data);
-        } else {
-            delegates.get(currentState).yield(data);
-        }
-    }
-
-    public void setDelegate(State state, Block<byte[]> block) {
-        delegates.put(state, block);
-    }
-
-    public enum State {
-        HEADER_RECEIVED, READING_HEADER
+        addTransition(State.HEADER_PENDING, eolMatcher, State.EOH_PENDING, null);
+        addTransition(State.EOH_PENDING, eolMatcher, State.BODY_PENDING, Event.HEADER_END);
     }
 }

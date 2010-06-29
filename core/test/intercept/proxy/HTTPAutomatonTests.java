@@ -8,29 +8,34 @@ import static org.hamcrest.Matchers.is;
 
 public class HTTPAutomatonTests {
     @Test
-    public void automatonCreatedInReadingHeaderState() {
+    public void automatonCreatedInHeaderPendingState() {
         HTTPAutomaton automaton = new HTTPAutomaton();
 
-        assertThat(automaton.currentState(), is(HTTPAutomaton.State.READING_HEADER));
+        assertThat(automaton.currentState(), is(HTTPAutomaton.State.HEADER_PENDING));
     }
 
     @Test
     public void automatonPassesHeaderDataToDelegate() {
         HTTPAutomaton automaton = new HTTPAutomaton();
 
-        final byte[][] received = new byte[1][1];
-        automaton.setDelegate(HTTPAutomaton.State.READING_HEADER, new Block<byte[]>() {
+        final byte[] received = new byte[5];
+        final int[] count = new int[1];
+        count[0] = 0;
+        automaton.set(HTTPAutomaton.Event.HEADER_DATA, new Block<Byte>() {
             @Override
-            public void yield(byte[] item) {
-                received[0] = item;
+            public void yield(Byte item) {
+                received[count[0]] = item;
+                count[0]++;
             }
         });
 
         byte[] data = "hello".getBytes();
 
-        automaton.process(data);
+        for (byte b : data) {
+            automaton.process(b);
+        }
 
-        assertThat(received[0], is(data));
+        assertThat(received, is(data));
     }
 
     @Test
@@ -38,18 +43,36 @@ public class HTTPAutomatonTests {
         HTTPAutomaton automaton = new HTTPAutomaton();
 
         final boolean[] received = new boolean[1];
-        automaton.setDelegate(HTTPAutomaton.State.HEADER_RECEIVED, new Block<byte[]>() {
+        automaton.set(HTTPAutomaton.Event.HEADER_END, new Block<Byte>() {
             @Override
-            public void yield(byte[] item) {
+            public void yield(Byte item) {
                 received[0] = true;
             }
         });
 
-        byte[] data = "\n\n".getBytes();
-
-        automaton.process(data);
+        automaton.process((byte)'\n');
+        automaton.process((byte)'\n');
 
         assertThat(received[0], is(true));
     }
 
+    @Test
+    public void automatonHandlesSimpleHeader() {
+        byte[] message = "HTTP/1.0 GET /\n\n\n".getBytes();
+
+        HTTPAutomaton automaton = new HTTPAutomaton();
+
+        final boolean[] eof = new boolean[1];
+        automaton.set(HTTPAutomaton.Event.HEADER_END, new Block<Byte>() {
+            @Override
+            public void yield(Byte item) {
+                eof[0] = true;
+            }
+        });
+
+        for (byte b : message) {
+            automaton.process(b);
+        }
+        assertThat(eof[0], is(true));
+    }
 }
