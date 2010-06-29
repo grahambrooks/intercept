@@ -11,7 +11,6 @@ import java.nio.channels.SocketChannel;
 
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
-import static org.hamcrest.number.OrderingComparison.greaterThan;
 
 public class AsynchronousSocketTests {
     private static final int TEST_PORT = 8765;

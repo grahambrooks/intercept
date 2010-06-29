@@ -1,18 +1,18 @@
 package intercept.proxy;
 
+import intercept.logging.EventLog;
+import intercept.logging.EventLogger;
+import intercept.utils.EventTimer;
+import org.junit.Test;
+
+import java.net.InetAddress;
+import java.net.Socket;
+
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
-import intercept.logging.EventLog;
-import intercept.logging.EventLogger;
-import intercept.utils.EventTimer;
-
-import java.net.InetAddress;
-import java.net.Socket;
-
-import org.junit.Test;
 
 public class ProxyChannelUnitTests {
     @Test
@@ -43,7 +43,7 @@ public class ProxyChannelUnitTests {
                 return "4 ms";
             }
         };
-        
+
         proxyChannel.logResponse(eventTimer, 1234, new HTTPRequest());
 
         assertThat(log.getEntries().size(), equalTo(1));
