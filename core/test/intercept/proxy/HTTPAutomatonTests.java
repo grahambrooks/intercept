@@ -50,8 +50,8 @@ public class HTTPAutomatonTests {
             }
         });
 
-        automaton.process((byte)'\n');
-        automaton.process((byte)'\n');
+        automaton.process((byte) '\n');
+        automaton.process((byte) '\n');
 
         assertThat(received[0], is(true));
     }
@@ -74,5 +74,30 @@ public class HTTPAutomatonTests {
             automaton.process(b);
         }
         assertThat(eof[0], is(true));
+    }
+
+    @Test
+    public void automatonPassesDataToHandler() {
+        byte[] message = "\n\ndata".getBytes();
+
+        HTTPAutomaton automaton = new HTTPAutomaton();
+
+        final byte[] received = new byte[4];
+        final int[] count = new int[1];
+        count[0] = 0;
+
+        automaton.set(HTTPAutomaton.Event.BODY_DATA, new Block<Byte>() {
+            @Override
+            public void yield(Byte item) {
+                received[count[0]] = item;
+                count[0]++;
+            }
+        });
+
+        for (byte b : message) {
+            automaton.process(b);
+        }
+        assertThat(received, is("data".getBytes()));
+
     }
 }

@@ -4,13 +4,14 @@ class HTTPAutomaton extends Automaton<HTTPAutomaton.State, Byte, HTTPAutomaton.E
     public enum State {
         HEADER_PENDING,
         READING_HEADER,
-        EOH_PENDING, BODY_PENDING,
+        EOH_PENDING, BODY_PENDING, READING_BODY,
     }
 
     public enum Event {
         HEADER_DATA,
         HEADER_EOL,
         HEADER_END,
+        BODY_DATA,
     }
 
     DataMatcher<Byte> characterMatcher = new DataMatcher<Byte>() {
@@ -26,6 +27,13 @@ class HTTPAutomaton extends Automaton<HTTPAutomaton.State, Byte, HTTPAutomaton.E
         }
     };
 
+    DataMatcher<Byte> bodyMatcher = new DataMatcher<Byte>() {
+        @Override
+        public boolean matches(Byte data) {
+            return true;
+        }
+    };
+
     public HTTPAutomaton() {
         super(State.HEADER_PENDING);
 
@@ -35,5 +43,8 @@ class HTTPAutomaton extends Automaton<HTTPAutomaton.State, Byte, HTTPAutomaton.E
 
         addTransition(State.HEADER_PENDING, eolMatcher, State.EOH_PENDING, null);
         addTransition(State.EOH_PENDING, eolMatcher, State.BODY_PENDING, Event.HEADER_END);
+
+        addTransition(State.BODY_PENDING, bodyMatcher, State.READING_BODY, Event.BODY_DATA);
+        addTransition(State.READING_BODY, bodyMatcher, State.READING_BODY, Event.BODY_DATA);
     }
 }
