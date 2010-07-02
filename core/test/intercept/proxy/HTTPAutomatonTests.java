@@ -3,6 +3,10 @@ package intercept.proxy;
 import intercept.utils.Block;
 import org.junit.Test;
 
+import static intercept.proxy.HTTPAutomationEvent.BODY_DATA;
+import static intercept.proxy.HTTPAutomationEvent.HEADER_DATA;
+import static intercept.proxy.HTTPAutomationEvent.HEADER_END;
+import static intercept.proxy.HTTPAutomatonState.HEADER_PENDING;
 import static org.hamcrest.MatcherAssert.assertThat;
 import static org.hamcrest.Matchers.is;
 
@@ -11,7 +15,7 @@ public class HTTPAutomatonTests {
     public void automatonCreatedInHeaderPendingState() {
         HTTPAutomaton automaton = new HTTPAutomaton();
 
-        assertThat(automaton.currentState(), is(HTTPAutomaton.State.HEADER_PENDING));
+        assertThat(automaton.currentState(), is(HEADER_PENDING));
     }
 
     @Test
@@ -21,7 +25,7 @@ public class HTTPAutomatonTests {
         final byte[] received = new byte[5];
         final int[] count = new int[1];
         count[0] = 0;
-        automaton.set(HTTPAutomaton.Event.HEADER_DATA, new Block<Byte>() {
+        automaton.set(HEADER_DATA, new Block<Byte>() {
             @Override
             public void yield(Byte item) {
                 received[count[0]] = item;
@@ -43,7 +47,7 @@ public class HTTPAutomatonTests {
         HTTPAutomaton automaton = new HTTPAutomaton();
 
         final boolean[] received = new boolean[1];
-        automaton.set(HTTPAutomaton.Event.HEADER_END, new Block<Byte>() {
+        automaton.set(HEADER_END, new Block<Byte>() {
             @Override
             public void yield(Byte item) {
                 received[0] = true;
@@ -63,7 +67,7 @@ public class HTTPAutomatonTests {
         HTTPAutomaton automaton = new HTTPAutomaton();
 
         final boolean[] eof = new boolean[1];
-        automaton.set(HTTPAutomaton.Event.HEADER_END, new Block<Byte>() {
+        automaton.set(HEADER_END, new Block<Byte>() {
             @Override
             public void yield(Byte item) {
                 eof[0] = true;
@@ -86,7 +90,7 @@ public class HTTPAutomatonTests {
         final int[] count = new int[1];
         count[0] = 0;
 
-        automaton.set(HTTPAutomaton.Event.BODY_DATA, new Block<Byte>() {
+        automaton.set(BODY_DATA, new Block<Byte>() {
             @Override
             public void yield(Byte item) {
                 received[count[0]] = item;

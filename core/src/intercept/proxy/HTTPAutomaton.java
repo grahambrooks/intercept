@@ -1,18 +1,16 @@
 package intercept.proxy;
 
-class HTTPAutomaton extends Automaton<HTTPAutomaton.State, Byte, HTTPAutomaton.Event> {
-    public enum State {
-        HEADER_PENDING,
-        READING_HEADER,
-        EOH_PENDING, BODY_PENDING, READING_BODY,
-    }
+import static intercept.proxy.HTTPAutomationEvent.BODY_DATA;
+import static intercept.proxy.HTTPAutomationEvent.HEADER_DATA;
+import static intercept.proxy.HTTPAutomationEvent.HEADER_END;
+import static intercept.proxy.HTTPAutomationEvent.HEADER_EOL;
+import static intercept.proxy.HTTPAutomatonState.BODY_PENDING;
+import static intercept.proxy.HTTPAutomatonState.EOH_PENDING;
+import static intercept.proxy.HTTPAutomatonState.HEADER_PENDING;
+import static intercept.proxy.HTTPAutomatonState.READING_BODY;
+import static intercept.proxy.HTTPAutomatonState.READING_HEADER;
 
-    public enum Event {
-        HEADER_DATA,
-        HEADER_EOL,
-        HEADER_END,
-        BODY_DATA,
-    }
+class HTTPAutomaton extends Automaton<HTTPAutomatonState, Byte, HTTPAutomationEvent> {
 
     DataMatcher<Byte> characterMatcher = new DataMatcher<Byte>() {
         @Override
@@ -26,7 +24,6 @@ class HTTPAutomaton extends Automaton<HTTPAutomaton.State, Byte, HTTPAutomaton.E
             return data.equals((byte) '\n');
         }
     };
-
     DataMatcher<Byte> bodyMatcher = new DataMatcher<Byte>() {
         @Override
         public boolean matches(Byte data) {
@@ -35,16 +32,16 @@ class HTTPAutomaton extends Automaton<HTTPAutomaton.State, Byte, HTTPAutomaton.E
     };
 
     public HTTPAutomaton() {
-        super(State.HEADER_PENDING);
+        super(HEADER_PENDING);
 
-        addTransition(State.HEADER_PENDING, characterMatcher, State.READING_HEADER, Event.HEADER_DATA);
-        addTransition(State.READING_HEADER, characterMatcher, State.READING_HEADER, Event.HEADER_DATA);
-        addTransition(State.READING_HEADER, eolMatcher, State.HEADER_PENDING, Event.HEADER_EOL);
+        addTransition(HEADER_PENDING, characterMatcher, READING_HEADER, HEADER_DATA);
+        addTransition(READING_HEADER, characterMatcher, READING_HEADER, HEADER_DATA);
+        addTransition(READING_HEADER, eolMatcher, HEADER_PENDING, HEADER_EOL);
 
-        addTransition(State.HEADER_PENDING, eolMatcher, State.EOH_PENDING, null);
-        addTransition(State.EOH_PENDING, eolMatcher, State.BODY_PENDING, Event.HEADER_END);
+        addTransition(HEADER_PENDING, eolMatcher, EOH_PENDING, null);
+        addTransition(EOH_PENDING, eolMatcher, BODY_PENDING, HEADER_END);
 
-        addTransition(State.BODY_PENDING, bodyMatcher, State.READING_BODY, Event.BODY_DATA);
-        addTransition(State.READING_BODY, bodyMatcher, State.READING_BODY, Event.BODY_DATA);
+        addTransition(BODY_PENDING, bodyMatcher, READING_BODY, BODY_DATA);
+        addTransition(READING_BODY, bodyMatcher, READING_BODY, BODY_DATA);
     }
 }
