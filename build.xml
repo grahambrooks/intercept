@@ -212,7 +212,7 @@
         <copy todir="${dist.dir}/lib">
             <fileset file="${jar.dir}/intercept-core.jar"/>
         </copy>
-        <copy todir="${dist.dir}" file="README"/>
+        <copy todir="${dist.dir}" file="README.md"/>
         <zip destfile="intercept.zip" comment="Intercept distribution">
             <fileset dir="${build.dir}/dist" includes="**/*"/>
         </zip>
