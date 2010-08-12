@@ -56,7 +56,7 @@ public class Automaton<S, D, E> {
         return currentState;
     }
 
-    public void set(E event, Block<D> handler){
+    public void set(E event, Block<D> handler) {
         eventHandlers.put(event, handler);
     }
 

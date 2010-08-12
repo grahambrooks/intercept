@@ -1,5 +1,7 @@
 package intercept.proxy;
 
+import intercept.utils.Block;
+
 import static intercept.proxy.HTTPAutomationEvent.BODY_DATA;
 import static intercept.proxy.HTTPAutomationEvent.HEADER_DATA;
 import static intercept.proxy.HTTPAutomationEvent.HEADER_END;
@@ -9,9 +11,9 @@ import static intercept.proxy.HTTPAutomatonState.EOH_PENDING;
 import static intercept.proxy.HTTPAutomatonState.HEADER_PENDING;
 import static intercept.proxy.HTTPAutomatonState.READING_BODY;
 import static intercept.proxy.HTTPAutomatonState.READING_HEADER;
+import static intercept.utils.Constants.NEWLINE;
 
 class HTTPAutomaton extends Automaton<HTTPAutomatonState, Byte, HTTPAutomationEvent> {
-
     DataMatcher<Byte> characterMatcher = new DataMatcher<Byte>() {
         @Override
         public boolean matches(Byte data) {
@@ -21,13 +23,20 @@ class HTTPAutomaton extends Automaton<HTTPAutomatonState, Byte, HTTPAutomationEv
     DataMatcher<Byte> eolMatcher = new DataMatcher<Byte>() {
         @Override
         public boolean matches(Byte data) {
-            return data.equals((byte) '\n');
+            return data.equals((byte) NEWLINE);
         }
     };
     DataMatcher<Byte> bodyMatcher = new DataMatcher<Byte>() {
         @Override
         public boolean matches(Byte data) {
             return true;
+        }
+    };
+
+    Block<Byte> headerDataHandler = new Block<Byte>(){
+        @Override
+        public void yield(Byte item) {
+            //To change body of implemented methods use File | Settings | File Templates.
         }
     };
 
@@ -43,5 +52,7 @@ class HTTPAutomaton extends Automaton<HTTPAutomatonState, Byte, HTTPAutomationEv
 
         addTransition(BODY_PENDING, bodyMatcher, READING_BODY, BODY_DATA);
         addTransition(READING_BODY, bodyMatcher, READING_BODY, BODY_DATA);
+
+        this.set(HTTPAutomationEvent.HEADER_DATA, headerDataHandler);
     }
 }
