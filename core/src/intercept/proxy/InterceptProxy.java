@@ -48,4 +48,8 @@ public class InterceptProxy {
             proxies.clear();
         }
     }
+
+    public static ProxyServer getRunningProxy(int index) {
+        return proxies.iterator().next();
+    }
 }

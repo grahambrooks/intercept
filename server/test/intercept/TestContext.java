@@ -1,5 +1,7 @@
 package intercept;
 
+import intercept.proxy.InterceptProxy;
+import intercept.proxy.ProxyServer;
 import intercept.server.InterceptServer;
 import intercept.utils.Block;
 import org.openqa.selenium.WebDriver;
@@ -33,5 +35,9 @@ class TestContext {
 
     public void putIntercept(InterceptServer interceptServer) {
         this.interceptServer = interceptServer;
+    }
+
+    public ProxyServer proxy() {
+        return InterceptProxy.getRunningProxy(0);
     }
 }

@@ -2,6 +2,7 @@ package intercept.proxy;
 
 import intercept.configuration.ProxyConfig;
 import intercept.logging.EventLog;
+import intercept.utils.Function;
 
 public interface ProxyServer {
     void start();
@@ -13,4 +14,6 @@ public interface ProxyServer {
     String getName();
 
     ProxyConfig getConfig();
+
+    <T> T response(Function<T> function);
 }

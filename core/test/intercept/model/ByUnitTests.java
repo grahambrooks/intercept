@@ -25,14 +25,13 @@ public class ByUnitTests {
 
     @Test
     public void typeFilterAddsObjectsThatMatchType() {
-        ArrayList<LogElement> list = new ArrayList<LogElement>();
+        ArrayList<SimpleLogElement> list = new ArrayList<SimpleLogElement>();
         list.add(new SimpleLogElement("Hello"));
 
-        TestCollection<LogElement> collection = new TestCollection<LogElement>(list);
-        final Collection<LogElement> result = new ArrayList<LogElement>();
-        collection.filtered(By.type(SimpleLogElement.class), new FilterTarget<LogElement>() {
-            @Override
-            public void add(LogElement element) {
+        TestCollection<SimpleLogElement> collection = new TestCollection<SimpleLogElement>(list);
+        final Collection<SimpleLogElement> result = new ArrayList<SimpleLogElement>();
+        collection.filtered(By.type(SimpleLogElement.class), new FilterTarget<SimpleLogElement>() {
+            public void add(SimpleLogElement element) {
                 result.add(element);
             }
         });

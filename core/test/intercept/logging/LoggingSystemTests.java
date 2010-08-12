@@ -44,7 +44,7 @@ public class LoggingSystemTests {
         assertThat(new String(method.getResponseBody()), is(stubbedResponseBody));
         assertThat(proxyServer.getLogs().getEntries().size(), is(1));
 
-        List<LogElement> list = proxyServer.getLogs().filtered(By.type(ResponseDataLogElement.class));
+        List<ResponseDataLogElement> list = proxyServer.getLogs().filtered(By.type(ResponseDataLogElement.class));
 
         long weight = 0;
         for (LogElement logElement : list) {

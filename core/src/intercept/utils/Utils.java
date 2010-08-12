@@ -1,12 +1,31 @@
 package intercept.utils;
 
+import intercept.logging.EventLog;
+import intercept.model.By;
+import intercept.model.LogElement;
+import intercept.model.ResponseDataLogElement;
+
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.Socket;
 import java.net.ServerSocket;
+import java.util.List;
 
 public class Utils {
+    public static Function<Long> PageWeight = new Function<Long>(){
+        public Long execute(EventLog eventLog) {
+            List<ResponseDataLogElement> responseElements = eventLog.filtered(By.type(ResponseDataLogElement.class));
+
+            long weight = 0;
+            for (ResponseDataLogElement responseElement : responseElements) {
+                weight += responseElement.responseWeight();
+            }
+
+            return weight;
+        }
+    } ;
+
     public static void close(Closeable item) {
         if (item != null) {
             try {

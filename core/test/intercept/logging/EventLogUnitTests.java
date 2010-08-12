@@ -39,7 +39,7 @@ public class EventLogUnitTests {
 
         log.add(logEntry);
 
-        List<LogElement> filteredElements = log.filtered(By.type(SimpleLogElement.class));
+        List<SimpleLogElement> filteredElements = log.filtered(By.type(SimpleLogElement.class));
 
         assertThat(filteredElements.size(), is(1));
     }

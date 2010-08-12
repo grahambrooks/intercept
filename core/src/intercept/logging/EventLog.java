@@ -39,11 +39,10 @@ public class EventLog  {
         current.addElement(element);
     }
 
-    public List<LogElement> filtered(LogFilter<LogElement> filter) {
-        final List<LogElement> result = new ArrayList<LogElement>();
-        FilterTarget<LogElement> target = new FilterTarget<LogElement>(){
-            @Override
-            public void add(LogElement element) {
+    public <T extends LogElement> List<T> filtered(LogFilter<T> filter) {
+        final List<T> result = new ArrayList<T>();
+        FilterTarget<T> target = new FilterTarget<T>(){
+            public void add(T element) {
                result.add(element);
             }
         };

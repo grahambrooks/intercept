@@ -1,10 +1,10 @@
 package intercept.model;
 
 public class By {
-    public static LogFilter<LogElement> type(final Class<?> type) {
-        return new LogFilter<LogElement>() {
+    public static <T> LogFilter<T> type(final Class<T> type) {
+        return new LogFilter<T>() {
             @Override
-            public void filter(LogElement element, FilterTarget<LogElement> result) {
+            public void filter(T element, FilterTarget<T> result) {
                 if (type.isInstance(element)) {
                     result.add(element);
                 }

@@ -68,13 +68,12 @@ public class LogEntry implements Comparable<Object>, FilterTarget<LogElement> {
         return (int) (this.earliestElementTime() - other.earliestElementTime());
     }
 
-    public void copyTo(FilterTarget<LogElement> result, LogFilter<LogElement> filter) {
+    public <T extends LogElement> void copyTo(FilterTarget<T> result, LogFilter<T> filter) {
         for (LogElement element : elements) {
-            filter.filter(element, result);
+            filter.filter((T)element, result);
         }
     }
 
-    @Override
     public void add(LogElement element) {
         elements.add(element);
     }

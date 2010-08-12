@@ -4,11 +4,14 @@ import intercept.configuration.ProxyConfig;
 import intercept.logging.ApplicationLog;
 import intercept.logging.EventLog;
 import intercept.logging.EventLogger;
+import intercept.model.LogEntry;
+import intercept.utils.Function;
 import intercept.utils.Utils;
 
 import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
+import java.util.List;
 
 /**
  * Implementation of ProxyServer accepts incoming connections and creates a ProxyChannel to handle requests on that
@@ -94,7 +97,7 @@ class InterceptProxyServer implements ProxyServer {
 
             return false;
         }
-        
+
         applicationLog.trace("Started Proxy server on port " + proxyConfig.getPort());
 
         return true;
@@ -123,5 +126,9 @@ class InterceptProxyServer implements ProxyServer {
 
     public ProxyConfig getConfig() {
         return this.proxyConfig;
+    }
+
+    public <T> T response(Function<T> function) {
+        return function.execute(getLogs());
     }
 }

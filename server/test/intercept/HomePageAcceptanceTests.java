@@ -1,12 +1,14 @@
 package intercept;
 
 import intercept.utils.Block;
+import intercept.utils.Utils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import static org.hamcrest.CoreMatchers.is;
+import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertThat;
 
 public class HomePageAcceptanceTests {
@@ -23,6 +25,20 @@ public class HomePageAcceptanceTests {
             public void yield(TestContext ctx) {
                 ctx.driver().get(TestAsset.interceptInstance().uri("/"));
                 assertThat(ctx.driver().getTitle(), is("Intercept - Server"));
+            }
+        });
+    }
+
+    // new Function
+    @Test
+    public void homePageWeightShouldBe() {
+        testContext.verify(new Block<TestContext>() {
+            public void yield(TestContext ctx) {
+                ctx.driver().get(TestAsset.interceptInstance().uri("/"));
+                assertThat(ctx.driver().getTitle(), is("Intercept - Server"));
+
+                Long aLong = ctx.proxy().response(Utils.PageWeight);
+                assertThat(aLong, is(200L));
             }
         });
     }

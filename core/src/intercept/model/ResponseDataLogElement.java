@@ -10,6 +10,10 @@ public class ResponseDataLogElement extends LogElement {
         this.response = response == null ? EMPTY : response.clone();
     }
 
+    public long responseWeight() {
+        return response.length;
+    }
+
     @Override
     public String getMessage() {
         return "REQUEST:\n" + (new String(request))
