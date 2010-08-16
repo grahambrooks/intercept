@@ -37,7 +37,7 @@ public class Utils {
 
     public static void close(Socket socket) {
         try {
-            if (socket != null) {
+            if (socket != null && !socket.isClosed()) {
                 socket.close();
             }
         } catch (IOException e) {
@@ -46,7 +46,7 @@ public class Utils {
 
     public static void close(ServerSocket socket) {
         try {
-            if (socket != null) {
+            if (socket != null && !socket.isClosed()) {
                 socket.close();
             }
         } catch (IOException e) {

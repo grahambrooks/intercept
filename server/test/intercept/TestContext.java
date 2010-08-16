@@ -5,6 +5,7 @@ import intercept.proxy.ProxyServer;
 import intercept.server.InterceptServer;
 import intercept.utils.Block;
 import org.openqa.selenium.WebDriver;
+import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
 class TestContext {
     TestAsset asset;
@@ -39,5 +40,10 @@ class TestContext {
 
     public ProxyServer proxy() {
         return InterceptProxy.getRunningProxy(0);
+    }
+
+    public WebDriver configure(HtmlUnitDriver htmlUnitDriver) {
+        htmlUnitDriver.setProxy("localhost", proxy().getConfig().getPort());
+        return htmlUnitDriver;
     }
 }

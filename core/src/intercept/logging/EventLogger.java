@@ -19,12 +19,14 @@ public class EventLogger {
     }
 
     public void logRequest(Socket socket, HTTPRequest request) {
+        System.out.println("Logging request");
         LogEntry logEntry = new LogEntry();
         logEntry.addElement(new RequestLogElement(socket.getInetAddress().getHostAddress(), socket.getLocalPort(), request));
         log.add(logEntry);
     }
 
     public void appendResponse(Socket socket, EventTimer timer, int responseLength, HTTPRequest request) {
+        System.out.println("Logging response");
         log.append(new ResponseLogElement(socket.getInetAddress().getHostAddress(), socket.getLocalPort(), timer, responseLength, request));
     }
 

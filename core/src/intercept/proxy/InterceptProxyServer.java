@@ -83,6 +83,7 @@ class InterceptProxyServer implements ProxyServer {
                 client = serverSocket.accept();
                 ProxyChannel t = new ProxyChannel(client, proxyConfig, logger, applicationLog);
                 t.start();
+                applicationLog.trace("Accepted connection");
             } catch (IOException e) {
                 applicationLog.log("Failed to accept connection " + e);
             }
@@ -92,15 +93,12 @@ class InterceptProxyServer implements ProxyServer {
     private boolean openProxySocket() {
         try {
             serverSocket = new ServerSocket(proxyConfig.getPort());
+            applicationLog.trace("Started Proxy server on port " + proxyConfig.getPort());
+            return true;
         } catch (IOException e) {
             applicationLog.log("Proxy " + proxyConfig.getName() + " thread failed to start on port " + proxyConfig.getPort() + "\n" + e.toString());
-
             return false;
         }
-
-        applicationLog.trace("Started Proxy server on port " + proxyConfig.getPort());
-
-        return true;
     }
 
     public void stop() {

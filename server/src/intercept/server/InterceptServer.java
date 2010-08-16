@@ -174,6 +174,8 @@ public class InterceptServer implements HttpHandler, WebServer {
     }
 
     public String uri(String path) {
-        return "http://localhost:" + configuration.getConfigurationPort() + path;
+        String uri = "http://localhost:" + configuration.getConfigurationPort() + path;
+        System.out.println("Requesting URL " + uri);
+        return uri;
     }
 }

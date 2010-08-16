@@ -44,7 +44,7 @@ abstract class TestAsset {
             @Override
             public void itemConstruct(TestContext ctx) {
                 System.out.println("Starting htmlunit");
-                driver = new HtmlUnitDriver();
+                driver = ctx.configure(new HtmlUnitDriver());
                 ctx.driver = driver;
             }
 
