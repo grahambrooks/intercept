@@ -1,5 +1,6 @@
 package intercept;
 
+import intercept.configuration.DefaultInterceptConfiguration;
 import intercept.configuration.InterceptConfiguration;
 import intercept.logging.ConsoleApplicationLog;
 import intercept.server.DefaultInterceptServer;
@@ -23,7 +24,7 @@ abstract class TestAsset {
                 ConsoleApplicationLog log = new ConsoleApplicationLog();
                 interceptServer = new DefaultInterceptServer(log);
                 ctx.putIntercept(interceptServer);
-                config = new InterceptConfiguration(log);
+                config = new DefaultInterceptConfiguration(log);
 
                 interceptServer.start(config);
             }

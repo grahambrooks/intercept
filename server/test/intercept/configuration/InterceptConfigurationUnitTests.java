@@ -17,7 +17,7 @@ public class InterceptConfigurationUnitTests {
 
     @Test
     public void configurationDefaultsToStartingServer() {
-        InterceptConfiguration configuration = new InterceptConfiguration(nullLogger);
+        InterceptConfiguration configuration = new DefaultInterceptConfiguration(nullLogger);
 
         configuration.parseArgs(new LinkedList<String>());
 
@@ -26,7 +26,7 @@ public class InterceptConfigurationUnitTests {
 
     @Test
     public void portNumberCanBePassedAsCommandLineOption() {
-        InterceptConfiguration configuration = new InterceptConfiguration(nullLogger);
+        InterceptConfiguration configuration = new DefaultInterceptConfiguration(nullLogger);
         LinkedList<String> options = new LinkedList<String>();
         options.add("-port");
         options.add("123");
@@ -37,7 +37,7 @@ public class InterceptConfigurationUnitTests {
 
     @Test
     public void acceptsConfigurationFileParameter() {
-        InterceptConfiguration configuration = new InterceptConfiguration(nullLogger);
+        InterceptConfiguration configuration = new DefaultInterceptConfiguration(nullLogger);
         LinkedList<String> options = new LinkedList<String>();
         options.add("-port");
         options.add("123");
@@ -53,7 +53,7 @@ public class InterceptConfigurationUnitTests {
 
     @Test
     public void configurationLoadsConfigurationFileIfNoArgumentsSupplied() {
-        InterceptConfiguration configuration = new InterceptConfiguration(nullLogger);
+        InterceptConfiguration configuration = new DefaultInterceptConfiguration(nullLogger);
         configuration.parseArgs(new LinkedList<String>());
 
         Block<ProxyConfig> mockVisitor = mock(Block.class);
@@ -65,7 +65,7 @@ public class InterceptConfigurationUnitTests {
 
     @Test
     public void defaultConfigurationPortIs200() {
-        InterceptConfiguration configuration = new InterceptConfiguration(nullLogger);
+        InterceptConfiguration configuration = new DefaultInterceptConfiguration(nullLogger);
         configuration.parseArgs(new LinkedList<String>());
 
         assertThat(configuration.getConfigurationPort(), equalTo(2000));
@@ -74,7 +74,7 @@ public class InterceptConfigurationUnitTests {
     @Test
     public void warningGivenForInvalidPortNumber() {
         ConsoleApplicationLog mockLogger = mock(ConsoleApplicationLog.class);
-        InterceptConfiguration configuration = new InterceptConfiguration(mockLogger);
+        InterceptConfiguration configuration = new DefaultInterceptConfiguration(mockLogger);
         LinkedList<String> options = new LinkedList<String>();
         options.add("-port");
         options.add("ewoir");

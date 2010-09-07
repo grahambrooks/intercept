@@ -1,5 +1,6 @@
 package intercept.server.components;
 
+import intercept.configuration.DefaultInterceptConfiguration;
 import intercept.configuration.InterceptConfiguration;
 import intercept.server.WebContext;
 import org.junit.Test;
@@ -27,7 +28,7 @@ public class HomePagePresenterUnitTests {
 
     @Test
     public void test() {
-        InterceptConfiguration config = mock(InterceptConfiguration.class);
+        InterceptConfiguration config = mock(DefaultInterceptConfiguration.class);
         HomePagePresenter presenter = new HomePagePresenter(config);
 
         WebContext context = mock(WebContext.class);

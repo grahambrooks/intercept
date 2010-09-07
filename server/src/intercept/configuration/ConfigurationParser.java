@@ -4,9 +4,6 @@ package intercept.configuration;
 
 
 import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
 
 public class ConfigurationParser extends Parser {
     public static final String[] tokenNames = new String[] {
@@ -55,7 +52,7 @@ public class ConfigurationParser extends Parser {
 
 
     // $ANTLR start "configuration"
-    // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:11:1: configuration[InterceptConfiguration config] : ( configurationStatement[config] )* EOF ;
+    // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:11:1: configuration[DefaultInterceptConfiguration config] : ( configurationStatement[config] )* EOF ;
     public final void configuration(InterceptConfiguration config) throws RecognitionException {
         try {
             // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:12:2: ( ( configurationStatement[config] )* EOF )
@@ -107,7 +104,7 @@ public class ConfigurationParser extends Parser {
 
 
     // $ANTLR start "configurationStatement"
-    // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:15:1: configurationStatement[InterceptConfiguration config] : ( PORT EQ port= NUMBER | def= proxyDefinition );
+    // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:15:1: configurationStatement[DefaultInterceptConfiguration config] : ( PORT EQ port= NUMBER | def= proxyDefinition );
     public final void configurationStatement(InterceptConfiguration config) throws RecognitionException {
         Token port=null;
         ProxyConfig def = null;

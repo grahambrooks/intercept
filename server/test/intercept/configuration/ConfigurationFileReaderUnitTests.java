@@ -20,7 +20,7 @@ public class ConfigurationFileReaderUnitTests {
         InputStream i = new ByteArrayInputStream("port = 10".getBytes());
 
         ConfigurationFileReader reader = new ConfigurationFileReader(mock(ApplicationLog.class));
-        InterceptConfiguration config = new InterceptConfiguration(mock(ConsoleApplicationLog.class));
+        InterceptConfiguration config = new DefaultInterceptConfiguration(mock(ConsoleApplicationLog.class));
         reader.readConfiguration(i, config);
 
         assertThat(config.getConfigurationPort(), equalTo(10));
@@ -33,7 +33,7 @@ public class ConfigurationFileReaderUnitTests {
         InputStream i = new ByteArrayInputStream(basicProxyDefn.getBytes());
 
         ConfigurationFileReader reader = new ConfigurationFileReader(mock(ApplicationLog.class));
-        InterceptConfiguration config = new InterceptConfiguration(mock(ConsoleApplicationLog.class));
+        InterceptConfiguration config = new DefaultInterceptConfiguration(mock(ConsoleApplicationLog.class));
         reader.readConfiguration(i, config);
 
         assertThat(config.hasProxy("foo"), is(true));
@@ -50,7 +50,7 @@ public class ConfigurationFileReaderUnitTests {
         InputStream i = new ByteArrayInputStream(basicProxyDefn.getBytes());
 
         ConfigurationFileReader reader = new ConfigurationFileReader(mock(ApplicationLog.class));
-        InterceptConfiguration config = new InterceptConfiguration(mock(ConsoleApplicationLog.class));
+        InterceptConfiguration config = new DefaultInterceptConfiguration(mock(ConsoleApplicationLog.class));
         reader.readConfiguration(i, config);
 
         assertThat(config.hasProxy("foo"), is(true));
@@ -68,7 +68,7 @@ public class ConfigurationFileReaderUnitTests {
         InputStream i = new ByteArrayInputStream(basicProxyDefn.getBytes());
 
         ConfigurationFileReader reader = new ConfigurationFileReader(mock(ApplicationLog.class));
-        InterceptConfiguration config = new InterceptConfiguration(mock(ConsoleApplicationLog.class));
+        InterceptConfiguration config = new DefaultInterceptConfiguration(mock(ConsoleApplicationLog.class));
         reader.readConfiguration(i, config);
 
         assertThat(config.hasProxy("foo"), is(true));
