@@ -32,6 +32,7 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
     private HttpServer server;
     private InterceptConfiguration configuration;
     private final ApplicationLog applicationLog;
+    private static final int STOP_CODE = 200;
 
     public DefaultInterceptServer(ApplicationLog applicationLog) {
         this.applicationLog = applicationLog;
@@ -72,8 +73,8 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
             Socket socket = null;
             try {
                 socket = new Socket("localhost", configuration.getConfigurationPort());
-                if (socket != null && socket.isConnected()) {
-                    Utils.sleep(200);
+                if (socket.isConnected()) {
+                    Utils.sleep(STOP_CODE);
                     return;
                 }
             } catch (IOException e) {
@@ -90,23 +91,13 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
 
     private void stopProxyServers() {
         InterceptProxy.shutdown();
-        ;
     }
 
     public void handle(HttpExchange httpExchange) {
         try {
             String method = httpExchange.getRequestMethod();
 
-            Dispatcher dispatcher = new Dispatcher();
-            dispatcher.register(simpleMatcher("/"), new HomePagePresenter(configuration));
-            dispatcher.register(simpleMatcher("/proxy/new"), new NewProxyPresenter(), new NewProxyCommand());
-            dispatcher.register(UriMatchers.classpathMatcher(), new ClasspathContentPresenter());
-            dispatcher.register(simpleMatcher("/stop"), new Command() {
-                public void executeCommand(WebContext context) {
-                    stopProxyServers();
-                    server.stop(0);
-                }
-            });
+            Dispatcher dispatcher = createDispatcher();
 
             if (method.equalsIgnoreCase("GET")) {
                 dispatcher.dispatchGetRequest(new WebContext(this, httpExchange));
@@ -123,6 +114,20 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
             System.err.println("Error processing request");
             e.printStackTrace();
         }
+    }
+
+    private Dispatcher createDispatcher() {
+        Dispatcher dispatcher = new Dispatcher();
+        dispatcher.register(simpleMatcher("/"), new HomePagePresenter(configuration));
+        dispatcher.register(simpleMatcher("/proxy/new"), new NewProxyPresenter(), new NewProxyCommand());
+        dispatcher.register(UriMatchers.classpathMatcher(), new ClasspathContentPresenter());
+        dispatcher.register(simpleMatcher("/stop"), new Command() {
+            public void executeCommand(WebContext context) {
+                stopProxyServers();
+                server.stop(0);
+            }
+        });
+        return dispatcher;
     }
 
     private void send404(HttpExchange httpExchange) {
@@ -151,15 +156,16 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
 
     @Override
     public void startNewProxy(String name, int port) {
-        ProxyConfig proxyConfig = new DefaultProxyConfig();
-        proxyConfig.setName(name);
-        proxyConfig.setPort(port);
+        ProxyConfig proxyConfig = new DefaultProxyConfig(name, port);
         configuration.add(proxyConfig);
         ProxyServer proxy = InterceptProxy.startProxy(proxyConfig, applicationLog);
 
-        applicationLog.trace("Created web context for /" + proxyConfig.getName());
-        server.createContext("/" + proxyConfig.getName(), new ProxyConfigurationHttpHandler(proxy, this.applicationLog));
+        startEntrypointForProxy(proxyConfig, proxy);
+    }
 
+    private void startEntrypointForProxy(ProxyConfig proxyConfig, ProxyServer proxy) {
+        applicationLog.trace("Created web context for /" + proxyConfig.getName());
+        server.createContext("/" + proxyConfig.getName(), new ProxyConfigurationHttpHandler(proxy, applicationLog));
     }
 
     @Override
@@ -175,7 +181,7 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
             System.err.println("Failed to stop intercept server: " + e.getMessage());
         }
 
-        server.stop(200);
+        server.stop(STOP_CODE);
         applicationLog.log("Configuration server stopped");
     }
 

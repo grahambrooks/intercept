@@ -2,7 +2,6 @@ package intercept.utils;
 
 import intercept.logging.EventLog;
 import intercept.model.By;
-import intercept.model.LogElement;
 import intercept.model.ResponseDataLogElement;
 
 import java.io.Closeable;
@@ -13,7 +12,7 @@ import java.net.ServerSocket;
 import java.util.List;
 
 public class Utils {
-    public static Function<Long> PageWeight = new Function<Long>(){
+    public static final Function<Long, EventLog> PageWeight = new Function<Long, EventLog>(){
         public Long execute(EventLog eventLog) {
             List<ResponseDataLogElement> responseElements = eventLog.filtered(By.type(ResponseDataLogElement.class));
 

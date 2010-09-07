@@ -13,17 +13,23 @@ import java.util.List;
 import java.util.Map;
 
 public class DefaultProxyConfig implements ProxyConfig {
-    private int port = 8080;
+    private int port = DEFAULT_PORT_NO;
     private String name;
     private List<Route> routes;
     private Map<UriMatcher, StubResponse> stubs;
     private URI outgoingProxy;
     private int logLevel;
+    private static final int DEFAULT_PORT_NO = 8080;
 
-    public DefaultProxyConfig() {
-        this.name = "undefined";
+    public DefaultProxyConfig(String name, int port) {
+        this.name = name;
+        this.port = port;
         this.routes = new ArrayList<Route>();
         this.stubs = new HashMap<UriMatcher, StubResponse>();
+    }
+
+    public DefaultProxyConfig() {
+        this("undefined", DEFAULT_PORT_NO);
     }
 
     public int getPort() {

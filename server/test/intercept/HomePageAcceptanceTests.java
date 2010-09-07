@@ -8,7 +8,6 @@ import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
 
 import static org.hamcrest.CoreMatchers.is;
-import static org.hamcrest.Matchers.lessThan;
 import static org.junit.Assert.assertThat;
 
 public class HomePageAcceptanceTests {
@@ -30,7 +29,6 @@ public class HomePageAcceptanceTests {
         });
     }
 
-    // new Function
     @Test
     public void homePageWeightShouldBe() {
         testContext.verify(new Block<TestContext>() {

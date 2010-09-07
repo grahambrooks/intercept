@@ -15,5 +15,5 @@ public interface ProxyServer {
 
     ProxyConfig getConfig();
 
-    <T> T response(Function<T> function);
+    <T> T response(Function<T, EventLog> function);
 }
