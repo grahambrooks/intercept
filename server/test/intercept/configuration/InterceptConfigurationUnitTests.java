@@ -1,5 +1,6 @@
 package intercept.configuration;
 
+import intercept.logging.ApplicationLog;
 import intercept.logging.ConsoleApplicationLog;
 import intercept.server.ApplicationCommand;
 import intercept.utils.Block;
@@ -12,16 +13,7 @@ import static org.mockito.Mockito.*;
 import java.util.LinkedList;
 
 public class InterceptConfigurationUnitTests {
-    ConsoleApplicationLog nullLogger = new ConsoleApplicationLog() {
-        public void log(String message) {
-        }
-
-        public void setVerbose() {
-        }
-
-        public void trace(String message) {
-        }
-    };
+    ApplicationLog nullLogger = mock(ApplicationLog.class);
 
     @Test
     public void configurationDefaultsToStartingServer() {

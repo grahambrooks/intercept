@@ -13,23 +13,10 @@ import java.io.IOException;
 
 import static org.hamcrest.CoreMatchers.is;
 import static org.hamcrest.MatcherAssert.assertThat;
+import static org.mockito.Mockito.mock;
 
 public class InterceptProxyServerUnitTests {
-    ApplicationLog log = new ApplicationLog() {
-        @Override
-        public void log(String message) {
-            System.out.println(message);
-        }
-
-        @Override
-        public void trace(String message) {
-            System.out.println(message);
-        }
-
-        @Override
-        public void setVerbose() {
-        }
-    };
+    ApplicationLog log = mock(ApplicationLog.class);
 
     @Test
     public void serverStartsAndStops() {

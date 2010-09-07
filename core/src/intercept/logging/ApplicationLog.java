@@ -1,7 +1,7 @@
 package intercept.logging;
 
 public interface ApplicationLog {
-    public static final ApplicationLog NullApplicationLog = new ApplicationLog(){
+    public static final ApplicationLog NullApplicationLog = new ApplicationLog() {
         @Override
         public void log(String message) {
         }
@@ -14,7 +14,10 @@ public interface ApplicationLog {
         public void setVerbose() {
         }
     };
+
     public void log(String message);
+
     void trace(String message);
+
     public void setVerbose();
 }

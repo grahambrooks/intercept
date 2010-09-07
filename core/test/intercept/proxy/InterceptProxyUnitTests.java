@@ -7,25 +7,15 @@ import intercept.utils.Block;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.mockito.Mockito.mock;
+
 public class InterceptProxyUnitTests {
     ApplicationLog applicationLog;
     ProxyConfig config;
 
     @Before
     public void setup() {
-        applicationLog = new ApplicationLog() {
-            @Override
-            public void log(String message) {
-            }
-
-            @Override
-            public void trace(String message) {
-            }
-
-            @Override
-            public void setVerbose() {
-            }
-        };
+        applicationLog = mock(ApplicationLog.class);
         config = new DefaultProxyConfig();
         config.setName("test");
         config.setPort(2000);
