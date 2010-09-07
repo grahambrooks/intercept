@@ -17,6 +17,7 @@ public class HomePageAcceptanceTests {
     @BeforeClass
     public static void setupEnvironment() {
         testContext = TestContext.using(TestAsset.intercept().with(TestAsset.HTMLUnit()));
+//        testContext = TestContext.using(TestAsset.HTMLUnit());
     }
 
     @Test

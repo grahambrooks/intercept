@@ -25,6 +25,10 @@ public class InterceptProxyServerUnitTests {
         public void trace(String message) {
             System.out.println(message);
         }
+
+        @Override
+        public void setVerbose() {
+        }
     };
 
     @Test

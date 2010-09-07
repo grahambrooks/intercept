@@ -24,7 +24,7 @@ public class InterceptConfiguration {
     }
 
 
-    public InterceptConfiguration(final ConsoleApplicationLog applicationLog, String... args) {
+    public InterceptConfiguration(final ApplicationLog applicationLog, String... args) {
         this.applicationLog = applicationLog;
         configurationPort = 2000;
         configurations = new HashMap<String, ProxyConfig>();

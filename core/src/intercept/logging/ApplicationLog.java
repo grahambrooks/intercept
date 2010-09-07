@@ -9,7 +9,12 @@ public interface ApplicationLog {
         @Override
         public void trace(String message) {
         }
+
+        @Override
+        public void setVerbose() {
+        }
     };
     public void log(String message);
     void trace(String message);
+    public void setVerbose();
 }

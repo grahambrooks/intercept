@@ -42,8 +42,14 @@ class TestContext {
         return InterceptProxy.getRunningProxy(0);
     }
 
+    boolean proxied() {
+        return interceptServer != null && proxy() != null;
+    }
+
     public WebDriver configure(HtmlUnitDriver htmlUnitDriver) {
-        htmlUnitDriver.setProxy("localhost", proxy().getConfig().getPort());
+        if (proxied()) {
+            htmlUnitDriver.setProxy("localhost", proxy().getConfig().getPort());
+        }
         return htmlUnitDriver;
     }
 }

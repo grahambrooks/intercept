@@ -24,7 +24,7 @@ class InterceptProxyServer implements ProxyServer {
     private final EventLogger logger = new EventLogger(log);
     private ServerSocket serverSocket = null;
 
-    private final ProxyStatus[] proxyStatus = {ProxyStatus.stopped};
+    private final transient ProxyStatus[] proxyStatus = {ProxyStatus.stopped};
 
     private Thread proxyThread;
 

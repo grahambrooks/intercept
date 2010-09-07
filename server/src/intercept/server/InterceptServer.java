@@ -71,13 +71,14 @@ public class InterceptServer implements HttpHandler, WebServer {
             Socket socket = null;
             try {
                 socket = new Socket("localhost", configuration.getConfigurationPort());
+                if (socket != null && socket.isConnected()) {
+                    Utils.sleep(200);
+                    return;
+                }
             } catch (IOException e) {
+            } finally {
+                Utils.close(socket);
             }
-            if (socket != null && socket.isConnected()) {
-                Utils.sleep(200);
-                return;
-            }
-            Utils.close(socket);
         }
     }
 

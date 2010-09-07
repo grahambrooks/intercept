@@ -21,6 +21,10 @@ public class InterceptProxyUnitTests {
             @Override
             public void trace(String message) {
             }
+
+            @Override
+            public void setVerbose() {
+            }
         };
         config = new DefaultProxyConfig();
         config.setName("test");

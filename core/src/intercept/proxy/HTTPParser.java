@@ -2,12 +2,11 @@ package intercept.proxy;
 
 public class HTTPParser {
     private HTTPAutomaton automaton;
+    private RequestHandler requestHandler;
 
     public interface RequestHandler{
         void onRequest(String method, String path, String protocol);
     }
-
-    private RequestHandler requestHandler;
 
     public HTTPParser() {
         this.automaton = new HTTPAutomaton ();
