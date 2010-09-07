@@ -59,7 +59,7 @@ public class UriMatchers {
             public boolean matches(URI requestUri) {
                 InputStream stream = null;
                 try {
-                    stream = InterceptServer.class.getResourceAsStream(requestUri.toString());
+                    stream = DefaultInterceptServer.class.getResourceAsStream(requestUri.toString());
                     return stream != null;
                 } finally {
                     if (stream != null) {

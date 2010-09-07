@@ -2,8 +2,8 @@ package intercept;
 
 import intercept.configuration.InterceptConfiguration;
 import intercept.logging.ConsoleApplicationLog;
+import intercept.server.DefaultInterceptServer;
 import intercept.server.InterceptServer;
-import intercept.utils.Utils;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.htmlunit.HtmlUnitDriver;
 
@@ -21,7 +21,7 @@ abstract class TestAsset {
             @Override
             public void itemConstruct(TestContext ctx) {
                 ConsoleApplicationLog log = new ConsoleApplicationLog();
-                interceptServer = new InterceptServer(log);
+                interceptServer = new DefaultInterceptServer(log);
                 ctx.putIntercept(interceptServer);
                 config = new InterceptConfiguration(log);
 

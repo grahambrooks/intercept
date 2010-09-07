@@ -1,7 +1,7 @@
 package intercept.server.components;
 
 import intercept.framework.Presenter;
-import intercept.server.InterceptServer;
+import intercept.server.DefaultInterceptServer;
 import intercept.server.WebContext;
 
 import java.io.IOException;
@@ -11,7 +11,7 @@ public class ClasspathContentPresenter implements Presenter {
     public void present(WebContext context) {
         InputStream stream = null;
         try {
-            stream = InterceptServer.class.getResourceAsStream(context.getRequestUri().getPath());
+            stream = DefaultInterceptServer.class.getResourceAsStream(context.getRequestUri().getPath());
 
             context.renderResponse(stream);
         } finally {
