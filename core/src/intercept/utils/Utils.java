@@ -12,7 +12,7 @@ import java.net.ServerSocket;
 import java.util.List;
 
 public class Utils {
-    public static final Function<Long, EventLog> PageWeight = new Function<Long, EventLog>(){
+    public static final Function<Long, EventLog> pageWeight = new Function<Long, EventLog>(){
         public Long execute(EventLog eventLog) {
             List<ResponseDataLogElement> responseElements = eventLog.filtered(By.type(ResponseDataLogElement.class));
 

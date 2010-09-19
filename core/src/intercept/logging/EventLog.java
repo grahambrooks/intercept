@@ -5,13 +5,12 @@ import intercept.model.LogElement;
 import intercept.model.LogEntry;
 import intercept.model.LogFilter;
 import intercept.model.SimpleLogElement;
-import intercept.utils.ResultBlock;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-public class EventLog  {
+public class EventLog {
     private List<LogEntry> entries = Collections.synchronizedList(new ArrayList<LogEntry>());
     private LogEntry current;
 
@@ -41,24 +40,16 @@ public class EventLog  {
 
     public <T extends LogElement> List<T> filtered(LogFilter<T> filter) {
         final List<T> result = new ArrayList<T>();
-        FilterTarget<T> target = new FilterTarget<T>(){
+        FilterTarget<T> target = new FilterTarget<T>() {
             public void add(T element) {
-               result.add(element);
+                result.add(element);
             }
         };
-        
+
         for (LogEntry entry : entries) {
             entry.copyTo(target, filter);
         }
 
-        return result;
-    }
-
-    public <T> T Do(ResultBlock<LogElement, T> block) {
-        T result = null;
-        for (LogEntry entry : entries) {
-            result = entry.Do(block); 
-        }
         return result;
     }
 }

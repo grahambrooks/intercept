@@ -89,5 +89,4 @@ abstract class TestAsset {
     public static InterceptServer interceptInstance() {
         return interceptServer;
     }
-
 }

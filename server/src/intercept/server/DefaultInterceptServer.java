@@ -40,7 +40,7 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
 
     Block<ProxyConfig> startProxies = new Block<ProxyConfig>() {
         public void yield(ProxyConfig item) {
-            applicationLog.log("Starting proxy server " + item.getName());
+            applicationLog.log("Starting proxy server \"" + item.getName() + "\" on port " + item.getPort());
 
             ProxyServer proxy = InterceptProxy.startProxy(item, applicationLog);
 
@@ -53,7 +53,7 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
     public void start(InterceptConfiguration configuration) {
         try {
             this.configuration = configuration;
-            applicationLog.log("Starting configuration server on port " + configuration.getConfigurationPort());
+            applicationLog.log("Starting Intercept server on port " + configuration.getConfigurationPort());
             server = HttpServer.create(new InetSocketAddress(configuration.getConfigurationPort()), 0);
             server.createContext("/", this);
             server.setExecutor(null);
@@ -182,7 +182,7 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
         }
 
         server.stop(STOP_CODE);
-        applicationLog.log("Configuration server stopped");
+        applicationLog.log("Intercept server stopped");
     }
 
     @Override

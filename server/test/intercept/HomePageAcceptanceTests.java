@@ -36,7 +36,7 @@ public class HomePageAcceptanceTests {
                 ctx.driver().get(TestAsset.interceptInstance().uri("/"));
                 assertThat(ctx.driver().getTitle(), is("Intercept - Server"));
 
-                Long aLong = ctx.proxy().response(Utils.PageWeight);
+                Long aLong = ctx.proxy().response(Utils.pageWeight);
                 assertThat(aLong, is(200L));
             }
         });
