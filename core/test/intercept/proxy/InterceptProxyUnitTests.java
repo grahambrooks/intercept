@@ -23,13 +23,15 @@ public class InterceptProxyUnitTests {
 
     @Test
     public void canStartAndStopAProxy() {
-        ProxyServer proxyServer = InterceptProxy.startProxy(config, applicationLog);
-        InterceptProxy.stopProxy(proxyServer);
+        final ProxyServer ourPproxyServer = InterceptProxy.startProxy(config, applicationLog);
+        InterceptProxy.stopProxy(ourPproxyServer);
 
         InterceptProxy.eachProxy(new Block<ProxyServer>() {
             @Override
             public void yield(ProxyServer item) {
-                throw new RuntimeException("Should not be called");
+                if (item == ourPproxyServer) {
+                    throw new RuntimeException("Proxy server not stopped by stop request");
+                }
             }
         });
     }

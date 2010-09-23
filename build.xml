@@ -1,7 +1,6 @@
 <?xml version="1.0"?>
 <project name="intercept" default="build" basedir=".">
 
-    <!-- properties overridden by cruisecontrol -->
     <property name="release.label" value="Dev"/>
 
     <property name="core.src.dir" location="core/src"/>

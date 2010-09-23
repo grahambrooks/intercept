@@ -181,7 +181,7 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
             System.err.println("Failed to stop intercept server: " + e.getMessage());
         }
 
-        server.stop(WAIT_TIME);
+        server.stop(0);
         applicationLog.log("Intercept server stopped");
     }
 

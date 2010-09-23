@@ -53,4 +53,27 @@ class TestContext {
 
         return htmlUnitDriver;
     }
+
+    public void start() {
+        asset.construct(this);
+    }
+
+    public void stop() {
+        asset.close();
+    }
+
+    private static TestContext testContext;
+
+    public static void set(TestContext context) {
+        testContext = context;
+    }
+
+    public static TestContext get() {
+        return testContext;
+    }
+
+    public static void cleanup() {
+        testContext.stop();
+        testContext = null;
+    }
 }

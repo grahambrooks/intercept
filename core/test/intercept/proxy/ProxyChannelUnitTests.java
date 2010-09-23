@@ -1,7 +1,7 @@
 package intercept.proxy;
 
+import intercept.logging.DefaultEventLogger;
 import intercept.logging.EventLog;
-import intercept.logging.EventLogger;
 import intercept.utils.EventTimer;
 import org.junit.Test;
 
@@ -23,7 +23,7 @@ public class ProxyChannelUnitTests {
     @Test
     public void logResponseRecordsElapsedTime() throws Exception {
         EventLog log = new EventLog();
-        EventLogger logger = new EventLogger(log);
+        DefaultEventLogger logger = new DefaultEventLogger(log);
 
         Socket socket = mock(Socket.class);
         InetAddress localHost = InetAddress.getLocalHost();

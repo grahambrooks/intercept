@@ -9,7 +9,7 @@ import static org.junit.Assert.assertThat;
 public class EventLoggerUnitTests {
     @Test
     public void canConstructLogger() {
-        new EventLogger(new EventLog());
+        new DefaultEventLogger(new EventLog());
     }
 
     @Test
@@ -21,7 +21,7 @@ public class EventLoggerUnitTests {
     @Test
     public void canAddAnEntry() {
         EventLog log = new EventLog();
-        EventLogger e = new EventLogger(log);
+        DefaultEventLogger e = new DefaultEventLogger(log);
 
         e.logError("Some message");
 

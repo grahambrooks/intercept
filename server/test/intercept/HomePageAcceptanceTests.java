@@ -1,8 +1,7 @@
 package intercept;
 
-import intercept.utils.Block;
-import intercept.utils.Utils;
-import org.junit.Before;
+import org.junit.AfterClass;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,56 +10,52 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class HomePageAcceptanceTests {
-    private TestContext testContext;
 
-    @Before
-    public void setupEnvironment() {
+    @BeforeClass
+    public static void envSetup() {
+        final TestContext testContext;
         testContext = TestContext.using(TestAsset.intercept().with(TestAsset.HTMLUnit()));
+        testContext.start();
+
+        TestContext.set(testContext);
+    }
+
+    @AfterClass
+    public static void envCleanup() {
+        TestContext.cleanup();
     }
 
     @Test
     public void homePageTitleIsSet() {
-        testContext.verify(new Block<TestContext>() {
-            public void yield(TestContext ctx) {
-                ctx.driver().get(TestAsset.interceptInstance().uri("/"));
-                assertThat(ctx.driver().getTitle(), is("Intercept - Server"));
-            }
-        });
+        TestContext ctx = TestContext.get();
+        ctx.driver().get(TestAsset.interceptInstance().uri("/"));
+        assertThat(ctx.driver().getTitle(), is("Intercept - Server"));
     }
 
-    @Test
-    public void homePageWeightShouldBe200Bytes() {
-        testContext.verify(new Block<TestContext>() {
-            public void yield(TestContext ctx) {
-                ctx.driver().get(TestAsset.interceptInstance().uri("/"));
-
-                Long aLong = ctx.proxy().response(Utils.pageWeight);
-                assertThat(aLong, is(200L));
-            }
-        });
-    }
+//    @Test
+//    public void homePageWeightShouldBe200Bytes() {
+//        TestContext ctx = TestContext.get();
+//        ctx.driver().get(TestAsset.interceptInstance().uri("/"));
+//
+//        Long aLong = ctx.proxy().response(Utils.pageWeight);
+//        assertThat(aLong, is(200L));
+//    }
 
     @Test
     public void homepageContainsDocumentationLink() {
-        testContext.verify(new Block<TestContext>() {
-            public void yield(TestContext ctx) {
-                ctx.driver().get(TestAsset.interceptInstance().uri("/"));
-                WebElement element = ctx.driver().findElement(By.linkText("Intercept documentation"));
+        TestContext ctx = TestContext.get();
+        ctx.driver().get(TestAsset.interceptInstance().uri("/"));
+        WebElement element = ctx.driver().findElement(By.linkText("Intercept documentation"));
 
-                assertThat(element.getAttribute("href"), is("/doc/index.html"));
-            }
-        });
+        assertThat(element.getAttribute("href"), is("/doc/index.html"));
     }
 
     @Test
     public void homepageContainsLinkToCreateNewProxy() {
-        testContext.verify(new Block<TestContext>() {
-            public void yield(TestContext ctx) {
-                ctx.driver().get(TestAsset.interceptInstance().uri("/"));
-                WebElement element = ctx.driver().findElement(By.linkText("New Proxy"));
+        TestContext ctx = TestContext.get();
+        ctx.driver().get(TestAsset.interceptInstance().uri("/"));
+        WebElement element = ctx.driver().findElement(By.linkText("New Proxy"));
 
-                assertThat(element.getAttribute("href"), is("/proxy/new"));
-            }
-        });
+        assertThat(element.getAttribute("href"), is("/proxy/new"));
     }
 }

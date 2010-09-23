@@ -2,6 +2,7 @@ package intercept.proxy;
 
 import intercept.configuration.ProxyConfig;
 import intercept.logging.ApplicationLog;
+import intercept.logging.DefaultEventLogger;
 import intercept.logging.EventLog;
 import intercept.logging.EventLogger;
 import intercept.utils.Function;
@@ -19,7 +20,7 @@ class InterceptProxyServer implements ProxyServer {
     private final ProxyConfig proxyConfig;
     private final ApplicationLog applicationLog;
     private final EventLog log = new EventLog();
-    private final EventLogger logger = new EventLogger(log);
+    private final EventLogger logger = new DefaultEventLogger(log);
     private ServerSocket serverSocket = null;
 
     private final transient ProxyStatus[] proxyStatus = {ProxyStatus.stopped};
