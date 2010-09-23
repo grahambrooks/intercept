@@ -1,7 +1,6 @@
 package intercept.model;
 
 import intercept.utils.Clock;
-import intercept.utils.ResultBlock;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -70,19 +69,11 @@ public class LogEntry implements Comparable<Object>, FilterTarget<LogElement> {
 
     public <T extends LogElement> void copyTo(FilterTarget<T> result, LogFilter<T> filter) {
         for (LogElement element : elements) {
-            filter.filter((T)element, result);
+            filter.filter((T) element, result);
         }
     }
 
     public void add(LogElement element) {
         elements.add(element);
-    }
-
-    public <T> T Do(ResultBlock<LogElement, T> block) {
-        T result = null;
-        for (LogElement element : elements) {
-            result = block.yield(element);
-        }
-        return result;
     }
 }

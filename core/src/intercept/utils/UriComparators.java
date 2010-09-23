@@ -8,21 +8,13 @@ public class UriComparators {
     public static UriComparator fullComparator(final URI uri) {
         return new UriComparator() {
             public boolean matches(URI testUri) {
-                return sameHost(testUri)
+                return compareStrings(uri.getHost(), testUri.getHost())
                         && uri.getPort() == testUri.getPort()
-                        && (uri.getPath() == testUri.getPath() || uri.getPath().compareToIgnoreCase(testUri.getPath()) == 0);
+                        && compareStrings(uri.getPath(), testUri.getPath());
             }
 
-            private boolean sameHost(URI testUri) {
-                if (uri.getHost() == null && testUri.getHost() == null) {
-                    return true;
-                }
-
-                if ((uri.getHost() == null) != (testUri.getHost() == null)) {
-                    return false;
-                }
-
-                return uri.getHost().compareToIgnoreCase(testUri.getHost()) == 0;
+            private boolean compareStrings(String s1, String s2) {
+                return s1 == null && s2 == null || (s1 == null) == (s2 == null) && s1.compareToIgnoreCase(s2) == 0;
             }
 
             public String toString() {

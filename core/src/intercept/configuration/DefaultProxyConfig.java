@@ -20,6 +20,7 @@ public class DefaultProxyConfig implements ProxyConfig {
     private URI outgoingProxy;
     private int logLevel;
     private static final int DEFAULT_PORT_NO = 8080;
+    private static final int HTTP_PORT = 80;
 
     public DefaultProxyConfig(String name, int port) {
         this.name = name;
@@ -61,7 +62,7 @@ public class DefaultProxyConfig implements ProxyConfig {
 
     public int getOutgoingProxyPort() {
         if (outgoingProxy == null) {
-            return 80;
+            return HTTP_PORT;
         }
         return outgoingProxy.getPort();
     }
@@ -82,7 +83,7 @@ public class DefaultProxyConfig implements ProxyConfig {
 
     public boolean hasOutgoingProxyFor(String hostname) {
         if (outgoingProxy != null) {
-            java.net.InetAddress localMachine = null;
+            java.net.InetAddress localMachine;
             try {
                 localMachine = java.net.InetAddress.getLocalHost();
                 if (hostname.equalsIgnoreCase(localMachine.getHostName()) ||
