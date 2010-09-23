@@ -2,12 +2,13 @@ package intercept.configuration;
 
 import intercept.model.UriMatcher;
 import intercept.server.UriMatchers;
-import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
 import org.junit.Test;
 
 import java.net.URI;
 import java.net.URISyntaxException;
+
+import static org.hamcrest.CoreMatchers.is;
+import static org.junit.Assert.assertThat;
 
 public class UriMatcherUnitTests {
     @Test
@@ -23,5 +24,12 @@ public class UriMatcherUnitTests {
         UriMatcher matcher = UriMatchers.simpleMatcher("/proxy/new");
 
         assertThat(matcher.matches(new URI("/proxy/new")), is(true));
+    }
+
+    @Test
+    public void simpleMatcherMatchesOnlyThePath() throws URISyntaxException {
+        UriMatcher matcher = UriMatchers.simpleMatcher("/");
+
+        assertThat(matcher.matches(new URI("http://foobar:8080/")), is(true));
     }
 }

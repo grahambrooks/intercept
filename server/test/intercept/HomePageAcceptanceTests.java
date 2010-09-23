@@ -2,7 +2,7 @@ package intercept;
 
 import intercept.utils.Block;
 import intercept.utils.Utils;
-import org.junit.BeforeClass;
+import org.junit.Before;
 import org.junit.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebElement;
@@ -11,12 +11,11 @@ import static org.hamcrest.CoreMatchers.is;
 import static org.junit.Assert.assertThat;
 
 public class HomePageAcceptanceTests {
-    static TestContext testContext;
+    private TestContext testContext;
 
-    @BeforeClass
-    public static void setupEnvironment() {
+    @Before
+    public void setupEnvironment() {
         testContext = TestContext.using(TestAsset.intercept().with(TestAsset.HTMLUnit()));
-//        testContext = TestContext.using(TestAsset.HTMLUnit());
     }
 
     @Test
@@ -30,11 +29,10 @@ public class HomePageAcceptanceTests {
     }
 
     @Test
-    public void homePageWeightShouldBe() {
+    public void homePageWeightShouldBe200Bytes() {
         testContext.verify(new Block<TestContext>() {
             public void yield(TestContext ctx) {
                 ctx.driver().get(TestAsset.interceptInstance().uri("/"));
-                assertThat(ctx.driver().getTitle(), is("Intercept - Server"));
 
                 Long aLong = ctx.proxy().response(Utils.pageWeight);
                 assertThat(aLong, is(200L));

@@ -4,15 +4,16 @@ import intercept.logging.ApplicationLog;
 import intercept.logging.ConsoleApplicationLog;
 import intercept.model.UriMatcher;
 import intercept.utils.Block;
-import static org.hamcrest.CoreMatchers.equalTo;
-import static org.hamcrest.core.Is.is;
-import static org.junit.Assert.assertThat;
 import org.junit.Test;
-import static org.mockito.Mockito.mock;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
 import java.net.URI;
+
+import static org.hamcrest.CoreMatchers.equalTo;
+import static org.hamcrest.core.Is.is;
+import static org.junit.Assert.assertThat;
+import static org.mockito.Mockito.mock;
 
 public class ConfigurationFileReaderUnitTests {
     @Test
@@ -86,7 +87,7 @@ public class ConfigurationFileReaderUnitTests {
 
         config.eachProxy(visitor);
 
-        assertThat(found[0].getBody(), is("X"));
+        assertThat(found[0].getBody(), is("[X]"));
         assertThat(found[0].getResponse(), is("hey-dude"));
     }
 }

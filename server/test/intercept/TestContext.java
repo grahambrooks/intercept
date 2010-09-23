@@ -50,6 +50,7 @@ class TestContext {
         if (proxied()) {
             htmlUnitDriver.setProxy("localhost", proxy().getConfig().getPort());
         }
+
         return htmlUnitDriver;
     }
 }

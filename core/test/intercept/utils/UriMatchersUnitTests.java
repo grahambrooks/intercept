@@ -8,7 +8,7 @@ import static org.hamcrest.MatcherAssert.assertThat;
 
 public class UriMatchersUnitTests {
     @Test
-    public void simpleMatcherToStringIsTheMatcherText(){
+    public void simpleMatcherToStringIsTheMatcherText() {
         UriMatcher uriMatcher = UriMatchers.simpleMatcher("hello");
 
         assertThat(uriMatcher.toString(), is("hello"));

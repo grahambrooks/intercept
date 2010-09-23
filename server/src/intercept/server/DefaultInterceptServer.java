@@ -32,7 +32,7 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
     private HttpServer server;
     private InterceptConfiguration configuration;
     private final ApplicationLog applicationLog;
-    private static final int STOP_CODE = 200;
+    private static final int WAIT_TIME = 200;
 
     public DefaultInterceptServer(ApplicationLog applicationLog) {
         this.applicationLog = applicationLog;
@@ -74,7 +74,7 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
             try {
                 socket = new Socket("localhost", configuration.getConfigurationPort());
                 if (socket.isConnected()) {
-                    Utils.sleep(STOP_CODE);
+                    Utils.sleep(WAIT_TIME);
                     return;
                 }
             } catch (IOException e) {
@@ -181,7 +181,7 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
             System.err.println("Failed to stop intercept server: " + e.getMessage());
         }
 
-        server.stop(STOP_CODE);
+        server.stop(WAIT_TIME);
         applicationLog.log("Intercept server stopped");
     }
 

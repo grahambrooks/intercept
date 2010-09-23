@@ -13,7 +13,7 @@ public class UriMatchers {
         final Pattern pattern = Pattern.compile(patternText);
         return new UriMatcher() {
             public boolean matches(URI requestUri) {
-                return pattern.matcher(requestUri.toString()).matches();
+                return pattern.matcher(requestUri.getPath()).matches();
             }
 
             public String toString() {
@@ -25,7 +25,7 @@ public class UriMatchers {
     public static UriMatcher simpleMatcher(final String name) {
         return new UriMatcher() {
             public boolean matches(URI requestUri) {
-                return name.compareToIgnoreCase(requestUri.toString()) == 0;
+                return name.compareToIgnoreCase(requestUri.getPath()) == 0;
             }
 
             public String toString() {
@@ -45,7 +45,7 @@ public class UriMatchers {
         return new UriMatcher() {
 
             public boolean matches(URI requestUri) {
-                return comparison.compareToIgnoreCase(requestUri.toString()) == 0;
+                return comparison.compareToIgnoreCase(requestUri.getPath()) == 0;
             }
 
             public String toString() {
@@ -59,7 +59,7 @@ public class UriMatchers {
             public boolean matches(URI requestUri) {
                 InputStream stream = null;
                 try {
-                    stream = DefaultInterceptServer.class.getResourceAsStream(requestUri.toString());
+                    stream = DefaultInterceptServer.class.getResourceAsStream(requestUri.getPath());
                     return stream != null;
                 } finally {
                     if (stream != null) {
