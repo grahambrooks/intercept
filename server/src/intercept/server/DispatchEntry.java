@@ -1,8 +1,8 @@
 package intercept.server;
 
-import intercept.model.UriMatcher;
+import intercept.framework.UriMatcher;
 
-class DispatchEntry<T>{
+class DispatchEntry<T> {
     UriMatcher matcher;
     T handler;
 

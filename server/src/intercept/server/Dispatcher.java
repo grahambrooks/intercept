@@ -2,7 +2,7 @@ package intercept.server;
 
 import intercept.framework.Command;
 import intercept.framework.Presenter;
-import intercept.model.UriMatcher;
+import intercept.framework.UriMatcher;
 
 import java.util.LinkedList;
 import java.util.List;
@@ -11,7 +11,7 @@ public class Dispatcher {
     public final List<DispatchEntry<Presenter>> presenterRegistry;
     public final List<DispatchEntry<Command>> commandRegistry;
 
-    public Dispatcher(){
+    public Dispatcher() {
         presenterRegistry = new LinkedList<DispatchEntry<Presenter>>();
         commandRegistry = new LinkedList<DispatchEntry<Command>>();
     }

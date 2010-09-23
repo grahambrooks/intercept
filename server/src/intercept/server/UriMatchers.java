@@ -1,7 +1,7 @@
 package intercept.server;
 
 
-import intercept.model.UriMatcher;
+import intercept.framework.UriMatcher;
 
 import java.io.IOException;
 import java.io.InputStream;

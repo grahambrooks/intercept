@@ -1,16 +1,24 @@
 package intercept.configuration;
 
-import intercept.model.UriMatcher;
-import static intercept.utils.UriMatchers.simpleMatcher;
+import intercept.model.UriComparator;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.Map;
+
+import static intercept.utils.UriComparators.fullComparator;
 
 public class StubRequest {
     String path;
     String response;
 
-    public void define(Map<UriMatcher, StubResponse> stubs) {
-        UriMatcher key = simpleMatcher(path);
+    public void define(Map<UriComparator, StubResponse> stubs) {
+        UriComparator key = null;
+        try {
+            key = fullComparator(new URI(path));
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
+        }
         stubs.put(key, new StubResponse(key, response));
     }
 

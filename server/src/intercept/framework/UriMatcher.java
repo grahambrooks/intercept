@@ -1,4 +1,4 @@
-package intercept.model;
+package intercept.framework;
 
 import java.net.URI;
 

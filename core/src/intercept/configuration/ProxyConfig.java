@@ -1,7 +1,7 @@
 package intercept.configuration;
 
 import intercept.model.Route;
-import intercept.model.UriMatcher;
+import intercept.model.UriComparator;
 import intercept.proxy.HTTPRequest;
 
 import java.util.List;
@@ -24,7 +24,7 @@ public interface ProxyConfig {
 
     public String getStubbedResponse(String hostName);
 
-    public Map<UriMatcher, StubResponse> getStubs();
+    public Map<UriComparator, StubResponse> getStubs();
 
     public String getOutgoingProxyHost();
 

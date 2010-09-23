@@ -6,8 +6,8 @@ import intercept.configuration.StubRequest;
 import intercept.framework.Command;
 import intercept.framework.Presenter;
 import intercept.framework.RequestDocument;
+import intercept.framework.UriMatcher;
 import intercept.framework.WebServer;
-import intercept.model.UriMatcher;
 import intercept.server.components.NewProxyRequestDocument;
 import intercept.server.components.TemplateAttribute;
 import intercept.server.components.TemplateAttributes;
@@ -15,7 +15,11 @@ import intercept.utils.Block;
 import org.antlr.stringtemplate.StringTemplate;
 import org.antlr.stringtemplate.StringTemplateGroup;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URI;
 import java.util.ArrayList;
 import java.util.List;
@@ -189,14 +193,14 @@ public class WebContext {
     public void fillRequestDocument(final RequestDocument document) {
         InputStream input = httpExchange.getRequestBody();
         try {
-        eachLine(input, new Block<String>() {
-            public void yield(String item) {
-                String[] elements = item.split("=");
-                document.set(elements[0], elements[1]);
-            }
-        });
+            eachLine(input, new Block<String>() {
+                public void yield(String item) {
+                    String[] elements = item.split("=");
+                    document.set(elements[0], elements[1]);
+                }
+            });
         } finally {
-            if (input != null){
+            if (input != null) {
                 try {
                     input.close();
                 } catch (IOException e) {

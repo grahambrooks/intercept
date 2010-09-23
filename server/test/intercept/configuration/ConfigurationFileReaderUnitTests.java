@@ -2,7 +2,7 @@ package intercept.configuration;
 
 import intercept.logging.ApplicationLog;
 import intercept.logging.ConsoleApplicationLog;
-import intercept.model.UriMatcher;
+import intercept.model.UriComparator;
 import intercept.utils.Block;
 import org.junit.Test;
 
@@ -77,7 +77,7 @@ public class ConfigurationFileReaderUnitTests {
         final StubResponse[] found = new StubResponse[]{null};
         Block<ProxyConfig> visitor = new Block<ProxyConfig>() {
             public void yield(ProxyConfig item) {
-                for (UriMatcher matcher : item.getStubs().keySet()) {
+                for (UriComparator matcher : item.getStubs().keySet()) {
                     if (matcher.matches(URI.create("foo.com"))) {
                         found[0] = item.getStubs().get(matcher);
                     }

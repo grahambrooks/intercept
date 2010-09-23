@@ -1,6 +1,6 @@
 package intercept.configuration;
 
-import intercept.model.UriMatcher;
+import intercept.framework.UriMatcher;
 import intercept.server.UriMatchers;
 import org.junit.Test;
 

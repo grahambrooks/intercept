@@ -1,12 +1,10 @@
 package intercept.utils;
 
-import intercept.utils.EventTimer;
+import org.junit.Test;
+
 import static intercept.utils.PatternMatcher.matches;
 import static org.hamcrest.CoreMatchers.is;
-import static org.junit.Assert.assertThat;
-
-import intercept.utils.MillisecondTimer;
-import org.junit.Test;
+import static org.hamcrest.MatcherAssert.assertThat;
 
 public class MillisecondTimerUnitTests {
     @Test

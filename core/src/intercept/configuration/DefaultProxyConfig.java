@@ -1,7 +1,7 @@
 package intercept.configuration;
 
 import intercept.model.Route;
-import intercept.model.UriMatcher;
+import intercept.model.UriComparator;
 import intercept.proxy.HTTPRequest;
 
 import java.net.URI;
@@ -16,7 +16,7 @@ public class DefaultProxyConfig implements ProxyConfig {
     private int port = DEFAULT_PORT_NO;
     private String name;
     private List<Route> routes;
-    private Map<UriMatcher, StubResponse> stubs;
+    private Map<UriComparator, StubResponse> stubs;
     private URI outgoingProxy;
     private int logLevel;
     private static final int DEFAULT_PORT_NO = 8080;
@@ -25,7 +25,7 @@ public class DefaultProxyConfig implements ProxyConfig {
         this.name = name;
         this.port = port;
         this.routes = new ArrayList<Route>();
-        this.stubs = new HashMap<UriMatcher, StubResponse>();
+        this.stubs = new HashMap<UriComparator, StubResponse>();
     }
 
     public DefaultProxyConfig() {
@@ -105,7 +105,7 @@ public class DefaultProxyConfig implements ProxyConfig {
     }
 
     public boolean stubbedRequest(String hostName) {
-        for (UriMatcher matcher : stubs.keySet()) {
+        for (UriComparator matcher : stubs.keySet()) {
             try {
                 if (matcher.matches(new URI(hostName))) {
                     return true;
@@ -118,7 +118,7 @@ public class DefaultProxyConfig implements ProxyConfig {
     }
 
     public String getStubbedResponse(String hostName) {
-        for (UriMatcher matcher : stubs.keySet()) {
+        for (UriComparator matcher : stubs.keySet()) {
             try {
                 if (matcher.matches(new URI(hostName))) {
                     return stubs.get(matcher).getBody();
@@ -130,7 +130,7 @@ public class DefaultProxyConfig implements ProxyConfig {
         return "";
     }
 
-    public Map<UriMatcher, StubResponse> getStubs() {
+    public Map<UriComparator, StubResponse> getStubs() {
         return stubs;
     }
 
@@ -147,7 +147,7 @@ public class DefaultProxyConfig implements ProxyConfig {
     }
 
     public void add(StubResponse stubResponse) {
-        stubs.put(stubResponse.getPath(), stubResponse);
+        stubs.put(stubResponse.getUri(), stubResponse);
     }
 
 }
