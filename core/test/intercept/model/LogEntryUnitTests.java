@@ -21,7 +21,7 @@ public class LogEntryUnitTests {
     @Test
     public void logEntryEqualityConsidersElementContents() {
         LogEntry one = new LogEntry(null);
-        LogEntry two = new LogEntry(new LogElement[]{new SimpleLogElement("foo")});
+        LogEntry two = new LogEntry(new LogElement[]{new SimpleLogElement("proxyNameAndPortRequiredForConstruction")});
 
         assertThat(one.equals(two), equalTo(false));
     }

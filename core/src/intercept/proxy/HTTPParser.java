@@ -4,7 +4,7 @@ public class HTTPParser {
     private Automaton automaton;
     private RequestHandler requestHandler;
 
-    public interface RequestHandler{
+    public interface RequestHandler {
         void onRequest(String method, String path, String protocol);
     }
 

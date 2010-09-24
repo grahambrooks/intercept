@@ -10,7 +10,8 @@ public class UriComparators {
             public boolean matches(URI testUri) {
                 return compareStrings(uri.getHost(), testUri.getHost())
                         && uri.getPort() == testUri.getPort()
-                        && compareStrings(uri.getPath(), testUri.getPath());
+                        && compareStrings(uri.getPath(), testUri.getPath())
+                        && compareStrings(uri.getScheme(), testUri.getScheme());
             }
 
             private boolean compareStrings(String s1, String s2) {
