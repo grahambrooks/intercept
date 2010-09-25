@@ -187,8 +187,6 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
 
     @Override
     public String uri(String path) {
-        String uri = "http://localhost:" + configuration.getConfigurationPort() + path;
-        System.out.println("Requesting URL " + uri);
-        return uri;
+        return "http://localhost:" + configuration.getConfigurationPort() + path;
     }
 }

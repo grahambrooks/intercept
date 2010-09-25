@@ -33,7 +33,6 @@ public class ProxyChannel extends Thread {
     }
 
     public void run() {
-        System.out.println("Channel open for business on port " + socket.getPort());
         BufferedInputStream clientIn = null;
         BufferedOutputStream clientOutputStream = null;
         try {
