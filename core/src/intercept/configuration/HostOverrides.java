@@ -13,7 +13,7 @@ public class HostOverrides {
         routes = new ArrayList<Route>();
     }
 
-    public void define(String pattern, String target) {
+    public void define(final String pattern, final String target) {
         routes.add(new Route(pattern, target));
     }
 

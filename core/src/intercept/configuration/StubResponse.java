@@ -1,56 +1,58 @@
 package intercept.configuration;
 
 import intercept.model.UriComparator;
-
-import java.net.URI;
-import java.net.URISyntaxException;
+import intercept.utils.Utils;
 
 import static intercept.utils.UriComparators.fullComparator;
 
 public class StubResponse {
     private UriComparator uri;
-    private String response;
+    private String header;
     private String body;
+    private int responseCode;
 
     public StubResponse() {
-
+        this.header = "";
     }
 
-    public StubResponse(UriComparator uri, String response, String body) {
+    public StubResponse(UriComparator uri, String header, String body) {
         this.uri = uri;
-        this.response = response;
+        this.header = header;
         this.body = body;
     }
 
-    public String getResponse() {
-        return response;
+    public String getHeaders() {
+        return header;
     }
 
     public UriComparator getUri() {
         return uri;
     }
 
-    public void setUrl(String uri) {
-        try {
-            this.uri = fullComparator(new URI(uri));
-        } catch (URISyntaxException e) {
-            e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
-        }
+    public void setUrl(String uriSpec) {
+        this.uri = fullComparator(Utils.uri(uriSpec));
     }
 
     public void setResponseCode(String responseCode) {
+        this.responseCode = Integer.parseInt(responseCode);
     }
 
-    public void setHeader(String response) {
-        response = response.substring(1, response.length() - 1);
-        this.response = response;
+    public void setHeader(final String response) {
+        if (this.header.length() > 0) {
+            this.header += "\r\n";
+        }
+        this.header += response;
     }
 
-    public void setBody(String body) {
+    public void setBody(final String body) {
         this.body = body;
     }
 
     public String getBody() {
         return body;
+    }
+
+    public int getResponseCode() {
+        return responseCode;
     }
 }

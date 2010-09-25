@@ -1,50 +1,63 @@
-// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g 2010-01-04 16:19:34
+// $ANTLR 3.1.3 Mar 17, 2009 19:23:44 /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g 2010-09-24 20:23:13
 
 package intercept.configuration;
 
 
-import org.antlr.runtime.*;
-import java.util.Stack;
-import java.util.List;
-import java.util.ArrayList;
+import org.antlr.runtime.BaseRecognizer;
+import org.antlr.runtime.CharStream;
+import org.antlr.runtime.DFA;
+import org.antlr.runtime.EarlyExitException;
+import org.antlr.runtime.IntStream;
+import org.antlr.runtime.Lexer;
+import org.antlr.runtime.MismatchedSetException;
+import org.antlr.runtime.NoViableAltException;
+import org.antlr.runtime.RecognitionException;
+import org.antlr.runtime.RecognizerSharedState;
 
 public class ConfigurationLexer extends Lexer {
-    public static final int PROXY=7;
-    public static final int ROUTE=11;
-    public static final int T__25=25;
-    public static final int NUMBER=6;
-    public static final int HOST=16;
-    public static final int PORT=4;
-    public static final int CLOSEBLOCK=23;
-    public static final int EOF=-1;
-    public static final int URL=21;
-    public static final int OPENBLOCK=22;
-    public static final int DEBUG=14;
-    public static final int WS=24;
-    public static final int IDENTIFIER=8;
-    public static final int BLOCK=19;
-    public static final int BEGIN=9;
-    public static final int OUTPROXY=13;
-    public static final int STUB=15;
-    public static final int BODY=20;
-    public static final int HEADER=18;
-    public static final int RESPONSE=17;
-    public static final int EQ=5;
-    public static final int END=10;
-    public static final int STRING=12;
+    public static final int PROXY = 7;
+    public static final int ROUTE = 11;
+    public static final int T__25 = 25;
+    public static final int NUMBER = 6;
+    public static final int HOST = 16;
+    public static final int PORT = 4;
+    public static final int CLOSEBLOCK = 23;
+    public static final int EOF = -1;
+    public static final int URL = 21;
+    public static final int OPENBLOCK = 22;
+    public static final int DEBUG = 14;
+    public static final int WS = 24;
+    public static final int IDENTIFIER = 8;
+    public static final int BLOCK = 19;
+    public static final int BEGIN = 9;
+    public static final int OUTPROXY = 13;
+    public static final int STUB = 15;
+    public static final int BODY = 20;
+    public static final int HEADER = 18;
+    public static final int RESPONSE = 17;
+    public static final int EQ = 5;
+    public static final int END = 10;
+    public static final int STRING = 12;
 
     // delegates
     // delegators
 
-    public ConfigurationLexer() {;} 
+    public ConfigurationLexer() {
+        ;
+    }
+
     public ConfigurationLexer(CharStream input) {
         this(input, new RecognizerSharedState());
     }
+
     public ConfigurationLexer(CharStream input, RecognizerSharedState state) {
-        super(input,state);
+        super(input, state);
 
     }
-    public String getGrammarFileName() { return "/Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g"; }
+
+    public String getGrammarFileName() {
+        return "/Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g";
+    }
 
     // $ANTLR start "T__25"
     public final void mT__25() throws RecognitionException {
@@ -54,7 +67,7 @@ public class ConfigurationLexer extends Lexer {
             // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:7:7: ( '=>' )
             // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:7:9: '=>'
             {
-            match("=>"); 
+                match("=>");
 
 
             }
@@ -72,10 +85,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = PROXY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:48:7: ( 'proxy' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:48:9: 'proxy'
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:54:7: ( 'proxy' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:54:9: 'proxy'
             {
-            match("proxy"); 
+                match("proxy");
 
 
             }
@@ -93,10 +106,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = ROUTE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:49:7: ( 'route' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:49:9: 'route'
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:55:7: ( 'route' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:55:9: 'route'
             {
-            match("route"); 
+                match("route");
 
 
             }
@@ -114,10 +127,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = BEGIN;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:50:7: ( '{' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:50:9: '{'
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:56:7: ( '{' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:56:9: '{'
             {
-            match('{'); 
+                match('{');
 
             }
 
@@ -134,10 +147,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = END;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:51:5: ( '}' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:51:7: '}'
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:57:5: ( '}' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:57:7: '}'
             {
-            match('}'); 
+                match('}');
 
             }
 
@@ -154,10 +167,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = STUB;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:52:6: ( 'stub' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:52:8: 'stub'
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:58:6: ( 'stub' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:58:8: 'stub'
             {
-            match("stub"); 
+                match("stub");
 
 
             }
@@ -175,10 +188,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = PORT;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:53:6: ( 'port' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:53:8: 'port'
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:59:6: ( 'port' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:59:8: 'port'
             {
-            match("port"); 
+                match("port");
 
 
             }
@@ -196,10 +209,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = RESPONSE;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:54:9: ( 'response' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:54:11: 'response'
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:60:9: ( 'response' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:60:11: 'response'
             {
-            match("response"); 
+                match("response");
 
 
             }
@@ -217,10 +230,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = HEADER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:55:8: ( 'header' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:55:10: 'header'
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:61:8: ( 'header' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:61:10: 'header'
             {
-            match("header"); 
+                match("header");
 
 
             }
@@ -238,10 +251,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = BODY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:56:6: ( 'body' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:56:8: 'body'
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:62:6: ( 'body' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:62:8: 'body'
             {
-            match("body"); 
+                match("body");
 
 
             }
@@ -259,10 +272,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = OUTPROXY;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:57:9: ( 'outgoing-proxy' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:57:11: 'outgoing-proxy'
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:63:9: ( 'outgoing-proxy' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:63:11: 'outgoing-proxy'
             {
-            match("outgoing-proxy"); 
+                match("outgoing-proxy");
 
 
             }
@@ -280,10 +293,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = DEBUG;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:58:7: ( 'debug' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:58:9: 'debug'
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:64:7: ( 'debug' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:64:9: 'debug'
             {
-            match("debug"); 
+                match("debug");
 
 
             }
@@ -301,10 +314,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = EQ;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:60:4: ( '=' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:60:6: '='
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:66:4: ( '=' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:66:6: '='
             {
-            match('='); 
+                match('=');
 
             }
 
@@ -321,38 +334,38 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = NUMBER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:64:2: ( ( '0' .. '9' )+ )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:64:4: ( '0' .. '9' )+
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:70:2: ( ( '0' .. '9' )+ )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:70:4: ( '0' .. '9' )+
             {
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:64:4: ( '0' .. '9' )+
-            int cnt1=0;
-            loop1:
-            do {
-                int alt1=2;
-                int LA1_0 = input.LA(1);
+                // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:70:4: ( '0' .. '9' )+
+                int cnt1 = 0;
+                loop1:
+                do {
+                    int alt1 = 2;
+                    int LA1_0 = input.LA(1);
 
-                if ( ((LA1_0>='0' && LA1_0<='9')) ) {
-                    alt1=1;
-                }
+                    if (((LA1_0 >= '0' && LA1_0 <= '9'))) {
+                        alt1 = 1;
+                    }
 
 
-                switch (alt1) {
-            	case 1 :
-            	    // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:64:5: '0' .. '9'
-            	    {
-            	    matchRange('0','9'); 
+                    switch (alt1) {
+                        case 1:
+                            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:70:5: '0' .. '9'
+                        {
+                            matchRange('0', '9');
 
-            	    }
-            	    break;
+                        }
+                        break;
 
-            	default :
-            	    if ( cnt1 >= 1 ) break loop1;
-                        EarlyExitException eee =
-                            new EarlyExitException(1, input);
-                        throw eee;
-                }
-                cnt1++;
-            } while (true);
+                        default:
+                            if (cnt1 >= 1) break loop1;
+                            EarlyExitException eee =
+                                    new EarlyExitException(1, input);
+                            throw eee;
+                    }
+                    cnt1++;
+                } while (true);
 
 
             }
@@ -370,46 +383,46 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = IDENTIFIER;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:68:2: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:68:4: ( 'a' .. 'z' | 'A' .. 'Z' | '_' )+
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:74:2: ( ( 'a' .. 'z' | 'A' .. 'Z' | '_' )+ )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:74:4: ( 'a' .. 'z' | 'A' .. 'Z' | '_' )+
             {
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:68:4: ( 'a' .. 'z' | 'A' .. 'Z' | '_' )+
-            int cnt2=0;
-            loop2:
-            do {
-                int alt2=2;
-                int LA2_0 = input.LA(1);
+                // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:74:4: ( 'a' .. 'z' | 'A' .. 'Z' | '_' )+
+                int cnt2 = 0;
+                loop2:
+                do {
+                    int alt2 = 2;
+                    int LA2_0 = input.LA(1);
 
-                if ( ((LA2_0>='A' && LA2_0<='Z')||LA2_0=='_'||(LA2_0>='a' && LA2_0<='z')) ) {
-                    alt2=1;
-                }
-
-
-                switch (alt2) {
-            	case 1 :
-            	    // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:
-            	    {
-            	    if ( (input.LA(1)>='A' && input.LA(1)<='Z')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
-            	        input.consume();
-
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;}
+                    if (((LA2_0 >= 'A' && LA2_0 <= 'Z') || LA2_0 == '_' || (LA2_0 >= 'a' && LA2_0 <= 'z'))) {
+                        alt2 = 1;
+                    }
 
 
-            	    }
-            	    break;
+                    switch (alt2) {
+                        case 1:
+                            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:
+                        {
+                            if ((input.LA(1) >= 'A' && input.LA(1) <= 'Z') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z')) {
+                                input.consume();
 
-            	default :
-            	    if ( cnt2 >= 1 ) break loop2;
-                        EarlyExitException eee =
-                            new EarlyExitException(2, input);
-                        throw eee;
-                }
-                cnt2++;
-            } while (true);
+                            } else {
+                                MismatchedSetException mse = new MismatchedSetException(null, input);
+                                recover(mse);
+                                throw mse;
+                            }
+
+
+                        }
+                        break;
+
+                        default:
+                            if (cnt2 >= 1) break loop2;
+                            EarlyExitException eee =
+                                    new EarlyExitException(2, input);
+                            throw eee;
+                    }
+                    cnt2++;
+                } while (true);
 
 
             }
@@ -427,55 +440,54 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = STRING;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:70:8: ( '\"' ( '\\\\' . | ~ ( '\\\\' | '\"' ) )* '\"' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:70:10: '\"' ( '\\\\' . | ~ ( '\\\\' | '\"' ) )* '\"'
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:76:8: ( '\"' ( '\\\\' . | ~ ( '\\\\' | '\"' ) )* '\"' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:76:10: '\"' ( '\\\\' . | ~ ( '\\\\' | '\"' ) )* '\"'
             {
-            match('\"'); 
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:70:14: ( '\\\\' . | ~ ( '\\\\' | '\"' ) )*
-            loop3:
-            do {
-                int alt3=3;
-                int LA3_0 = input.LA(1);
+                match('\"');
+                // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:76:14: ( '\\\\' . | ~ ( '\\\\' | '\"' ) )*
+                loop3:
+                do {
+                    int alt3 = 3;
+                    int LA3_0 = input.LA(1);
 
-                if ( (LA3_0=='\\') ) {
-                    alt3=1;
-                }
-                else if ( ((LA3_0>='\u0000' && LA3_0<='!')||(LA3_0>='#' && LA3_0<='[')||(LA3_0>=']' && LA3_0<='\uFFFF')) ) {
-                    alt3=2;
-                }
-
-
-                switch (alt3) {
-            	case 1 :
-            	    // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:70:16: '\\\\' .
-            	    {
-            	    match('\\'); 
-            	    matchAny(); 
-
-            	    }
-            	    break;
-            	case 2 :
-            	    // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:70:25: ~ ( '\\\\' | '\"' )
-            	    {
-            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='!')||(input.LA(1)>='#' && input.LA(1)<='[')||(input.LA(1)>=']' && input.LA(1)<='\uFFFF') ) {
-            	        input.consume();
-
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;}
+                    if ((LA3_0 == '\\')) {
+                        alt3 = 1;
+                    } else if (((LA3_0 >= '\u0000' && LA3_0 <= '!') || (LA3_0 >= '#' && LA3_0 <= '[') || (LA3_0 >= ']' && LA3_0 <= '\uFFFF'))) {
+                        alt3 = 2;
+                    }
 
 
-            	    }
-            	    break;
+                    switch (alt3) {
+                        case 1:
+                            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:76:16: '\\\\' .
+                        {
+                            match('\\');
+                            matchAny();
 
-            	default :
-            	    break loop3;
-                }
-            } while (true);
+                        }
+                        break;
+                        case 2:
+                            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:76:25: ~ ( '\\\\' | '\"' )
+                        {
+                            if ((input.LA(1) >= '\u0000' && input.LA(1) <= '!') || (input.LA(1) >= '#' && input.LA(1) <= '[') || (input.LA(1) >= ']' && input.LA(1) <= '\uFFFF')) {
+                                input.consume();
 
-            match('\"'); 
+                            } else {
+                                MismatchedSetException mse = new MismatchedSetException(null, input);
+                                recover(mse);
+                                throw mse;
+                            }
+
+
+                        }
+                        break;
+
+                        default:
+                            break loop3;
+                    }
+                } while (true);
+
+                match('\"');
 
             }
 
@@ -492,48 +504,48 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = URL;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:73:5: ( 'http://' ( 'a' .. 'z' | '0' .. '9' | '_' | '-' | '\\.' | ':' )+ )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:73:7: 'http://' ( 'a' .. 'z' | '0' .. '9' | '_' | '-' | '\\.' | ':' )+
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:79:5: ( 'http://' ( 'a' .. 'z' | '0' .. '9' | '_' | '-' | '\\.' | ':' )+ )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:79:7: 'http://' ( 'a' .. 'z' | '0' .. '9' | '_' | '-' | '\\.' | ':' )+
             {
-            match("http://"); 
+                match("http://");
 
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:73:17: ( 'a' .. 'z' | '0' .. '9' | '_' | '-' | '\\.' | ':' )+
-            int cnt4=0;
-            loop4:
-            do {
-                int alt4=2;
-                int LA4_0 = input.LA(1);
+                // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:79:17: ( 'a' .. 'z' | '0' .. '9' | '_' | '-' | '\\.' | ':' )+
+                int cnt4 = 0;
+                loop4:
+                do {
+                    int alt4 = 2;
+                    int LA4_0 = input.LA(1);
 
-                if ( ((LA4_0>='-' && LA4_0<='.')||(LA4_0>='0' && LA4_0<=':')||LA4_0=='_'||(LA4_0>='a' && LA4_0<='z')) ) {
-                    alt4=1;
-                }
-
-
-                switch (alt4) {
-            	case 1 :
-            	    // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:
-            	    {
-            	    if ( (input.LA(1)>='-' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<=':')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
-            	        input.consume();
-
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;}
+                    if (((LA4_0 >= '-' && LA4_0 <= '.') || (LA4_0 >= '0' && LA4_0 <= ':') || LA4_0 == '_' || (LA4_0 >= 'a' && LA4_0 <= 'z'))) {
+                        alt4 = 1;
+                    }
 
 
-            	    }
-            	    break;
+                    switch (alt4) {
+                        case 1:
+                            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:
+                        {
+                            if ((input.LA(1) >= '-' && input.LA(1) <= '.') || (input.LA(1) >= '0' && input.LA(1) <= ':') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z')) {
+                                input.consume();
 
-            	default :
-            	    if ( cnt4 >= 1 ) break loop4;
-                        EarlyExitException eee =
-                            new EarlyExitException(4, input);
-                        throw eee;
-                }
-                cnt4++;
-            } while (true);
+                            } else {
+                                MismatchedSetException mse = new MismatchedSetException(null, input);
+                                recover(mse);
+                                throw mse;
+                            }
+
+
+                        }
+                        break;
+
+                        default:
+                            if (cnt4 >= 1) break loop4;
+                            EarlyExitException eee =
+                                    new EarlyExitException(4, input);
+                            throw eee;
+                    }
+                    cnt4++;
+                } while (true);
 
 
             }
@@ -551,46 +563,46 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = HOST;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:76:6: ( ( 'a' .. 'z' | '0' .. '9' | '_' | '-' | '\\.' | ':' )+ )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:76:8: ( 'a' .. 'z' | '0' .. '9' | '_' | '-' | '\\.' | ':' )+
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:82:6: ( ( 'a' .. 'z' | '0' .. '9' | '_' | '-' | '\\.' | ':' )+ )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:82:8: ( 'a' .. 'z' | '0' .. '9' | '_' | '-' | '\\.' | ':' )+
             {
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:76:8: ( 'a' .. 'z' | '0' .. '9' | '_' | '-' | '\\.' | ':' )+
-            int cnt5=0;
-            loop5:
-            do {
-                int alt5=2;
-                int LA5_0 = input.LA(1);
+                // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:82:8: ( 'a' .. 'z' | '0' .. '9' | '_' | '-' | '\\.' | ':' )+
+                int cnt5 = 0;
+                loop5:
+                do {
+                    int alt5 = 2;
+                    int LA5_0 = input.LA(1);
 
-                if ( ((LA5_0>='-' && LA5_0<='.')||(LA5_0>='0' && LA5_0<=':')||LA5_0=='_'||(LA5_0>='a' && LA5_0<='z')) ) {
-                    alt5=1;
-                }
-
-
-                switch (alt5) {
-            	case 1 :
-            	    // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:
-            	    {
-            	    if ( (input.LA(1)>='-' && input.LA(1)<='.')||(input.LA(1)>='0' && input.LA(1)<=':')||input.LA(1)=='_'||(input.LA(1)>='a' && input.LA(1)<='z') ) {
-            	        input.consume();
-
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;}
+                    if (((LA5_0 >= '-' && LA5_0 <= '.') || (LA5_0 >= '0' && LA5_0 <= ':') || LA5_0 == '_' || (LA5_0 >= 'a' && LA5_0 <= 'z'))) {
+                        alt5 = 1;
+                    }
 
 
-            	    }
-            	    break;
+                    switch (alt5) {
+                        case 1:
+                            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:
+                        {
+                            if ((input.LA(1) >= '-' && input.LA(1) <= '.') || (input.LA(1) >= '0' && input.LA(1) <= ':') || input.LA(1) == '_' || (input.LA(1) >= 'a' && input.LA(1) <= 'z')) {
+                                input.consume();
 
-            	default :
-            	    if ( cnt5 >= 1 ) break loop5;
-                        EarlyExitException eee =
-                            new EarlyExitException(5, input);
-                        throw eee;
-                }
-                cnt5++;
-            } while (true);
+                            } else {
+                                MismatchedSetException mse = new MismatchedSetException(null, input);
+                                recover(mse);
+                                throw mse;
+                            }
+
+
+                        }
+                        break;
+
+                        default:
+                            if (cnt5 >= 1) break loop5;
+                            EarlyExitException eee =
+                                    new EarlyExitException(5, input);
+                            throw eee;
+                    }
+                    cnt5++;
+                } while (true);
 
 
             }
@@ -608,44 +620,44 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = BLOCK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:79:7: ( OPENBLOCK (~ CLOSEBLOCK )* CLOSEBLOCK )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:79:9: OPENBLOCK (~ CLOSEBLOCK )* CLOSEBLOCK
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:85:7: ( OPENBLOCK (~ CLOSEBLOCK )* CLOSEBLOCK )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:85:9: OPENBLOCK (~ CLOSEBLOCK )* CLOSEBLOCK
             {
-            mOPENBLOCK(); 
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:79:19: (~ CLOSEBLOCK )*
-            loop6:
-            do {
-                int alt6=2;
-                int LA6_0 = input.LA(1);
+                mOPENBLOCK();
+                // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:85:19: (~ CLOSEBLOCK )*
+                loop6:
+                do {
+                    int alt6 = 2;
+                    int LA6_0 = input.LA(1);
 
-                if ( ((LA6_0>='\u0000' && LA6_0<='\\')||(LA6_0>='^' && LA6_0<='\uFFFF')) ) {
-                    alt6=1;
-                }
-
-
-                switch (alt6) {
-            	case 1 :
-            	    // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:79:20: ~ CLOSEBLOCK
-            	    {
-            	    if ( (input.LA(1)>='\u0000' && input.LA(1)<='\u0016')||(input.LA(1)>='\u0018' && input.LA(1)<='\uFFFF') ) {
-            	        input.consume();
-
-            	    }
-            	    else {
-            	        MismatchedSetException mse = new MismatchedSetException(null,input);
-            	        recover(mse);
-            	        throw mse;}
+                    if (((LA6_0 >= '\u0000' && LA6_0 <= '\\') || (LA6_0 >= '^' && LA6_0 <= '\uFFFF'))) {
+                        alt6 = 1;
+                    }
 
 
-            	    }
-            	    break;
+                    switch (alt6) {
+                        case 1:
+                            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:85:20: ~ CLOSEBLOCK
+                        {
+                            if ((input.LA(1) >= '\u0000' && input.LA(1) <= '\u0016') || (input.LA(1) >= '\u0018' && input.LA(1) <= '\uFFFF')) {
+                                input.consume();
 
-            	default :
-            	    break loop6;
-                }
-            } while (true);
+                            } else {
+                                MismatchedSetException mse = new MismatchedSetException(null, input);
+                                recover(mse);
+                                throw mse;
+                            }
 
-            mCLOSEBLOCK(); 
+
+                        }
+                        break;
+
+                        default:
+                            break loop6;
+                    }
+                } while (true);
+
+                mCLOSEBLOCK();
 
             }
 
@@ -662,10 +674,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = OPENBLOCK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:84:2: ( '[' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:84:4: '['
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:90:2: ( '[' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:90:4: '['
             {
-            match('['); 
+                match('[');
 
             }
 
@@ -682,10 +694,10 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = CLOSEBLOCK;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:88:2: ( ']' )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:88:4: ']'
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:94:2: ( ']' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:94:4: ']'
             {
-            match(']'); 
+                match(']');
 
             }
 
@@ -702,19 +714,19 @@ public class ConfigurationLexer extends Lexer {
         try {
             int _type = WS;
             int _channel = DEFAULT_TOKEN_CHANNEL;
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:91:4: ( ( ' ' | '\\t' | '\\f' | '\\n' ) )
-            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:91:6: ( ' ' | '\\t' | '\\f' | '\\n' )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:97:4: ( ( ' ' | '\\t' | '\\f' | '\\n' ) )
+            // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:97:6: ( ' ' | '\\t' | '\\f' | '\\n' )
             {
-            if ( (input.LA(1)>='\t' && input.LA(1)<='\n')||input.LA(1)=='\f'||input.LA(1)==' ' ) {
-                input.consume();
+                if ((input.LA(1) >= '\t' && input.LA(1) <= '\n') || input.LA(1) == '\f' || input.LA(1) == ' ') {
+                    input.consume();
 
-            }
-            else {
-                MismatchedSetException mse = new MismatchedSetException(null,input);
-                recover(mse);
-                throw mse;}
+                } else {
+                    MismatchedSetException mse = new MismatchedSetException(null, input);
+                    recover(mse);
+                    throw mse;
+                }
 
-             skip(); 
+                skip();
 
             }
 
@@ -728,163 +740,163 @@ public class ConfigurationLexer extends Lexer {
 
     public void mTokens() throws RecognitionException {
         // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:8: ( T__25 | PROXY | ROUTE | BEGIN | END | STUB | PORT | RESPONSE | HEADER | BODY | OUTPROXY | DEBUG | EQ | NUMBER | IDENTIFIER | STRING | URL | HOST | BLOCK | OPENBLOCK | CLOSEBLOCK | WS )
-        int alt7=22;
+        int alt7 = 22;
         alt7 = dfa7.predict(input);
         switch (alt7) {
-            case 1 :
+            case 1:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:10: T__25
-                {
-                mT__25(); 
+            {
+                mT__25();
 
-                }
-                break;
-            case 2 :
+            }
+            break;
+            case 2:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:16: PROXY
-                {
-                mPROXY(); 
+            {
+                mPROXY();
 
-                }
-                break;
-            case 3 :
+            }
+            break;
+            case 3:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:22: ROUTE
-                {
-                mROUTE(); 
+            {
+                mROUTE();
 
-                }
-                break;
-            case 4 :
+            }
+            break;
+            case 4:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:28: BEGIN
-                {
-                mBEGIN(); 
+            {
+                mBEGIN();
 
-                }
-                break;
-            case 5 :
+            }
+            break;
+            case 5:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:34: END
-                {
-                mEND(); 
+            {
+                mEND();
 
-                }
-                break;
-            case 6 :
+            }
+            break;
+            case 6:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:38: STUB
-                {
-                mSTUB(); 
+            {
+                mSTUB();
 
-                }
-                break;
-            case 7 :
+            }
+            break;
+            case 7:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:43: PORT
-                {
-                mPORT(); 
+            {
+                mPORT();
 
-                }
-                break;
-            case 8 :
+            }
+            break;
+            case 8:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:48: RESPONSE
-                {
-                mRESPONSE(); 
+            {
+                mRESPONSE();
 
-                }
-                break;
-            case 9 :
+            }
+            break;
+            case 9:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:57: HEADER
-                {
-                mHEADER(); 
+            {
+                mHEADER();
 
-                }
-                break;
-            case 10 :
+            }
+            break;
+            case 10:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:64: BODY
-                {
-                mBODY(); 
+            {
+                mBODY();
 
-                }
-                break;
-            case 11 :
+            }
+            break;
+            case 11:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:69: OUTPROXY
-                {
-                mOUTPROXY(); 
+            {
+                mOUTPROXY();
 
-                }
-                break;
-            case 12 :
+            }
+            break;
+            case 12:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:78: DEBUG
-                {
-                mDEBUG(); 
+            {
+                mDEBUG();
 
-                }
-                break;
-            case 13 :
+            }
+            break;
+            case 13:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:84: EQ
-                {
-                mEQ(); 
+            {
+                mEQ();
 
-                }
-                break;
-            case 14 :
+            }
+            break;
+            case 14:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:87: NUMBER
-                {
-                mNUMBER(); 
+            {
+                mNUMBER();
 
-                }
-                break;
-            case 15 :
+            }
+            break;
+            case 15:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:94: IDENTIFIER
-                {
-                mIDENTIFIER(); 
+            {
+                mIDENTIFIER();
 
-                }
-                break;
-            case 16 :
+            }
+            break;
+            case 16:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:105: STRING
-                {
-                mSTRING(); 
+            {
+                mSTRING();
 
-                }
-                break;
-            case 17 :
+            }
+            break;
+            case 17:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:112: URL
-                {
-                mURL(); 
+            {
+                mURL();
 
-                }
-                break;
-            case 18 :
+            }
+            break;
+            case 18:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:116: HOST
-                {
-                mHOST(); 
+            {
+                mHOST();
 
-                }
-                break;
-            case 19 :
+            }
+            break;
+            case 19:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:121: BLOCK
-                {
-                mBLOCK(); 
+            {
+                mBLOCK();
 
-                }
-                break;
-            case 20 :
+            }
+            break;
+            case 20:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:127: OPENBLOCK
-                {
-                mOPENBLOCK(); 
+            {
+                mOPENBLOCK();
 
-                }
-                break;
-            case 21 :
+            }
+            break;
+            case 21:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:137: CLOSEBLOCK
-                {
-                mCLOSEBLOCK(); 
+            {
+                mCLOSEBLOCK();
 
-                }
-                break;
-            case 22 :
+            }
+            break;
+            case 22:
                 // /Users/gcb/projects/intercept/server/src/intercept/configuration/Configuration.g:1:148: WS
-                {
-                mWS(); 
+            {
+                mWS();
 
-                }
-                break;
+            }
+            break;
 
         }
 
@@ -893,45 +905,45 @@ public class ConfigurationLexer extends Lexer {
 
     protected DFA7 dfa7 = new DFA7(this);
     static final String DFA7_eotS =
-        "\1\uffff\1\24\2\16\2\uffff\5\16\1\37\1\16\3\uffff\1\40\4\uffff\12"+
-        "\16\3\uffff\13\16\1\67\2\16\1\72\2\16\1\75\2\16\1\100\1\uffff\1"+
-        "\101\1\16\1\uffff\1\16\1\17\1\uffff\1\16\1\106\2\uffff\1\16\1\110"+
-        "\1\uffff\1\16\1\uffff\1\16\1\uffff\1\16\1\114\1\16\1\uffff\5\17"+
-        "\1\123\1\uffff";
+            "\1\uffff\1\24\2\16\2\uffff\5\16\1\37\1\16\3\uffff\1\40\4\uffff\12" +
+                    "\16\3\uffff\13\16\1\67\2\16\1\72\2\16\1\75\2\16\1\100\1\uffff\1" +
+                    "\101\1\16\1\uffff\1\16\1\17\1\uffff\1\16\1\106\2\uffff\1\16\1\110" +
+                    "\1\uffff\1\16\1\uffff\1\16\1\uffff\1\16\1\114\1\16\1\uffff\5\17" +
+                    "\1\123\1\uffff";
     static final String DFA7_eofS =
-        "\124\uffff";
+            "\124\uffff";
     static final String DFA7_minS =
-        "\1\11\1\76\2\55\2\uffff\7\55\3\uffff\1\0\4\uffff\12\55\3\uffff\25"+
-        "\55\1\uffff\2\55\1\uffff\1\55\1\57\1\uffff\2\55\2\uffff\2\55\1\uffff"+
-        "\1\55\1\uffff\1\55\1\uffff\3\55\1\uffff\1\160\1\162\1\157\1\170"+
-        "\1\171\1\55\1\uffff";
+            "\1\11\1\76\2\55\2\uffff\7\55\3\uffff\1\0\4\uffff\12\55\3\uffff\25" +
+                    "\55\1\uffff\2\55\1\uffff\1\55\1\57\1\uffff\2\55\2\uffff\2\55\1\uffff" +
+                    "\1\55\1\uffff\1\55\1\uffff\3\55\1\uffff\1\160\1\162\1\157\1\170" +
+                    "\1\171\1\55\1\uffff";
     static final String DFA7_maxS =
-        "\1\175\1\76\2\172\2\uffff\7\172\3\uffff\1\uffff\4\uffff\12\172\3"+
-        "\uffff\25\172\1\uffff\2\172\1\uffff\1\172\1\57\1\uffff\2\172\2\uffff"+
-        "\2\172\1\uffff\1\172\1\uffff\1\172\1\uffff\3\172\1\uffff\1\160\1"+
-        "\162\1\157\1\170\1\171\1\172\1\uffff";
+            "\1\175\1\76\2\172\2\uffff\7\172\3\uffff\1\uffff\4\uffff\12\172\3" +
+                    "\uffff\25\172\1\uffff\2\172\1\uffff\1\172\1\57\1\uffff\2\172\2\uffff" +
+                    "\2\172\1\uffff\1\172\1\uffff\1\172\1\uffff\3\172\1\uffff\1\160\1" +
+                    "\162\1\157\1\170\1\171\1\172\1\uffff";
     static final String DFA7_acceptS =
-        "\4\uffff\1\4\1\5\7\uffff\1\20\1\17\1\22\1\uffff\1\25\1\26\1\1\1"+
-        "\15\12\uffff\1\16\1\24\1\23\25\uffff\1\7\2\uffff\1\6\2\uffff\1\12"+
-        "\2\uffff\1\2\1\3\2\uffff\1\21\1\uffff\1\14\1\uffff\1\11\3\uffff"+
-        "\1\10\6\uffff\1\13";
+            "\4\uffff\1\4\1\5\7\uffff\1\20\1\17\1\22\1\uffff\1\25\1\26\1\1\1" +
+                    "\15\12\uffff\1\16\1\24\1\23\25\uffff\1\7\2\uffff\1\6\2\uffff\1\12" +
+                    "\2\uffff\1\2\1\3\2\uffff\1\21\1\uffff\1\14\1\uffff\1\11\3\uffff" +
+                    "\1\10\6\uffff\1\13";
     static final String DFA7_specialS =
-        "\20\uffff\1\0\103\uffff}>";
+            "\20\uffff\1\0\103\uffff}>";
     static final String[] DFA7_transitionS = {
-            "\2\22\1\uffff\1\22\23\uffff\1\22\1\uffff\1\15\12\uffff\2\17"+
-            "\1\uffff\12\13\1\17\2\uffff\1\1\3\uffff\32\16\1\20\1\uffff\1"+
-            "\21\1\uffff\1\14\1\uffff\1\14\1\10\1\14\1\12\3\14\1\7\6\14\1"+
-            "\11\1\2\1\14\1\3\1\6\7\14\1\4\1\uffff\1\5",
+            "\2\22\1\uffff\1\22\23\uffff\1\22\1\uffff\1\15\12\uffff\2\17" +
+                    "\1\uffff\12\13\1\17\2\uffff\1\1\3\uffff\32\16\1\20\1\uffff\1" +
+                    "\21\1\uffff\1\14\1\uffff\1\14\1\10\1\14\1\12\3\14\1\7\6\14\1" +
+                    "\11\1\2\1\14\1\3\1\6\7\14\1\4\1\uffff\1\5",
             "\1\23",
-            "\2\17\1\uffff\13\17\44\uffff\1\14\1\uffff\16\14\1\26\2\14\1"+
-            "\25\10\14",
-            "\2\17\1\uffff\13\17\44\uffff\1\14\1\uffff\4\14\1\30\11\14\1"+
-            "\27\13\14",
+            "\2\17\1\uffff\13\17\44\uffff\1\14\1\uffff\16\14\1\26\2\14\1" +
+                    "\25\10\14",
+            "\2\17\1\uffff\13\17\44\uffff\1\14\1\uffff\4\14\1\30\11\14\1" +
+                    "\27\13\14",
             "",
             "",
             "\2\17\1\uffff\13\17\44\uffff\1\14\1\uffff\23\14\1\31\6\14",
-            "\2\17\1\uffff\13\17\44\uffff\1\14\1\uffff\4\14\1\32\16\14\1"+
-            "\33\6\14",
+            "\2\17\1\uffff\13\17\44\uffff\1\14\1\uffff\4\14\1\32\16\14\1" +
+                    "\33\6\14",
             "\2\17\1\uffff\13\17\44\uffff\1\14\1\uffff\16\14\1\34\13\14",
             "\2\17\1\uffff\13\17\44\uffff\1\14\1\uffff\24\14\1\35\5\14",
             "\2\17\1\uffff\13\17\44\uffff\1\14\1\uffff\4\14\1\36\25\14",
@@ -1021,7 +1033,7 @@ public class ConfigurationLexer extends Lexer {
     static {
         int numStates = DFA7_transitionS.length;
         DFA7_transition = new short[numStates][];
-        for (int i=0; i<numStates; i++) {
+        for (int i = 0; i < numStates; i++) {
             DFA7_transition[i] = DFA.unpackEncodedString(DFA7_transitionS[i]);
         }
     }
@@ -1039,30 +1051,32 @@ public class ConfigurationLexer extends Lexer {
             this.special = DFA7_special;
             this.transition = DFA7_transition;
         }
+
         public String getDescription() {
             return "1:1: Tokens : ( T__25 | PROXY | ROUTE | BEGIN | END | STUB | PORT | RESPONSE | HEADER | BODY | OUTPROXY | DEBUG | EQ | NUMBER | IDENTIFIER | STRING | URL | HOST | BLOCK | OPENBLOCK | CLOSEBLOCK | WS );";
         }
+
         public int specialStateTransition(int s, IntStream _input) throws NoViableAltException {
             IntStream input = _input;
-        	int _s = s;
-            switch ( s ) {
-                    case 0 : 
-                        int LA7_16 = input.LA(1);
+            int _s = s;
+            switch (s) {
+                case 0:
+                    int LA7_16 = input.LA(1);
 
-                        s = -1;
-                        if ( ((LA7_16>='\u0000' && LA7_16<='\uFFFF')) ) {s = 33;}
+                    s = -1;
+                    if (((LA7_16 >= '\u0000' && LA7_16 <= '\uFFFF'))) {
+                        s = 33;
+                    } else s = 32;
 
-                        else s = 32;
-
-                        if ( s>=0 ) return s;
-                        break;
+                    if (s >= 0) return s;
+                    break;
             }
             NoViableAltException nvae =
-                new NoViableAltException(getDescription(), 7, _s, input);
+                    new NoViableAltException(getDescription(), 7, _s, input);
             error(nvae);
             throw nvae;
         }
     }
- 
+
 
 }

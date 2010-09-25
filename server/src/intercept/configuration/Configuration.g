@@ -4,6 +4,12 @@ grammar Configuration;
 package intercept.configuration;
 }
 
+@members {
+    private String trimBrackets(String response) {
+        return response.substring(1, response.length() - 1);
+    }
+}
+
 @lexer::header {
 package intercept.configuration;
 }
@@ -32,7 +38,7 @@ proxyStatement[ProxyConfig proxy]
 
 stubStatement returns[StubResponse stub]
 @init {
-stub = new StubResponse();
+    stub = new StubResponse();
 }
 	:	STUB url=HOST {$stub.setUrl(url.getText()); }BEGIN
 		(stubSetting[stub])*
@@ -41,8 +47,8 @@ stub = new StubResponse();
 
 stubSetting[StubResponse stub]
 	:	RESPONSE EQ responseCode=NUMBER { stub.setResponseCode($responseCode.getText()); }
-	|	HEADER EQ header=BLOCK {stub.setHeader($header.getText()); }
-	|	BODY EQ body=BLOCK {stub.setBody($body.getText()); }
+	|	HEADER EQ header=BLOCK {stub.setHeader(trimBrackets($header.getText())); }
+	|	BODY EQ body=BLOCK {stub.setBody(trimBrackets($body.getText())); }
 	;
 	
 PROXY	:	'proxy';

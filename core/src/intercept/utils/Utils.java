@@ -7,12 +7,14 @@ import intercept.model.ResponseDataLogElement;
 import java.io.Closeable;
 import java.io.IOException;
 import java.io.InputStream;
-import java.net.Socket;
 import java.net.ServerSocket;
+import java.net.Socket;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.List;
 
 public class Utils {
-    public static final Function<Long, EventLog> pageWeight = new Function<Long, EventLog>(){
+    public static final Function<Long, EventLog> pageWeight = new Function<Long, EventLog>() {
         public Long execute(EventLog eventLog) {
             List<ResponseDataLogElement> responseElements = eventLog.filtered(By.type(ResponseDataLogElement.class));
 
@@ -23,7 +25,7 @@ public class Utils {
 
             return weight;
         }
-    } ;
+    };
 
     public static void close(Closeable item) {
         if (item != null) {
@@ -81,10 +83,19 @@ public class Utils {
 
         return data.toString();
     }
+
     public static void sleep(long ms) {
         try {
             Thread.sleep(ms);
         } catch (InterruptedException e) {
+            throw new RuntimeException(e);
+        }
+    }
+
+    public static URI uri(String uriSpec) {
+        try {
+            return new URI(uriSpec);
+        } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }

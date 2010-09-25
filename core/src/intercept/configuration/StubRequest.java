@@ -2,11 +2,10 @@ package intercept.configuration;
 
 import intercept.model.UriComparator;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.Map;
 
 import static intercept.utils.UriComparators.fullComparator;
+import static intercept.utils.Utils.uri;
 
 public class StubRequest {
     String path;
@@ -15,11 +14,7 @@ public class StubRequest {
 
     public void define(Map<UriComparator, StubResponse> stubs) {
         UriComparator key = null;
-        try {
-            key = fullComparator(new URI(path));
-        } catch (URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
+        key = fullComparator(uri(path));
         stubs.put(key, new StubResponse(key, response, body));
     }
 

@@ -41,7 +41,7 @@ public class InterceptProxyServerUnitTests {
         StubResponse response = new StubResponse();
         response.setUrl("http://noname.com/a");
         response.setBody("Hello");
-        response.setHeader("\r\n\r\n");
+        response.setHeader("GET /");
         config.add(response);
 
         InterceptProxyServer server = new InterceptProxyServer(config, log);
@@ -59,6 +59,5 @@ public class InterceptProxyServerUnitTests {
 
         String body = new String(method.getResponseBody());
         assertThat(body, is("Hello"));
-
     }
 }

@@ -2,10 +2,10 @@ package intercept.configuration;
 
 import intercept.model.UriComparator;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
+
+import static intercept.utils.Utils.uri;
 
 public class Stubs {
     private Map<UriComparator, StubResponse> stubs;
@@ -20,12 +20,8 @@ public class Stubs {
 
     public boolean isStubbed(String hostName) {
         for (UriComparator matcher : stubs.keySet()) {
-            try {
-                if (matcher.matches(new URI(hostName))) {
-                    return true;
-                }
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
+            if (matcher.matches(uri(hostName))) {
+                return true;
             }
         }
         return false;
@@ -33,12 +29,8 @@ public class Stubs {
 
     public StubResponse getStubbedResponse(String hostName) {
         for (UriComparator matcher : stubs.keySet()) {
-            try {
-                if (matcher.matches(new URI(hostName))) {
-                    return stubs.get(matcher);
-                }
-            } catch (URISyntaxException e) {
-                e.printStackTrace();
+            if (matcher.matches(uri(hostName))) {
+                return stubs.get(matcher);
             }
         }
         return new StubResponse();

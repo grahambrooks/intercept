@@ -61,6 +61,7 @@ public class ConfigurationFileReaderUnitTests {
                 "   stub foo.com {\n" +
                 "      response = 200\n" +
                 "      header = [hey-dude]\n" +
+                "      header = [check it out]\n" +
                 "      body = [X]\n" +
                 "   }\n" +
                 "}";
@@ -84,7 +85,8 @@ public class ConfigurationFileReaderUnitTests {
 
         config.eachProxy(visitor);
 
-        assertThat(found[0].getBody(), is("[X]"));
-        assertThat(found[0].getResponse(), is("hey-dude"));
+        assertThat(found[0].getResponseCode(), is(200));
+        assertThat(found[0].getBody(), is("X"));
+        assertThat(found[0].getHeaders(), is("hey-dude\r\ncheck it out"));
     }
 }
