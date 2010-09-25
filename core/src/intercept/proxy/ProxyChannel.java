@@ -1,6 +1,7 @@
 package intercept.proxy;
 
 import intercept.configuration.ProxyConfig;
+import intercept.configuration.StubResponse;
 import intercept.logging.ApplicationLog;
 import intercept.logging.EventLogger;
 import intercept.utils.EventTimer;
@@ -137,13 +138,13 @@ public class ProxyChannel extends Thread {
     }
 
     private void handleStubbedResponse(BufferedOutputStream clientOut, HTTPRequest request) throws IOException {
-        String stubbedResponse = config.getStubbedResponse(request.url());
+        StubResponse stubbedResponse = config.getStubbedResponse(request.url());
         String message = "HTTP/1.0 200\r\n"
                 + "Content-Type: text/plain\r\n"
                 + "Content-Encoding: UTF-8\r\n"
-                + "Content-Length: " + stubbedResponse.length() + "\r\n"
+                + "Content-Length: " + stubbedResponse.getBody().length() + "\r\n"
                 + "\r\n"
-                + stubbedResponse;
+                + stubbedResponse.getBody();
 
         logger.logSubbedResponse(socket.getInetAddress().getHostAddress(), socket.getLocalPort(), request, message);
 

@@ -11,6 +11,7 @@ import static intercept.utils.UriComparators.fullComparator;
 public class StubRequest {
     String path;
     String response;
+    private String body;
 
     public void define(Map<UriComparator, StubResponse> stubs) {
         UriComparator key = null;
@@ -19,7 +20,7 @@ public class StubRequest {
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
-        stubs.put(key, new StubResponse(key, response));
+        stubs.put(key, new StubResponse(key, response, body));
     }
 
     public void setPath(String path) {
@@ -28,5 +29,9 @@ public class StubRequest {
 
     public void setResponse(String response) {
         this.response = response;
+    }
+
+    public void setBody(String body) {
+        this.body = body;
     }
 }

@@ -16,9 +16,10 @@ public class StubResponse {
 
     }
 
-    public StubResponse(UriComparator uri, String response) {
+    public StubResponse(UriComparator uri, String response, String body) {
         this.uri = uri;
         this.response = response;
+        this.body = body;
     }
 
     public String getResponse() {

@@ -13,7 +13,7 @@ public class ProxyConfigurationPresenter implements Presenter {
                 with(
                         attribute("proxy", context.getServerConfig()),
                         attribute("stubs", context.getServerConfig().getStubs()),
-                        attribute("routes", context.getServerConfig().getRoutes())
+                        attribute("routes", context.getServerConfig().getOverrides().getRoutes())
                 )
         );
     }

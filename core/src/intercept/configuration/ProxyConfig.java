@@ -1,11 +1,6 @@
 package intercept.configuration;
 
-import intercept.model.Route;
-import intercept.model.UriComparator;
 import intercept.proxy.HTTPRequest;
-
-import java.util.List;
-import java.util.Map;
 
 public interface ProxyConfig {
     void setPort(int port);
@@ -22,9 +17,9 @@ public interface ProxyConfig {
 
     public void add(StubResponse stubResponse);
 
-    public String getStubbedResponse(String hostName);
+    public StubResponse getStubbedResponse(String hostName);
 
-    public Map<UriComparator, StubResponse> getStubs();
+    public Stubs getStubs();
 
     public String getOutgoingProxyHost();
 
@@ -34,8 +29,6 @@ public interface ProxyConfig {
 
     public boolean hasOutgoingProxyFor(String hostname);
 
-    public List<Route> getRoutes();
-
     public void addRoute(String domainPattern, String targetAddress);
 
     public void transformRoute(final HTTPRequest request);
@@ -44,4 +37,5 @@ public interface ProxyConfig {
 
     public int getLogLevel();
 
+    HostOverrides getOverrides();
 }

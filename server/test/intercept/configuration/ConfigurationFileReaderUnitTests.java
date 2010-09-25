@@ -2,13 +2,11 @@ package intercept.configuration;
 
 import intercept.logging.ApplicationLog;
 import intercept.logging.ConsoleApplicationLog;
-import intercept.model.UriComparator;
 import intercept.utils.Block;
 import org.junit.Test;
 
 import java.io.ByteArrayInputStream;
 import java.io.InputStream;
-import java.net.URI;
 
 import static org.hamcrest.CoreMatchers.equalTo;
 import static org.hamcrest.core.Is.is;
@@ -74,13 +72,12 @@ public class ConfigurationFileReaderUnitTests {
 
         assertThat(config.hasProxy("foo"), is(true));
 
+
         final StubResponse[] found = new StubResponse[]{null};
         Block<ProxyConfig> visitor = new Block<ProxyConfig>() {
             public void yield(ProxyConfig item) {
-                for (UriComparator matcher : item.getStubs().keySet()) {
-                    if (matcher.matches(URI.create("foo.com"))) {
-                        found[0] = item.getStubs().get(matcher);
-                    }
+                if (item.stubbedRequest("foo.com")) {
+                    found[0] = item.getStubbedResponse("foo.com");
                 }
             }
         };

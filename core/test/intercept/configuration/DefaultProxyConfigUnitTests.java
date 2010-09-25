@@ -11,6 +11,14 @@ public class DefaultProxyConfigUnitTests {
         DefaultProxyConfig config = new DefaultProxyConfig("the name", 20);
 
         assertThat(config.getName(), is("the name"));
-        assertThat(config.getPort(), is(21));
+        assertThat(config.getPort(), is(20));
+    }
+
+    @Test
+    public void nameAndPortCanDefault() {
+        DefaultProxyConfig config = new DefaultProxyConfig();
+
+        assertThat(config.getName(), is("undefined"));
+        assertThat(config.getPort(), is(8080));
     }
 }
