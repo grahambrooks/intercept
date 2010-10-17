@@ -50,7 +50,6 @@ class AsynchronousSocket {
                 e.printStackTrace();
             }
         }
-        System.out.println("Thread started");
     }
 
     private void processOpenChannels() {

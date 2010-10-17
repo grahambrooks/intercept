@@ -9,7 +9,7 @@ import intercept.configuration.ProxyConfig;
 import intercept.framework.Command;
 import intercept.framework.WebServer;
 import intercept.logging.ApplicationLog;
-import intercept.proxy.InterceptProxy;
+import intercept.proxy.ProxyFactory;
 import intercept.proxy.ProxyServer;
 import intercept.server.components.ClasspathContentPresenter;
 import intercept.server.components.HomePagePresenter;
@@ -42,7 +42,7 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
         public void yield(ProxyConfig item) {
             applicationLog.log("Starting proxy server \"" + item.getName() + "\" on port " + item.getPort());
 
-            ProxyServer proxy = InterceptProxy.startProxy(item, applicationLog);
+            ProxyServer proxy = ProxyFactory.startProxy(item, applicationLog);
 
             applicationLog.trace("Created web context for /" + proxy.getName());
             server.createContext("/" + proxy.getName(), new ProxyConfigurationHttpHandler(proxy, applicationLog));
@@ -90,7 +90,7 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
     }
 
     private void stopProxyServers() {
-        InterceptProxy.shutdown();
+        ProxyFactory.shutdown();
     }
 
     public void handle(HttpExchange httpExchange) {
@@ -158,7 +158,7 @@ public class DefaultInterceptServer implements HttpHandler, WebServer, Intercept
     public void startNewProxy(String name, int port) {
         ProxyConfig proxyConfig = new DefaultProxyConfig(name, port);
         configuration.add(proxyConfig);
-        ProxyServer proxy = InterceptProxy.startProxy(proxyConfig, applicationLog);
+        ProxyServer proxy = ProxyFactory.startProxy(proxyConfig, applicationLog);
 
         startEntrypointForProxy(proxyConfig, proxy);
     }

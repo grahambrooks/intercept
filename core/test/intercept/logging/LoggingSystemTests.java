@@ -6,7 +6,7 @@ import intercept.configuration.StubResponse;
 import intercept.model.By;
 import intercept.model.LogElement;
 import intercept.model.ResponseDataLogElement;
-import intercept.proxy.InterceptProxy;
+import intercept.proxy.ProxyFactory;
 import intercept.proxy.ProxyServer;
 import org.apache.commons.httpclient.HostConfiguration;
 import org.apache.commons.httpclient.HttpClient;
@@ -35,11 +35,11 @@ public class LoggingSystemTests {
         response.setBody(stubbedResponseBody);
         config.add(response);
 
-        ProxyServer proxyServer = InterceptProxy.startProxy(config, ApplicationLog.NullApplicationLog);
+        ProxyServer proxyServer = ProxyFactory.startProxy(config, ApplicationLog.NullApplicationLog);
 
         GetMethod method = makeProxiedRequest();
 
-        InterceptProxy.stopProxy(proxyServer);
+        ProxyFactory.stopProxy(proxyServer);
 
         assertThat(new String(method.getResponseBody()), is(stubbedResponseBody));
         assertThat(proxyServer.getLogs().getEntries().size(), is(1));

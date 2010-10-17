@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.net.ServerSocket;
 import java.net.Socket;
 
+import static intercept.proxy.ProxyStatus.*;
+
 /**
  * Implementation of ProxyServer accepts incoming connections and creates a ProxyChannel to handle requests on that
  * channel.
@@ -23,7 +25,7 @@ class InterceptProxyServer implements ProxyServer {
     private final EventLogger logger = new DefaultEventLogger(log);
     private ServerSocket serverSocket = null;
 
-    private final transient ProxyStatus[] proxyStatus = {ProxyStatus.stopped};
+    private final transient ProxyStatus[] proxyStatus = {stopped};
 
     private Thread proxyThread;
 
@@ -33,46 +35,53 @@ class InterceptProxyServer implements ProxyServer {
     }
 
     public void start() {
-        proxyThread = new Thread() {
-            @Override
-            public void run() {
-                if (openProxySocket()) {
-                    try {
-                        proxyStatus[0] = ProxyStatus.running;
-                        acceptConnections();
-                    } finally {
-                        Utils.close(serverSocket);
-                        serverSocket = null;
-                        proxyStatus[0] = ProxyStatus.stopped;
-                    }
-                } else {
-                    proxyStatus[0] = ProxyStatus.failed;
-                }
-            }
-        };
-        proxyStatus[0] = ProxyStatus.starting;
-        proxyThread.start();
+        proxyThread = createProxyWorkerThread();
+        startProxyWorkerThread();
 
-        waitForThreadToStart();
-
-        if (proxyStatus[0] != ProxyStatus.running) {
+        if (!is(running)) {
             applicationLog.log("Proxy thread error : " + proxyStatus[0]);
         }
     }
 
-    @Override
+    private Thread createProxyWorkerThread() {
+        proxyStatus[0] = starting;
+        return new Thread() {
+            @Override
+            public void run() {
+                if (openProxySocket()) {
+                    try {
+                        proxyStatus[0] = running;
+                        acceptConnections();
+                    } finally {
+                        Utils.close(serverSocket);
+                        serverSocket = null;
+                        proxyStatus[0] = stopped;
+                    }
+                } else {
+                    proxyStatus[0] = failed;
+                }
+            }
+        };
+    }
+
     public ProxyStatus status() {
         return proxyStatus[0];
     }
 
-    private void waitForThreadToStart() {
-        while (proxyStatus[0] == ProxyStatus.starting) {
+    private void startProxyWorkerThread() {
+        proxyThread.start();
+
+        while (is(starting)) {
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
         }
+    }
+
+    private boolean is(ProxyStatus status) {
+        return status() == status;
     }
 
     private void acceptConnections() {
@@ -102,7 +111,7 @@ class InterceptProxyServer implements ProxyServer {
 
     public void stop() {
         Utils.close(serverSocket);
-        while (proxyStatus[0] == ProxyStatus.running) {
+        while (proxyStatus[0] == running) {
             try {
                 Thread.sleep(1);
             } catch (InterruptedException e) {

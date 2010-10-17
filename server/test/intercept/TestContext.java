@@ -1,6 +1,6 @@
 package intercept;
 
-import intercept.proxy.InterceptProxy;
+import intercept.proxy.ProxyFactory;
 import intercept.proxy.ProxyServer;
 import intercept.server.InterceptServer;
 import intercept.utils.Block;
@@ -39,7 +39,7 @@ class TestContext {
     }
 
     public ProxyServer proxy() {
-        return InterceptProxy.getRunningProxy(0);
+        return ProxyFactory.getRunningProxy(0);
     }
 
     boolean proxied() {

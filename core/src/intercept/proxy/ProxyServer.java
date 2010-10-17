@@ -6,7 +6,6 @@ import intercept.utils.Function;
 
 public interface ProxyServer {
     void start();
-    ProxyStatus status();
     void stop();
 
     EventLog getLogs();

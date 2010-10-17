@@ -11,7 +11,7 @@ import java.util.Collection;
  * Use InterceptProxy to instantiate a proxy server. InterceptProxy maintains a list of running proxies. These proxies
  * can be closed one at a time or all running proxies can be closed by calling shutdown().
  */
-public class InterceptProxy {
+public class ProxyFactory {
     private static final Collection<ProxyServer> proxies = new ArrayList<ProxyServer>();
 
     public static ProxyServer startProxy(ProxyConfig proxyConfig, ApplicationLog applicationLog) {

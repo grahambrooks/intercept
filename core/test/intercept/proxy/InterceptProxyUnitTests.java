@@ -23,10 +23,10 @@ public class InterceptProxyUnitTests {
 
     @Test
     public void canStartAndStopAProxy() {
-        final ProxyServer ourPproxyServer = InterceptProxy.startProxy(config, applicationLog);
-        InterceptProxy.stopProxy(ourPproxyServer);
+        final ProxyServer ourPproxyServer = ProxyFactory.startProxy(config, applicationLog);
+        ProxyFactory.stopProxy(ourPproxyServer);
 
-        InterceptProxy.eachProxy(new Block<ProxyServer>() {
+        ProxyFactory.eachProxy(new Block<ProxyServer>() {
             @Override
             public void yield(ProxyServer item) {
                 if (item == ourPproxyServer) {
@@ -38,10 +38,10 @@ public class InterceptProxyUnitTests {
 
     @Test
     public void shutdownClosesProxies() {
-        InterceptProxy.startProxy(config, applicationLog);
-        InterceptProxy.shutdown();
+        ProxyFactory.startProxy(config, applicationLog);
+        ProxyFactory.shutdown();
 
-        InterceptProxy.eachProxy(new Block<ProxyServer>() {
+        ProxyFactory.eachProxy(new Block<ProxyServer>() {
             @Override
             public void yield(ProxyServer item) {
                 throw new RuntimeException("Should not be called");

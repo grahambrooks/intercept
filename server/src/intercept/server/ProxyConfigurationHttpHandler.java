@@ -6,7 +6,7 @@ import intercept.configuration.DefaultProxyConfig;
 import intercept.configuration.ProxyConfig;
 import intercept.framework.WebServer;
 import intercept.logging.ApplicationLog;
-import intercept.proxy.InterceptProxy;
+import intercept.proxy.ProxyFactory;
 import intercept.proxy.ProxyServer;
 import static intercept.server.UriMatchers.pathMatcher;
 import intercept.server.components.NewStubCommand;
@@ -47,7 +47,7 @@ public class ProxyConfigurationHttpHandler implements HttpHandler {
                 @Override
                 public List<ProxyConfig> getRunningProxies() {
                     final List<ProxyConfig> configs = new ArrayList<ProxyConfig>();
-                    InterceptProxy.eachProxy(new Block<ProxyServer>(){
+                    ProxyFactory.eachProxy(new Block<ProxyServer>(){
                         @Override
                         public void yield(ProxyServer item) {
                             ProxyConfig config = new DefaultProxyConfig();
@@ -62,7 +62,7 @@ public class ProxyConfigurationHttpHandler implements HttpHandler {
                     ProxyConfig config = new DefaultProxyConfig();
                     config.setName(name);
                     config.setPort(port);
-                    InterceptProxy.startProxy(config, applicationLog);
+                    ProxyFactory.startProxy(config, applicationLog);
                 }
             };
 
