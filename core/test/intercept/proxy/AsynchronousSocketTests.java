@@ -1,6 +1,7 @@
 package intercept.proxy;
 
 import org.junit.Test;
+import org.junit.Ignore;
 
 import java.io.IOException;
 import java.net.InetSocketAddress;
@@ -37,6 +38,7 @@ public class AsynchronousSocketTests {
         }
     }
 
+    @Ignore
     @Test
     public void canConnectToAsynchronousSocketAndExchangeData() throws IOException, InterruptedException {
         AsynchronousSocket socket = new AsynchronousSocket(TEST_PORT, new EchoAsynchronousSocketBehavior());
