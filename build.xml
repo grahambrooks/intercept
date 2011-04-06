@@ -169,11 +169,11 @@
     </target>
 
     <target name="compile.grammar">
-        <antlr:antlr3 xmlns:antlr="antlib:org/apache/tools/ant/antlr"
-                      target="${server.src.dir}/intercept/configuration/Configuration.g"
-                      outputdirectory="${server.src.dir}/intercept/configuration">
-            <classpath refid="antlr.classpath"/>
-        </antlr:antlr3>
+        <antlr:ant-antlr3 xmlns:antlr="antlib:org/apache/tools/ant/antlr"
+                          target="${server.src.dir}/intercept/configuration/Configuration.g"
+                          outputdirectory="${server.src.dir}/intercept/configuration">
+            <classpath refid="classpath"/>
+        </antlr:ant-antlr3>
     </target>
 
     <target name="compile.server" description="Compiles the source" depends="compile.grammar, compile.core">
