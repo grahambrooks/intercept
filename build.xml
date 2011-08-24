@@ -24,7 +24,7 @@
     <path id="classpath">
         <fileset dir="lib">
             <include name="build/*.jar"/>
-            <include name="release/*.jar"/>
+            <include name="runtime/*.jar"/>
         </fileset>
     </path>
 
@@ -75,6 +75,23 @@
         </classpath>
     </taskdef>
 
+    <taskdef resource="scala/tools/ant/antlib.xml">
+        <classpath>
+            <pathelement location="lib/build/scala-compiler.jar"/>
+            <pathelement location="lib/runtime/scala-library.jar"/>
+        </classpath>
+    </taskdef>
+
+    <path id="scalatest.classpath">
+        <pathelement location="lib/test/scalatest-1.6.1.jar"/>
+        <pathelement location="lib/runtime/scala-library.jar"/>
+    </path>
+
+    <taskdef name="scalatest" classname="org.scalatest.tools.ScalaTestAntTask">
+        <classpath refid="scalatest.classpath"/>
+    </taskdef>
+
+
     <macrodef name="compile.source">
         <attribute name="src.dir"/>
         <attribute name="dest.dir"/>
@@ -87,11 +104,18 @@
         <sequential>
             <mkdir dir="@{dest.dir}"/>
             <mkdir dir="@{classes.dir}"/>
+
+            <scalac srcdir="@{src.dir}" destdir="@{classes.dir}" classpathref="@{classpathref}">
+                <include name="**/*.scala"/>
+            </scalac>
+
             <javac srcdir="@{src.dir}" destdir="@{classes.dir}" classpathref="@{classpathref}" debug="@{debug}"
                    target="1.5"/>
+
             <copy todir="@{classes.dir}" includeemptydirs="no">
                 <fileset dir="@{src.dir}" excludes="**/*.java"/>
             </copy>
+
             <jar destfile="@{dest.dir}/@{jar.name}" basedir="@{classes.dir}">
                 <manifest>
                     <attribute name="Main-Class" value="intercept.Console"/>
@@ -201,6 +225,7 @@
     <target name="test.core" description="Runs unit tests" unless="notests">
         <mkdir dir="${instrumented.dir}"/>
         <unit.test test.dir="${core.test.dir}"/>
+        <scalatest  runpath="buid/jar/intercept-core.test.jar"/>
     </target>
 
     <target name="test.server" description="Runs the server tests" unless="notests" depends="compile.server">
