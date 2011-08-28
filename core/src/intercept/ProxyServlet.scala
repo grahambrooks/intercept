@@ -35,7 +35,9 @@ class ProxyServlet extends Servlet {
 
   def getServletConfig = _config
 
-  def service(req: ServletRequest, res: ServletResponse) = {}
+  def service(req: ServletRequest, res: ServletResponse) = {
+    res.getOutputStream.print("hello")
+  }
 
   def getServletInfo = "Proxy Servlet"
 

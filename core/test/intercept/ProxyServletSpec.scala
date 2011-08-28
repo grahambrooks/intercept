@@ -15,5 +15,6 @@ class ProxyServletSpec extends FlatSpec with ShouldMatchers {
 
     val response: WebResponse = client.getResponse("http://domain/")
     response.getResponseCode should equal(200)
+    response.getText should equal("hello")
   }
 }
