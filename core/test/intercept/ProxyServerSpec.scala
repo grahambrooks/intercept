@@ -11,9 +11,9 @@ class ProxyServerSpec extends FlatSpec with ShouldMatchers {
 
   "A ProxyServer" should "trasparently connect to server" in {
     val testServer = new TestServer()
-    testServer.run(1234)
+    testServer.stop(1234)
     val proxyServer = new ProxyServer()
-    proxyServer.run(1235)
+    proxyServer.start(1235)
 
     val client = new HttpClient()
 

@@ -31,12 +31,15 @@ class ProxyServer {
     server.addConnector(connector);
   }
 
-  def run(port: Int) {
+  def start(port: Int) {
     setupConnectors(port)
 
     setupProxyServlet(createHandlers)
 
     server.start();
+  }
 
+  def stop {
+    server.stop()
   }
 }
